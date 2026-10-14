@@ -1,0 +1,121 @@
+[
+  {
+    "Case": 0,
+    "Name": "Basic Mode 3",
+    "Pass": true,
+    "DifferentPixels": 0,
+    "Pixels": 38400,
+    "Runs": {
+      "expected": {
+        "Complete": true,
+        "Output": "hardware=c43aaace frames=5 cycles=1601727 pc=08001a0e r12=0 fault=0 image=f350ffc5 audio=cda18dc5 draws=6 steps=7445\nvideo_magic=5649444f"
+      },
+      "actual": {
+        "Complete": true,
+        "Output": "hardware=9eb6ded9 frames=6 cycles=1882623 pc=08001a0e r12=0 fault=0 image=e96bbbc5 audio=9b7ffdc5 draws=7 steps=47544\nvideo_magic=5649444f"
+      }
+    }
+  },
+  {
+    "Case": 1,
+    "Name": "Basic Mode 4",
+    "Pass": true,
+    "DifferentPixels": 0,
+    "Pixels": 38400,
+    "Runs": {
+      "expected": {
+        "Complete": true,
+        "Output": "hardware=c43aaace frames=5 cycles=1601727 pc=08001a0e r12=0 fault=0 image=f350ffc5 audio=cda18dc5 draws=6 steps=7445\nvideo_magic=5649444f"
+      },
+      "actual": {
+        "Complete": true,
+        "Output": "hardware=5f7a461e frames=6 cycles=1882623 pc=08001a0e r12=100663312 fault=0 image=e96bbbc5 audio=9b7ffdc5 draws=7 steps=27066\nvideo_magic=5649444f"
+      }
+    }
+  },
+  {
+    "Case": 2,
+    "Name": "Degenerate OBJ transforms",
+    "Pass": true,
+    "DifferentPixels": 0,
+    "Pixels": 38400,
+    "Runs": {
+      "expected": {
+        "Complete": true,
+        "Output": "hardware=b8195805 frames=4 cycles=1320831 pc=08001a0e r12=0 fault=0 image=5246c1c3 audio=02b7edc5 draws=5 steps=5330\nvideo_magic=5649444f"
+      },
+      "actual": {
+        "Complete": true,
+        "Output": "hardware=da9b6035 frames=4 cycles=1320831 pc=08001a0e r12=0 fault=0 image=7820dee5 audio=02b7edc5 draws=5 steps=6809\nvideo_magic=5649444f"
+      }
+    }
+  },
+  {
+    "Case": 3,
+    "Name": "Layer toggle",
+    "Pass": true,
+    "DifferentPixels": 0,
+    "Pixels": 38400,
+    "Runs": {
+      "expected": {
+        "Complete": true,
+        "Output": "hardware=3564bdfc frames=5 cycles=1601727 pc=08001a0e r12=0 fault=0 image=5a46a5a5 audio=cda18dc5 draws=6 steps=6900\nvideo_magic=5649444f"
+      },
+      "actual": {
+        "Complete": true,
+        "Output": "hardware=d37c1a80 frames=5 cycles=1601738 pc=08001a0e r12=0 fault=0 image=5a46a5a5 audio=cda18dc5 draws=6 steps=9222\nvideo_magic=5649444f"
+      }
+    }
+  },
+  {
+    "Case": 4,
+    "Name": "Layer toggle 2",
+    "Pass": false,
+    "DifferentPixels": 958,
+    "Pixels": 38400,
+    "Runs": {
+      "expected": {
+        "Complete": true,
+        "Output": "hardware=914ab675 frames=4 cycles=1320831 pc=08001a0e r12=50364120 fault=0 image=3031dab9 audio=02b7edc5 draws=5 steps=6359\nvideo_magic=5649444f"
+      },
+      "actual": {
+        "Complete": true,
+        "Output": "hardware=acade01f frames=4 cycles=1321439 pc=08001a0e r12=0 fault=0 image=44a5fdc5 audio=02b7edc5 draws=5 steps=84599\nvideo_magic=5649444f"
+      }
+    }
+  },
+  {
+    "Case": 5,
+    "Name": "OAM Update Delay",
+    "Pass": true,
+    "DifferentPixels": 0,
+    "Pixels": 38400,
+    "Runs": {
+      "expected": {
+        "Complete": true,
+        "Output": "hardware=35e329cf frames=5 cycles=1601738 pc=08001a0e r12=1 fault=0 image=cecf26d5 audio=cda18dc5 draws=6 steps=9587\nvideo_magic=5649444f"
+      },
+      "actual": {
+        "Complete": true,
+        "Output": "hardware=afe2b732 frames=5 cycles=1601738 pc=08001a0e r12=0 fault=0 image=c3d0e675 audio=cda18dc5 draws=6 steps=10290\nvideo_magic=5649444f"
+      }
+    }
+  },
+  {
+    "Case": 6,
+    "Name": "Window offscreen reset",
+    "Pass": true,
+    "DifferentPixels": 0,
+    "Pixels": 38400,
+    "Runs": {
+      "expected": {
+        "Complete": true,
+        "Output": "hardware=74de7a63 frames=4 cycles=1320831 pc=08001a0e r12=0 fault=0 image=d6a82cc5 audio=02b7edc5 draws=5 steps=5807\nvideo_magic=5649444f"
+      },
+      "actual": {
+        "Complete": true,
+        "Output": "hardware=64f5d873 frames=4 cycles=1320831 pc=08001a0e r12=0 fault=0 image=98549bc5 audio=02b7edc5 draws=5 steps=5807\nvideo_magic=5649444f"
+      }
+    }
+  }
+]

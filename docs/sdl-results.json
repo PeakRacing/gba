@@ -1,0 +1,98 @@
+[
+  {
+    "Case": "golden_sun",
+    "ROM": "0079 黄金太阳剧情100%中文版.gba",
+    "SHA256": "203A55F37C6502BDD072BBD4B247E8127D44BE61F87F61BD746B731FD2853F71",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 12901,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537600 pc=08019604 image=b78ed61e draws=720 audio=81646478 audio_bytes=1542144 audio_nonzero=228515\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "golden_sun.ppm"
+  },
+  {
+    "Case": "zelda_minish",
+    "ROM": "1743 塞尔达传说-缩小帽.gba",
+    "SHA256": "F51C6C2F90E18EE91203DD767307271E06901B5BFF35C3A567D52F61A39D166D",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 13249,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537600 pc=080b12a0 image=9df98c75 draws=720 audio=fc17558d audio_bytes=1542144 audio_nonzero=429388\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "zelda_minish.ppm"
+  },
+  {
+    "Case": "metroid_fusion",
+    "ROM": "银河战士 - 融合[Chrono](简)(US)(64Mb).gba",
+    "SHA256": "F55DF68529D25CC51A13A5044AD3E7FE40E2E8EBDDB53074C01B65BE3B155C6C",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 12824,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537600 pc=0800075c image=6ad58dc5 draws=720 audio=791ac9fd audio_bytes=1542144 audio_nonzero=464358\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "metroid_fusion.ppm"
+  },
+  {
+    "Case": "fire_emblem",
+    "ROM": "火焰纹章 - 烈火之剑[狼组&火花天龙剑](Fix)(简)(JP)(128Mb).gba",
+    "SHA256": "828B8BB1BFF54A66B89CB1E43901D88BB783A4DA6E543AC31AA6EDC17E162D25",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 13103,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537600 pc=080c05b4 image=11acb576 draws=720 audio=7edcd619 audio_bytes=1542144 audio_nonzero=392135\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "fire_emblem.ppm"
+  },
+  {
+    "Case": "pokemon_emerald",
+    "ROM": "GBA_1986_精灵宝可梦 绿宝石_中文典藏版_漫游&TGB联合汉化.gba",
+    "SHA256": "829F013CBCFFB9326AD85F504041503354AC3DE6CF3B340F946F40C72D866291",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 13734,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537601 pc=080008c8 image=66d91a45 draws=720 audio=9d9a9b7d audio_bytes=1542144 audio_nonzero=589158\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "pokemon_emerald.ppm"
+  },
+  {
+    "Case": "mario_advance",
+    "ROM": "超级马里奥Advance - 超级马里奥USA + 马里奥兄弟[熊组](简)(JP)(32Mb).gba",
+    "SHA256": "4672B041571D46DF880DB5B3288C0F9DBF9B56E08C52E36CEBBAE6038D1FD0EC",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 12754,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537601 pc=08030952 image=360a01a4 draws=720 audio=215a4c73 audio_bytes=1542144 audio_nonzero=695574\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "mario_advance.ppm"
+  },
+  {
+    "Case": "ace_attorney",
+    "ROM": "逆转裁判[Jpgmfan&逆转Ace](简)(JP)(66.41Mb).gba",
+    "SHA256": "0D0945FFF2EDD4D4AE627ED003EBB0050937EE689D606CCFF89C4FF2C2638571",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 12931,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537604 pc=0800024c image=3f407623 draws=720 audio=ce6906c5 audio_bytes=1542144 audio_nonzero=8542\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "ace_attorney.ppm"
+  },
+  {
+    "Case": "fzero",
+    "ROM": "F-Zero GBA[PGCG](简)(JP)(32.11Mb).gba",
+    "SHA256": "3892FFF14F9902C0F9FAC974C8EBAB95F87E2592EEF9E524BD5A7A82DAE80BF2",
+    "Driver": "SDL2 system video/audio",
+    "Status": "SMOKE",
+    "Frames": 600,
+    "Milliseconds": 12709,
+    "Exit": 0,
+    "Output": "test save=0\r\ntest load=0\r\naudio underruns=0 overruns=0\r\ntest frames=600 cycles=168537601 pc=08000c28 image=8db9738e draws=720 audio=055034b0 audio_bytes=1542144 audio_nonzero=239110\r\ntest replay_frames=120 replay_failures=0\r\n",
+    "Screenshot": "fzero.ppm"
+  }
+]

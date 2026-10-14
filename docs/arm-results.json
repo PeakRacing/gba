@@ -1,0 +1,278 @@
+[
+  {
+    "Config": "default",
+    "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  26904\t      0\t 609260\t 636164\t  9b504\ttest/out/cross/default/smoke.elf",
+    "LargestFunctions": [
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:441:6:gba_ppu_render",
+        "Bytes": 656,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:123:5:gba_reset",
+        "Bytes": 504,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+        "Bytes": 312,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:308:13:gba_objects",
+        "Bytes": 136,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+        "Bytes": 128,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+        "Bytes": 88,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:795:10:gba_cpu_execute",
+        "Bytes": 80,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+        "Bytes": 80,
+        "Kind": "static"
+      }
+    ]
+  },
+  {
+    "Config": "minimal",
+    "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  19232\t      0\t 439788\t 459020\t  7010c\ttest/out/cross/minimal/smoke.elf",
+    "LargestFunctions": [
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:441:6:gba_ppu_render",
+        "Bytes": 656,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:123:5:gba_reset",
+        "Bytes": 504,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+        "Bytes": 312,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:308:13:gba_objects",
+        "Bytes": 136,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+        "Bytes": 128,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+        "Bytes": 88,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:795:10:gba_cpu_execute",
+        "Bytes": 80,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+        "Bytes": 80,
+        "Kind": "static"
+      }
+    ]
+  },
+  {
+    "Config": "full",
+    "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  32476\t      0\t 687356\t 719832\t  afbd8\ttest/out/cross/full/smoke.elf",
+    "LargestFunctions": [
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:656:5:gba_state_load_file",
+        "Bytes": 2856,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:441:6:gba_ppu_render",
+        "Bytes": 656,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:123:5:gba_reset",
+        "Bytes": 504,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:216:5:gba_persist_load",
+        "Bytes": 384,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:260:5:gba_persist_save",
+        "Bytes": 360,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:607:5:gba_state_save_file",
+        "Bytes": 352,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+        "Bytes": 312,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:333:13:gba_codec_bytes",
+        "Bytes": 280,
+        "Kind": "static"
+      }
+    ]
+  },
+  {
+    "Config": "stream",
+    "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  32796\t      0\t 604924\t 637720\t  9bb18\ttest/out/cross/stream/smoke.elf",
+    "LargestFunctions": [
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:656:5:gba_state_load_file",
+        "Bytes": 2856,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:441:6:gba_ppu_render",
+        "Bytes": 656,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:123:5:gba_reset",
+        "Bytes": 504,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:216:5:gba_persist_load",
+        "Bytes": 384,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:260:5:gba_persist_save",
+        "Bytes": 360,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:607:5:gba_state_save_file",
+        "Bytes": 352,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+        "Bytes": 312,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:333:13:gba_codec_bytes",
+        "Bytes": 280,
+        "Kind": "static"
+      }
+    ]
+  },
+  {
+    "Config": "swap",
+    "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  27228\t      0\t 642028\t 669256\t  a3648\ttest/out/cross/swap/smoke.elf",
+    "LargestFunctions": [
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:441:6:gba_ppu_render",
+        "Bytes": 656,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:123:5:gba_reset",
+        "Bytes": 504,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+        "Bytes": 312,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+        "Bytes": 136,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:308:13:gba_objects",
+        "Bytes": 136,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+        "Bytes": 88,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+        "Bytes": 80,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:795:10:gba_cpu_execute",
+        "Bytes": 80,
+        "Kind": "static"
+      }
+    ]
+  },
+  {
+    "Config": "small_save",
+    "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  26868\t      0\t 478700\t 505568\t  7b6e0\ttest/out/cross/small_save/smoke.elf",
+    "LargestFunctions": [
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:441:6:gba_ppu_render",
+        "Bytes": 656,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:123:5:gba_reset",
+        "Bytes": 504,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+        "Bytes": 312,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:308:13:gba_objects",
+        "Bytes": 136,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+        "Bytes": 128,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+        "Bytes": 88,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:795:10:gba_cpu_execute",
+        "Bytes": 80,
+        "Kind": "static"
+      },
+      {
+        "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+        "Bytes": 80,
+        "Kind": "static"
+      }
+    ]
+  }
+]

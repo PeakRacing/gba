@@ -1,0 +1,226 @@
+[
+  {
+    "Target": "gba-speed565",
+    "ROM": "ace_attorney.gba",
+    "BaselineUS": 15259268,
+    "OptimizedUS": 13317531,
+    "ReductionPercent": 12.72
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "fire_emblem.gba",
+    "BaselineUS": 6693080,
+    "OptimizedUS": 4233109,
+    "ReductionPercent": 36.75
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "fzero.gba",
+    "BaselineUS": 16653146,
+    "OptimizedUS": 13443382,
+    "ReductionPercent": 19.27
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "golden_sun.gba",
+    "BaselineUS": 6099249,
+    "OptimizedUS": 4373960,
+    "ReductionPercent": 28.29
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "mario_advance.gba",
+    "BaselineUS": 14909692,
+    "OptimizedUS": 11851428,
+    "ReductionPercent": 20.51
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "metroid_fusion.gba",
+    "BaselineUS": 5687546,
+    "OptimizedUS": 4147470,
+    "ReductionPercent": 27.08
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "pokemon_emerald.gba",
+    "BaselineUS": 17517549,
+    "OptimizedUS": 12589049,
+    "ReductionPercent": 28.13
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "zelda_minish.gba",
+    "BaselineUS": 9079187,
+    "OptimizedUS": 6891405,
+    "ReductionPercent": 24.1
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "ace_attorney.gba",
+    "BaselineUS": 14248416,
+    "OptimizedUS": 14003887,
+    "ReductionPercent": 1.72
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "fire_emblem.gba",
+    "BaselineUS": 6148389,
+    "OptimizedUS": 4500207,
+    "ReductionPercent": 26.81
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "fzero.gba",
+    "BaselineUS": 14542540,
+    "OptimizedUS": 13426721,
+    "ReductionPercent": 7.67
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "golden_sun.gba",
+    "BaselineUS": 5721759,
+    "OptimizedUS": 4489764,
+    "ReductionPercent": 21.53
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "mario_advance.gba",
+    "BaselineUS": 13964111,
+    "OptimizedUS": 11980877,
+    "ReductionPercent": 14.2
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "metroid_fusion.gba",
+    "BaselineUS": 5744152,
+    "OptimizedUS": 4157377,
+    "ReductionPercent": 27.62
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "pokemon_emerald.gba",
+    "BaselineUS": 15400518,
+    "OptimizedUS": 12500211,
+    "ReductionPercent": 18.83
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "zelda_minish.gba",
+    "BaselineUS": 9445704,
+    "OptimizedUS": 6993530,
+    "ReductionPercent": 25.96
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "ace_attorney.gba",
+    "BaselineUS": 15387953,
+    "OptimizedUS": 13377337,
+    "ReductionPercent": 13.07
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "fire_emblem.gba",
+    "BaselineUS": 6557756,
+    "OptimizedUS": 4624157,
+    "ReductionPercent": 29.49
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "fzero.gba",
+    "BaselineUS": 15315886,
+    "OptimizedUS": 14287186,
+    "ReductionPercent": 6.72
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "golden_sun.gba",
+    "BaselineUS": 6140244,
+    "OptimizedUS": 4573562,
+    "ReductionPercent": 25.51
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "mario_advance.gba",
+    "BaselineUS": 14722654,
+    "OptimizedUS": 12360885,
+    "ReductionPercent": 16.04
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "metroid_fusion.gba",
+    "BaselineUS": 5859792,
+    "OptimizedUS": 4229715,
+    "ReductionPercent": 27.82
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "pokemon_emerald.gba",
+    "BaselineUS": 15986781,
+    "OptimizedUS": 13870705,
+    "ReductionPercent": 13.24
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "zelda_minish.gba",
+    "BaselineUS": 10444716,
+    "OptimizedUS": 8833270,
+    "ReductionPercent": 15.43
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "ace_attorney.gba",
+    "BaselineUS": 15122761,
+    "OptimizedUS": 11182420,
+    "ReductionPercent": 26.06
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "fire_emblem.gba",
+    "BaselineUS": 6212218,
+    "OptimizedUS": 3847581,
+    "ReductionPercent": 38.06
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "fzero.gba",
+    "BaselineUS": 13528478,
+    "OptimizedUS": 10914840,
+    "ReductionPercent": 19.32
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "golden_sun.gba",
+    "BaselineUS": 5525635,
+    "OptimizedUS": 4115138,
+    "ReductionPercent": 25.53
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "mario_advance.gba",
+    "BaselineUS": 12923408,
+    "OptimizedUS": 9698862,
+    "ReductionPercent": 24.95
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "metroid_fusion.gba",
+    "BaselineUS": 5449658,
+    "OptimizedUS": 3740993,
+    "ReductionPercent": 31.35
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "pokemon_emerald.gba",
+    "BaselineUS": 13888804,
+    "OptimizedUS": 11004258,
+    "ReductionPercent": 20.77
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "zelda_minish.gba",
+    "BaselineUS": 8410623,
+    "OptimizedUS": 6317613,
+    "ReductionPercent": 24.89
+  }
+]

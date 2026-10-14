@@ -1,0 +1,19 @@
+menuconfig PKG_USING_GBA
+    bool "GBA emulator core"
+    default n
+
+if PKG_USING_GBA
+config GBA_USING_SOUND
+    bool "Enable stereo PCM output (requires board audio port)"
+    default n
+config GBA_USING_FS
+    bool "Enable filesystem hooks (requires transactional replace port)"
+    default n
+config GBA_USING_STATE
+    bool "Enable file save states"
+    depends on GBA_USING_FS
+    default n
+config GBA_USING_STREAM
+    bool "Enable ROM page cache and callback loader"
+    default n
+endif

@@ -1,0 +1,31 @@
+[
+  {
+    "Game": "pokemon_emerald",
+    "Status": "PASS",
+    "Route": "Fresh ROM and frozen input CSV; game menu save then five exact battery reload checks",
+    "Frames": 8800,
+    "BatteryBytes": 131072,
+    "NonFFBytes": 56395,
+    "BatteryHash": "56b588fd",
+    "ROMSHA256": "829F013CBCFFB9326AD85F504041503354AC3DE6CF3B340F946F40C72D866291",
+    "InputSHA256": "D2F4DFD6A21A5003740BBBFDE4419566D0A6F8409009921B989EEFA4A04E2D84",
+    "BinarySHA256": "A779C4D7A06C94CED57F232A454DE023199866B8D021EC1EC780420A2D240BAE"
+  },
+  {
+    "Game": "ace_attorney",
+    "Status": "PASS",
+    "Route": "Fresh ROM and frozen input CSV; game menu save then five exact battery reload checks",
+    "Frames": 7800,
+    "BatteryBytes": 32768,
+    "NonFFBytes": 10593,
+    "BatteryHash": "1e13765c",
+    "ROMSHA256": "0D0945FFF2EDD4D4AE627ED003EBB0050937EE689D606CCFF89C4FF2C2638571",
+    "InputSHA256": "16C3917F3B9ADDEC15ED806CE0B4B006562F764EECD416A94736BCFE36132C5D",
+    "BinarySHA256": "A779C4D7A06C94CED57F232A454DE023199866B8D021EC1EC780420A2D240BAE"
+  },
+  {
+    "Game": "golden_sun",
+    "Status": "UNCOVERED",
+    "Reason": "Opening evacuation event prevents the save pause menu; battery remains erased. No game save claimed."
+  }
+]

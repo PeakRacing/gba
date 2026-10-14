@@ -1,0 +1,410 @@
+{
+  "Clock": "QueryPerformanceCounter wall time, no SDL pacing",
+  "WarmupRunFrameCalls": 120,
+  "MeasuredRunFrameCalls": 1800,
+  "Repeats": 5,
+  "Input": "Start frames 120..123; A for four frames every 60 from frame 180",
+  "RTCTick": 0,
+  "ProbeMacros": {
+    "GBA_TEST_MODE": 0,
+    "GBA_TEST_PROFILE": 0
+  },
+  "BaselineBinaries": {
+    "gba-speed565": "afece084cb54dc549065720a1cf5ed0a9f305e828145e5adb4a9956727ec9940",
+    "gba-speed32": "d3b16b0fdcc560709455766f7b6c3f198223e53a98c47c4f09f202f8d3107731",
+    "gba-speed-stream": "6fc8da8db3ef7a0c5ae7a28d0abd41bdd50980301d18c52feea9fa33dfbbe3e0",
+    "gba-speed-silent": "43c9a23b4aabf04f517ec079607726ab0e9ac1599f49cb3d77091cea9035d3b6"
+  },
+  "OptimizedBinaries": {
+    "gba-speed565": "cb0e5b1de0a8606b2de038add7aac3b863e110172bb9d9ab61f5121a6c03b3ea",
+    "gba-speed32": "1424e9a2836985c5bf6c31f508bcbd14c9c67873aef36367c96b3145432ceac2",
+    "gba-speed-stream": "693518c6ab27d68e8c851c5793b0c3f4d2f7ed2c9f5ffc25eec0baa10b6e92fb",
+    "gba-speed-silent": "8859c35b3a05484e31afcf2938a35d8ea21341f13f5d963acff41fc1538ec495"
+  },
+  "EndStateIdentity": [
+    {
+      "Target": "gba-speed565",
+      "ROM": "ace_attorney.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800024c",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed565",
+      "ROM": "fire_emblem.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080c05b4",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed565",
+      "ROM": "fzero.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08000c28",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed565",
+      "ROM": "golden_sun.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08003324",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed565",
+      "ROM": "mario_advance.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08001c74",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed565",
+      "ROM": "metroid_fusion.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800075c",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed565",
+      "ROM": "pokemon_emerald.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080008c8",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed565",
+      "ROM": "zelda_minish.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080b12a0",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "ace_attorney.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800024c",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "fire_emblem.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080c05b4",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "fzero.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08000c28",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "golden_sun.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08003324",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "mario_advance.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08001c74",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "metroid_fusion.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800075c",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "pokemon_emerald.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080008c8",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed32",
+      "ROM": "zelda_minish.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080b12a0",
+        "fault": "0",
+        "memory": "679936",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "ace_attorney.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800024c",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "fire_emblem.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080c05b4",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "fzero.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08000c28",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "golden_sun.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08003324",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "mario_advance.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08001c74",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "metroid_fusion.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800075c",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "pokemon_emerald.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080008c8",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-stream",
+      "ROM": "zelda_minish.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080b12a0",
+        "fault": "0",
+        "memory": "597504",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "ace_attorney.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800024c",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "fire_emblem.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080c05b4",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "fzero.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08000c28",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "golden_sun.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08003324",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "mario_advance.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "08001c74",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "metroid_fusion.gba",
+      "Observed": {
+        "frames": "1921",
+        "pc": "0800075c",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "pokemon_emerald.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080008c8",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    },
+    {
+      "Target": "gba-speed-silent",
+      "ROM": "zelda_minish.gba",
+      "Observed": {
+        "frames": "1920",
+        "pc": "080b12a0",
+        "fault": "0",
+        "memory": "603136",
+        "test": "0",
+        "profile": "0"
+      }
+    }
+  ]
+}

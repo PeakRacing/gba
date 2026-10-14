@@ -1,0 +1,20 @@
+set_project("gba-sdl2")
+set_xmakever("3.0.0")
+set_languages("c11")
+add_rules("mode.debug", "mode.release")
+set_warnings("allextra")
+add_cflags("/utf-8", "/wd4996", {tools = "cl"})
+add_requires("libsdl2", {configs = {sdlmain = false}})
+local function frontend(name, test_mode)
+target(name, function()
+    set_kind("binary")
+    add_packages("libsdl2")
+    if is_plat("windows") then add_syslinks("shell32") end
+    add_includedirs("../../inc", "../../src", "../../port")
+    add_files("../../src/*.c", "../../port/gba_default.c", "../common/main.c")
+    add_defines("GBA_SDL_VERSION=2", "GBA_USE_FS=1", "GBA_ENABLE_SOUND=1", "GBA_ENABLE_SAVE_STATE=1")
+    if test_mode then add_defines("GBA_TEST_MODE=1") end
+end)
+end
+frontend("gba", false)
+frontend("gba-test", true)

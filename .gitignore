@@ -1,0 +1,14 @@
+build/
+.xmake/
+**/.xmake/
+test/out/
+bench/out/
+tools/reference/
+tools/format/
+**/build/
+*.sav
+*.rtc
+*.state
+*.tmp
+*.bak
+__pycache__/

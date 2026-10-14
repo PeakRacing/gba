@@ -1,0 +1,410 @@
+[
+  {
+    "Kind": "Unit",
+    "Name": "gba-tests",
+    "Output": "assertions=971 failures=0 context=6216 memory=603136 config=color16 half0 sound0 fs0 stream0"
+  },
+  {
+    "Kind": "Unit",
+    "Name": "gba-tests-full",
+    "Output": "assertions=1102 failures=0 context=7520 memory=679936 config=color32 half0 sound1 fs1 stream0"
+  },
+  {
+    "Kind": "Unit",
+    "Name": "gba-tests-stream",
+    "Output": "assertions=1116 failures=0 context=7520 memory=597504 config=color16 half1 sound1 fs1 stream1"
+  },
+  {
+    "Kind": "Unit",
+    "Name": "gba-tests-minimal",
+    "Output": "assertions=683 failures=0 context=6216 memory=433664 config=color16 half1 sound0 fs0 stream0"
+  },
+  {
+    "Kind": "Unit",
+    "Name": "gba-tests-skip",
+    "Output": "assertions=1029 failures=0 context=7520 memory=603136 config=color16 half0 sound1 fs1 stream0"
+  },
+  {
+    "Kind": "Unit",
+    "Name": "gba-tests-small-save",
+    "Output": "assertions=13 failures=0 context=6216 memory=472576 config=save_capacity512"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "arm-arm",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=d8676d7b frames=5 cycles=1404484 pc=08001ec4 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=5 steps=80864"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "arm-arm",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=d8676d7b frames=5 cycles=1404484 pc=08001ec4 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=10 steps=80864"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "arm-arm",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "arm-arm",
+    "Equal": true,
+    "Output": "hardware=d8676d7b frames=5 cycles=1404484 pc=08001ec4 r12=0 fault=0 image=cf813251 audio=5dacbdc5 draws=2 steps=80864"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "bios-bios",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=663d8a0a frames=5 cycles=1404488 pc=080003c0 r12=0 fault=0 image=faae3a69 audio=5dacbdc5 draws=5 steps=89885"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "bios-bios",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=663d8a0a frames=5 cycles=1404488 pc=080003c0 r12=0 fault=0 image=faae3a69 audio=5dacbdc5 draws=10 steps=89885"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "bios-bios",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "bios-bios",
+    "Equal": true,
+    "Output": "hardware=663d8a0a frames=5 cycles=1404488 pc=080003c0 r12=0 fault=0 image=cf813251 audio=5dacbdc5 draws=2 steps=89885"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "memory-memory",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=ed569fa2 frames=5 cycles=1404485 pc=080004c8 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=5 steps=80523"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "memory-memory",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=ed569fa2 frames=5 cycles=1404485 pc=080004c8 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=10 steps=80523"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "memory-memory",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "memory-memory",
+    "Equal": true,
+    "Output": "hardware=ed569fa2 frames=5 cycles=1404485 pc=080004c8 r12=0 fault=0 image=cf813251 audio=5dacbdc5 draws=2 steps=80523"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "nes-nes",
+    "Mode": "full",
+    "Status": "SMOKE",
+    "Output": "hardware=4c420baf frames=5 cycles=1404485 pc=06014248 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=5 steps=250389"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "nes-nes",
+    "Mode": "stream",
+    "Status": "SMOKE",
+    "Output": "hardware=4c420baf frames=5 cycles=1404485 pc=06014248 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=10 steps=250389"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "nes-nes",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "nes-nes",
+    "Equal": true,
+    "Output": "hardware=4c420baf frames=5 cycles=1404485 pc=06014248 r12=0 fault=0 image=cf813251 audio=5dacbdc5 draws=2 steps=250389"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "ppu-hello",
+    "Mode": "full",
+    "Status": "SMOKE",
+    "Output": "hardware=94a7b6ee frames=5 cycles=1404497 pc=08000160 r12=0 fault=0 image=b0d842dd audio=5dacbdc5 draws=5 steps=79567"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "ppu-hello",
+    "Mode": "stream",
+    "Status": "SMOKE",
+    "Output": "hardware=94a7b6ee frames=5 cycles=1404497 pc=08000160 r12=0 fault=0 image=b0d842dd audio=5dacbdc5 draws=10 steps=79567"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "ppu-hello",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "ppu-hello",
+    "Equal": true,
+    "Output": "hardware=94a7b6ee frames=5 cycles=1404497 pc=08000160 r12=0 fault=0 image=1a1d9d0b audio=5dacbdc5 draws=2 steps=79567"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "ppu-shades",
+    "Mode": "full",
+    "Status": "SMOKE",
+    "Output": "hardware=a6b47d91 frames=5 cycles=1404488 pc=0800015c r12=0 fault=0 image=e4cda245 audio=5dacbdc5 draws=5 steps=73051"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "ppu-shades",
+    "Mode": "stream",
+    "Status": "SMOKE",
+    "Output": "hardware=a6b47d91 frames=5 cycles=1404488 pc=0800015c r12=0 fault=0 image=e4cda245 audio=5dacbdc5 draws=10 steps=73051"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "ppu-shades",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "ppu-shades",
+    "Equal": true,
+    "Output": "hardware=a6b47d91 frames=5 cycles=1404488 pc=0800015c r12=0 fault=0 image=b493a245 audio=5dacbdc5 draws=2 steps=73051"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "ppu-stripes",
+    "Mode": "full",
+    "Status": "SMOKE",
+    "Output": "hardware=7b6aa27b frames=5 cycles=1404494 pc=08000140 r12=0 fault=0 image=8834be75 audio=5dacbdc5 draws=5 steps=71251"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "ppu-stripes",
+    "Mode": "stream",
+    "Status": "SMOKE",
+    "Output": "hardware=7b6aa27b frames=5 cycles=1404494 pc=08000140 r12=0 fault=0 image=8834be75 audio=5dacbdc5 draws=10 steps=71251"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "ppu-stripes",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "ppu-stripes",
+    "Equal": true,
+    "Output": "hardware=7b6aa27b frames=5 cycles=1404494 pc=08000140 r12=0 fault=0 image=f2162875 audio=5dacbdc5 draws=2 steps=71251"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-flash128",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=7442ca20 frames=5 cycles=1404484 pc=08000714 r12=0 fault=0 image=4ea249c5 audio=5dacbdc5 draws=5 steps=115627"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-flash128",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=7442ca20 frames=5 cycles=1404484 pc=08000714 r12=0 fault=0 image=4ea249c5 audio=5dacbdc5 draws=10 steps=115627"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "save-flash128",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "save-flash128",
+    "Equal": true,
+    "Output": "hardware=7442ca20 frames=5 cycles=1404484 pc=08000714 r12=0 fault=0 image=b99215c5 audio=5dacbdc5 draws=2 steps=115627"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-flash64",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=6a3669a1 frames=5 cycles=1404484 pc=0800071c r12=0 fault=0 image=4ea249c5 audio=5dacbdc5 draws=5 steps=115627"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-flash64",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=6a3669a1 frames=5 cycles=1404484 pc=0800071c r12=0 fault=0 image=4ea249c5 audio=5dacbdc5 draws=10 steps=115627"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "save-flash64",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "save-flash64",
+    "Equal": true,
+    "Output": "hardware=6a3669a1 frames=5 cycles=1404484 pc=0800071c r12=0 fault=0 image=b99215c5 audio=5dacbdc5 draws=2 steps=115627"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-none",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=11c396a6 frames=5 cycles=1404484 pc=080002a8 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=5 steps=80493"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-none",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=11c396a6 frames=5 cycles=1404484 pc=080002a8 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=10 steps=80493"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "save-none",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "save-none",
+    "Equal": true,
+    "Output": "hardware=11c396a6 frames=5 cycles=1404484 pc=080002a8 r12=0 fault=0 image=cf813251 audio=5dacbdc5 draws=2 steps=80493"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-sram",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=1d4b9615 frames=5 cycles=1404492 pc=08000470 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=5 steps=80515"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "save-sram",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=1d4b9615 frames=5 cycles=1404492 pc=08000470 r12=0 fault=0 image=abcd7df5 audio=5dacbdc5 draws=10 steps=80515"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "save-sram",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "save-sram",
+    "Equal": true,
+    "Output": "hardware=1d4b9615 frames=5 cycles=1404492 pc=08000470 r12=0 fault=0 image=cf813251 audio=5dacbdc5 draws=2 steps=80515"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "thumb-thumb",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=ab27c0b0 frames=5 cycles=1404485 pc=08000aac r12=0 fault=0 image=3f35e30d audio=5dacbdc5 draws=5 steps=80694"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "thumb-thumb",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=ab27c0b0 frames=5 cycles=1404485 pc=08000aac r12=0 fault=0 image=3f35e30d audio=5dacbdc5 draws=10 steps=80694"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "thumb-thumb",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "thumb-thumb",
+    "Equal": true,
+    "Output": "hardware=ab27c0b0 frames=5 cycles=1404485 pc=08000aac r12=0 fault=0 image=fb08a6d7 audio=5dacbdc5 draws=2 steps=80694"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "unsafe-unsafe",
+    "Mode": "full",
+    "Status": "PASS",
+    "Output": "hardware=c06d5f1d frames=5 cycles=1404499 pc=08000304 r12=0 fault=0 image=be4ee0dd audio=5dacbdc5 draws=5 steps=108781"
+  },
+  {
+    "Kind": "ROM",
+    "Name": "unsafe-unsafe",
+    "Mode": "stream",
+    "Status": "PASS",
+    "Output": "hardware=c06d5f1d frames=5 cycles=1404499 pc=08000304 r12=0 fault=0 image=be4ee0dd audio=5dacbdc5 draws=10 steps=108781"
+  },
+  {
+    "Kind": "Comparison",
+    "Name": "unsafe-unsafe",
+    "Equal": true
+  },
+  {
+    "Kind": "SkipComparison",
+    "Name": "unsafe-unsafe",
+    "Equal": true,
+    "Output": "hardware=c06d5f1d frames=5 cycles=1404499 pc=08000304 r12=0 fault=0 image=cf813251 audio=5dacbdc5 draws=2 steps=108781"
+  },
+  {
+    "Kind": "Suite",
+    "Name": "mGBA headless 11 suites",
+    "Pass": false,
+    "Output": "hardware=502ef86e frames=323 cycles=90927277 pc=08004656 r12=264 fault=0 image=38728dc5 audio=1b86adc5 draws=324 steps=9587978\nsuite_magic=53554954 suite0=140/140 suite1=93/93 suite2=52/72 suite3=615/615 suite4=1552/1552 suite5=130/130 suite6=1814/2020 suite7=505/936 suite8=69/90 suite9=1244/1244 suite10=5/12"
+  },
+  {
+    "Kind": "Video",
+    "Name": "Basic Mode 3",
+    "Pass": true,
+    "DifferentPixels": 0
+  },
+  {
+    "Kind": "Video",
+    "Name": "Basic Mode 4",
+    "Pass": true,
+    "DifferentPixels": 0
+  },
+  {
+    "Kind": "Video",
+    "Name": "Degenerate OBJ transforms",
+    "Pass": true,
+    "DifferentPixels": 0
+  },
+  {
+    "Kind": "Video",
+    "Name": "Layer toggle",
+    "Pass": true,
+    "DifferentPixels": 0
+  },
+  {
+    "Kind": "Video",
+    "Name": "Layer toggle 2",
+    "Pass": false,
+    "DifferentPixels": 958
+  },
+  {
+    "Kind": "Video",
+    "Name": "OAM Update Delay",
+    "Pass": true,
+    "DifferentPixels": 0
+  },
+  {
+    "Kind": "Video",
+    "Name": "Window offscreen reset",
+    "Pass": true,
+    "DifferentPixels": 0
+  },
+  {
+    "Kind": "Benchmark",
+    "Name": "ARM test ROM 600 frames, profile enabled",
+    "Output": "frames=600 ms=1235 context=7544 memory=635904 cpu_ms=1064 dma_ms=0 ppu_ms=109 apu_ms=332 cache_hits=25278791 cache_misses=2 fault=0"
+  }
+]

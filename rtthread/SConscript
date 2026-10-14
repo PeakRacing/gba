@@ -1,0 +1,9 @@
+from building import *
+import os
+
+cwd = GetCurrentDir()
+root = os.path.abspath(os.path.join(cwd, '..'))
+src = Glob(os.path.join(root, 'src', '*.c')) + ['gba_port.c']
+group = DefineGroup('gba', src, depend=['PKG_USING_GBA'],
+    CPPPATH=[os.path.join(root, 'inc'), os.path.join(root, 'src'), cwd])
+Return('group')

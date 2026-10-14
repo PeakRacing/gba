@@ -1,0 +1,16 @@
+GBA emulator
+Copyright PeakRacing
+Original core and project glue are licensed under Apache License 2.0.
+
+Optional test assets downloaded by test/fetch.ps1 retain their own licenses:
+- jsmolka/gba-tests: MIT, Copyright (c) 2019 Julian Smolka.
+- mgba-emu/suite: MIT, Copyright (c) 2015 Jeffrey Pfau.
+- devkitPro/libgba: GNU Library General Public License version 2 with
+  the exceptions in libgba_license.txt. The generated headless test ROM
+  is based in part on the work of devkitPro (https://devkitpro.org).
+  libgba is used only in this validation ROM and is not linked to the
+  emulator core or its desktop/embedded ports.
+
+See each fetched repository's license and fixed revision in
+docs/validation.md before redistributing optional test assets.
+No Nintendo BIOS or commercial game data is included.

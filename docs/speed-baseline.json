@@ -1,0 +1,482 @@
+[
+  {
+    "Target": "gba-speed565",
+    "ROM": "ace_attorney.gba",
+    "SHA256": "0D0945FFF2EDD4D4AE627ED003EBB0050937EE689D606CCFF89C4FF2C2638571",
+    "Frames": 1800,
+    "Runs": [
+      15595416,
+      15210935,
+      15259268,
+      15247095,
+      15419432
+    ],
+    "MedianUS": 15259268,
+    "Output": "frames=1921 us=15419432 pc=0800024c fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "fire_emblem.gba",
+    "SHA256": "828B8BB1BFF54A66B89CB1E43901D88BB783A4DA6E543AC31AA6EDC17E162D25",
+    "Frames": 1800,
+    "Runs": [
+      6275471,
+      6693080,
+      6785402,
+      7106194,
+      6433053
+    ],
+    "MedianUS": 6693080,
+    "Output": "frames=1920 us=6433053 pc=080c05b4 fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "fzero.gba",
+    "SHA256": "3892FFF14F9902C0F9FAC974C8EBAB95F87E2592EEF9E524BD5A7A82DAE80BF2",
+    "Frames": 1800,
+    "Runs": [
+      16869690,
+      16193981,
+      16983754,
+      16653146,
+      15918246
+    ],
+    "MedianUS": 16653146,
+    "Output": "frames=1920 us=15918246 pc=08000c28 fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "golden_sun.gba",
+    "SHA256": "203A55F37C6502BDD072BBD4B247E8127D44BE61F87F61BD746B731FD2853F71",
+    "Frames": 1800,
+    "Runs": [
+      6164954,
+      6099249,
+      8375620,
+      5805429,
+      5882773
+    ],
+    "MedianUS": 6099249,
+    "Output": "frames=1920 us=5882773 pc=08003324 fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "mario_advance.gba",
+    "SHA256": "4672B041571D46DF880DB5B3288C0F9DBF9B56E08C52E36CEBBAE6038D1FD0EC",
+    "Frames": 1800,
+    "Runs": [
+      14943287,
+      15007889,
+      14771575,
+      14435742,
+      14909692
+    ],
+    "MedianUS": 14909692,
+    "Output": "frames=1920 us=14909692 pc=08001c74 fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "metroid_fusion.gba",
+    "SHA256": "F55DF68529D25CC51A13A5044AD3E7FE40E2E8EBDDB53074C01B65BE3B155C6C",
+    "Frames": 1800,
+    "Runs": [
+      5494019,
+      5687546,
+      5668831,
+      6017538,
+      6391429
+    ],
+    "MedianUS": 5687546,
+    "Output": "frames=1921 us=6391429 pc=0800075c fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "pokemon_emerald.gba",
+    "SHA256": "829F013CBCFFB9326AD85F504041503354AC3DE6CF3B340F946F40C72D866291",
+    "Frames": 1800,
+    "Runs": [
+      17718451,
+      17517549,
+      18561296,
+      16554082,
+      17011464
+    ],
+    "MedianUS": 17517549,
+    "Output": "frames=1920 us=17011464 pc=080008c8 fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed565",
+    "ROM": "zelda_minish.gba",
+    "SHA256": "F51C6C2F90E18EE91203DD767307271E06901B5BFF35C3A567D52F61A39D166D",
+    "Frames": 1800,
+    "Runs": [
+      8871372,
+      9059658,
+      9116908,
+      9079187,
+      9415325
+    ],
+    "MedianUS": 9079187,
+    "Output": "frames=1920 us=9415325 pc=080b12a0 fault=0 context=7512 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "ace_attorney.gba",
+    "SHA256": "0D0945FFF2EDD4D4AE627ED003EBB0050937EE689D606CCFF89C4FF2C2638571",
+    "Frames": 1800,
+    "Runs": [
+      14554338,
+      14102129,
+      14248416,
+      14345647,
+      14070864
+    ],
+    "MedianUS": 14248416,
+    "Output": "frames=1921 us=14070864 pc=0800024c fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "fire_emblem.gba",
+    "SHA256": "828B8BB1BFF54A66B89CB1E43901D88BB783A4DA6E543AC31AA6EDC17E162D25",
+    "Frames": 1800,
+    "Runs": [
+      6272135,
+      6042120,
+      6148389,
+      6114112,
+      6223825
+    ],
+    "MedianUS": 6148389,
+    "Output": "frames=1920 us=6223825 pc=080c05b4 fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "fzero.gba",
+    "SHA256": "3892FFF14F9902C0F9FAC974C8EBAB95F87E2592EEF9E524BD5A7A82DAE80BF2",
+    "Frames": 1800,
+    "Runs": [
+      14527075,
+      14297663,
+      14620033,
+      14555192,
+      14542540
+    ],
+    "MedianUS": 14542540,
+    "Output": "frames=1920 us=14542540 pc=08000c28 fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "golden_sun.gba",
+    "SHA256": "203A55F37C6502BDD072BBD4B247E8127D44BE61F87F61BD746B731FD2853F71",
+    "Frames": 1800,
+    "Runs": [
+      5721759,
+      5688149,
+      5688387,
+      5902825,
+      6205467
+    ],
+    "MedianUS": 5721759,
+    "Output": "frames=1920 us=6205467 pc=08003324 fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "mario_advance.gba",
+    "SHA256": "4672B041571D46DF880DB5B3288C0F9DBF9B56E08C52E36CEBBAE6038D1FD0EC",
+    "Frames": 1800,
+    "Runs": [
+      14251902,
+      13964111,
+      13549476,
+      13529925,
+      14036770
+    ],
+    "MedianUS": 13964111,
+    "Output": "frames=1920 us=14036770 pc=08001c74 fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "metroid_fusion.gba",
+    "SHA256": "F55DF68529D25CC51A13A5044AD3E7FE40E2E8EBDDB53074C01B65BE3B155C6C",
+    "Frames": 1800,
+    "Runs": [
+      5789061,
+      5635033,
+      5744152,
+      5848533,
+      5691419
+    ],
+    "MedianUS": 5744152,
+    "Output": "frames=1921 us=5691419 pc=0800075c fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "pokemon_emerald.gba",
+    "SHA256": "829F013CBCFFB9326AD85F504041503354AC3DE6CF3B340F946F40C72D866291",
+    "Frames": 1800,
+    "Runs": [
+      14924150,
+      15400518,
+      15196040,
+      15570325,
+      16327319
+    ],
+    "MedianUS": 15400518,
+    "Output": "frames=1920 us=16327319 pc=080008c8 fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed32",
+    "ROM": "zelda_minish.gba",
+    "SHA256": "F51C6C2F90E18EE91203DD767307271E06901B5BFF35C3A567D52F61A39D166D",
+    "Frames": 1800,
+    "Runs": [
+      9892980,
+      9449869,
+      8834812,
+      9445704,
+      9132915
+    ],
+    "MedianUS": 9445704,
+    "Output": "frames=1920 us=9132915 pc=080b12a0 fault=0 context=7512 memory=679936 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "ace_attorney.gba",
+    "SHA256": "0D0945FFF2EDD4D4AE627ED003EBB0050937EE689D606CCFF89C4FF2C2638571",
+    "Frames": 1800,
+    "Runs": [
+      15387953,
+      15646294,
+      15168393,
+      15992383,
+      14940541
+    ],
+    "MedianUS": 15387953,
+    "Output": "frames=1921 us=14940541 pc=0800024c fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "fire_emblem.gba",
+    "SHA256": "828B8BB1BFF54A66B89CB1E43901D88BB783A4DA6E543AC31AA6EDC17E162D25",
+    "Frames": 1800,
+    "Runs": [
+      6557756,
+      6424777,
+      6336024,
+      6653055,
+      6720688
+    ],
+    "MedianUS": 6557756,
+    "Output": "frames=1920 us=6720688 pc=080c05b4 fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "fzero.gba",
+    "SHA256": "3892FFF14F9902C0F9FAC974C8EBAB95F87E2592EEF9E524BD5A7A82DAE80BF2",
+    "Frames": 1800,
+    "Runs": [
+      14912952,
+      14919167,
+      15315886,
+      15449542,
+      15508056
+    ],
+    "MedianUS": 15315886,
+    "Output": "frames=1920 us=15508056 pc=08000c28 fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "golden_sun.gba",
+    "SHA256": "203A55F37C6502BDD072BBD4B247E8127D44BE61F87F61BD746B731FD2853F71",
+    "Frames": 1800,
+    "Runs": [
+      5902400,
+      5923748,
+      6156369,
+      6152829,
+      6140244
+    ],
+    "MedianUS": 6140244,
+    "Output": "frames=1920 us=6140244 pc=08003324 fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "mario_advance.gba",
+    "SHA256": "4672B041571D46DF880DB5B3288C0F9DBF9B56E08C52E36CEBBAE6038D1FD0EC",
+    "Frames": 1800,
+    "Runs": [
+      14330417,
+      14722654,
+      14188735,
+      15147300,
+      14775788
+    ],
+    "MedianUS": 14722654,
+    "Output": "frames=1920 us=14775788 pc=08001c74 fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "metroid_fusion.gba",
+    "SHA256": "F55DF68529D25CC51A13A5044AD3E7FE40E2E8EBDDB53074C01B65BE3B155C6C",
+    "Frames": 1800,
+    "Runs": [
+      5741882,
+      5859792,
+      6103818,
+      6084605,
+      5743910
+    ],
+    "MedianUS": 5859792,
+    "Output": "frames=1921 us=5743910 pc=0800075c fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "pokemon_emerald.gba",
+    "SHA256": "829F013CBCFFB9326AD85F504041503354AC3DE6CF3B340F946F40C72D866291",
+    "Frames": 1800,
+    "Runs": [
+      17707427,
+      16290163,
+      15974206,
+      15550983,
+      15986781
+    ],
+    "MedianUS": 15986781,
+    "Output": "frames=1920 us=15986781 pc=080008c8 fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-stream",
+    "ROM": "zelda_minish.gba",
+    "SHA256": "F51C6C2F90E18EE91203DD767307271E06901B5BFF35C3A567D52F61A39D166D",
+    "Frames": 1800,
+    "Runs": [
+      9976891,
+      10491295,
+      10753898,
+      10346519,
+      10444716
+    ],
+    "MedianUS": 10444716,
+    "Output": "frames=1920 us=10444716 pc=080b12a0 fault=0 context=7512 memory=597504 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "ace_attorney.gba",
+    "SHA256": "0D0945FFF2EDD4D4AE627ED003EBB0050937EE689D606CCFF89C4FF2C2638571",
+    "Frames": 1800,
+    "Runs": [
+      14058426,
+      15122761,
+      15595487,
+      14203754,
+      15630677
+    ],
+    "MedianUS": 15122761,
+    "Output": "frames=1921 us=15630677 pc=0800024c fault=0 context=6488 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "fire_emblem.gba",
+    "SHA256": "828B8BB1BFF54A66B89CB1E43901D88BB783A4DA6E543AC31AA6EDC17E162D25",
+    "Frames": 1800,
+    "Runs": [
+      6212218,
+      6147456,
+      6289045,
+      6246480,
+      6186307
+    ],
+    "MedianUS": 6212218,
+    "Output": "frames=1920 us=6186307 pc=080c05b4 fault=0 context=6488 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "fzero.gba",
+    "SHA256": "3892FFF14F9902C0F9FAC974C8EBAB95F87E2592EEF9E524BD5A7A82DAE80BF2",
+    "Frames": 1800,
+    "Runs": [
+      13451233,
+      13792197,
+      13528478,
+      13742856,
+      13512226
+    ],
+    "MedianUS": 13528478,
+    "Output": "frames=1920 us=13512226 pc=08000c28 fault=0 context=6488 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "golden_sun.gba",
+    "SHA256": "203A55F37C6502BDD072BBD4B247E8127D44BE61F87F61BD746B731FD2853F71",
+    "Frames": 1800,
+    "Runs": [
+      5523220,
+      5525635,
+      5663790,
+      5649066,
+      5478910
+    ],
+    "MedianUS": 5525635,
+    "Output": "frames=1920 us=5478910 pc=08003324 fault=0 context=6488 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "mario_advance.gba",
+    "SHA256": "4672B041571D46DF880DB5B3288C0F9DBF9B56E08C52E36CEBBAE6038D1FD0EC",
+    "Frames": 1800,
+    "Runs": [
+      13000220,
+      12923408,
+      12568105,
+      12916972,
+      14455052
+    ],
+    "MedianUS": 12923408,
+    "Output": "frames=1920 us=14455052 pc=08001c74 fault=0 context=6488 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "metroid_fusion.gba",
+    "SHA256": "F55DF68529D25CC51A13A5044AD3E7FE40E2E8EBDDB53074C01B65BE3B155C6C",
+    "Frames": 1800,
+    "Runs": [
+      5527923,
+      5462073,
+      5409129,
+      5449658,
+      5324964
+    ],
+    "MedianUS": 5449658,
+    "Output": "frames=1921 us=5324964 pc=0800075c fault=0 context=6488 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "pokemon_emerald.gba",
+    "SHA256": "829F013CBCFFB9326AD85F504041503354AC3DE6CF3B340F946F40C72D866291",
+    "Frames": 1800,
+    "Runs": [
+      13752065,
+      13888804,
+      13999076,
+      14094558,
+      13655844
+    ],
+    "MedianUS": 13888804,
+    "Output": "frames=1920 us=13655844 pc=080008c8 fault=0 context=6488 memory=603136 test=0 profile=0"
+  },
+  {
+    "Target": "gba-speed-silent",
+    "ROM": "zelda_minish.gba",
+    "SHA256": "F51C6C2F90E18EE91203DD767307271E06901B5BFF35C3A567D52F61A39D166D",
+    "Frames": 1800,
+    "Runs": [
+      8740349,
+      8410623,
+      8410378,
+      8327338,
+      8482677
+    ],
+    "MedianUS": 8410623,
+    "Output": "frames=1920 us=8482677 pc=080b12a0 fault=0 context=6488 memory=603136 test=0 profile=0"
+  }
+]
