@@ -98,3 +98,25 @@ uint32_t gba_profile_ticks(void) {
 #endif
 /* With GBA_USE_FS=1, supply the gba_file_* and gba_f* hooks in your BSP.
  * gba_file_replace must preserve the old destination on failure. */
+
+#if GBA_DYNAREC
+#include "../port/gba_arm926_cache.h"
+GBA_WEAK int gba_code_begin_write(void *address, size_t bytes) {
+    (void)address;
+    (void)bytes;
+#if defined(GBA_ARM926_EXECUTABLE_RAM) && GBA_ARM926_EXECUTABLE_RAM
+    return GBA_OK;
+#else
+    return GBA_ERROR_UNSUPPORTED;
+#endif
+}
+GBA_WEAK int gba_code_publish(void *address, size_t bytes) {
+#if defined(GBA_ARM926_EXECUTABLE_RAM) && GBA_ARM926_EXECUTABLE_RAM
+    return gba_arm926_publish(address, bytes);
+#else
+    (void)address;
+    (void)bytes;
+    return GBA_ERROR_UNSUPPORTED;
+#endif
+}
+#endif

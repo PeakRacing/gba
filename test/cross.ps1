@@ -11,6 +11,15 @@ $configs = [ordered]@{
     stream = @('-DGBA_ENABLE_SOUND=1','-DGBA_USE_FS=1','-DGBA_ENABLE_SAVE_STATE=1','-DGBA_ROM_STREAM=1','-DGBA_RAM_LACK=1')
     swap = @('-DGBA_COLOR_SWAP=1','-DGBA_FRAME_SKIP=2','-DGBA_ROM_STREAM=1','-DGBA_COLOR_DEPTH=16')
     small_save = @('-DGBA_SAVE_CAPACITY=512')
+    oam_dirty = @('-DGBA_PPU_OAM_DIRTY=1','-DGBA_PPU_OBJ_INDEX=1')
+    oam_minimal = @('-DGBA_PPU_OAM_DIRTY=1','-DGBA_RAM_LACK=1','-DGBA_ENABLE_SAVE=0','-DGBA_ENABLE_SOUND=0')
+    obj_index = @('-DGBA_PPU_OBJ_INDEX=1','-DGBA_FAST_CORE=1','-DGBA_PPU_OBJ_SPANS=1')
+    scanline = @('-DGBA_PPU_SCANLINE_FAST=1','-DGBA_FAST_CORE=1','-DGBA_VIDEO_CACHE=1')
+    scanline_minimal = @('-DGBA_PPU_SCANLINE_FAST=1','-DGBA_RAM_LACK=1','-DGBA_COLOR_DEPTH=32')
+    front_cull = @('-DGBA_FAST_CORE=1','-DGBA_PPU_FRONT_CULL=1','-DGBA_PPU_OBJ_SPANS=1','-DGBA_PPU_SORTED_BLEND=1')
+    fast_core = @('-DGBA_FAST_CPU=1','-DGBA_FAST_WAIT=1','-DGBA_FAST_ALU=1',
+                  '-DGBA_FAST_BLOCKS=1','-DGBA_VIDEO_CACHE=1',
+                  '-DGBA_PORT_BATCH_EVENTS=1','-DGBA_PORT_FAST_RUN=1')
 }
 $report = @()
 foreach ($name in $configs.Keys) {

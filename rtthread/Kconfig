@@ -16,4 +16,7 @@ config GBA_USING_STATE
 config GBA_USING_STREAM
     bool "Enable ROM page cache and callback loader"
     default n
+config GBA_USING_DYNAREC
+    bool "Enable ARMv5TE/A32 native code (requires executable RAM and code cache port)"
+    default n
 endif

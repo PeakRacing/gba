@@ -10,9 +10,9 @@ target(name, function()
     set_kind("binary")
     add_packages("libsdl2")
     if is_plat("windows") then add_syslinks("shell32") end
-    add_includedirs("../../inc", "../../src", "../../port")
+    add_includedirs(".", "../../inc", "../../src", "../../port")
     add_files("../../src/*.c", "../../port/gba_default.c", "../common/main.c")
-    add_defines("GBA_SDL_VERSION=2", "GBA_USE_FS=1", "GBA_ENABLE_SOUND=1", "GBA_ENABLE_SAVE_STATE=1")
+    add_defines("GBA_SDL_VERSION=2")
     if test_mode then add_defines("GBA_TEST_MODE=1") end
 end)
 end

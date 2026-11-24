@@ -28,3 +28,22 @@ For SDL2 or SDL3, enter `sdl/sdl2` or `sdl/sdl3`, then run `xmake f -P . -m rele
 The public interface is in `inc/gba.h`. `gba_init_static` borrows separate caller buffers, and `gba_load_rom` borrows ROM storage. `gba_load_stream` accepts an offset reader and uses four configurable 8 KiB pages; incomplete reads never commit a cache tag. Hardware memory remains necessary even with streaming. Default output is RGB565; `GBA_RAM_LACK=1` submits two 240×80 blocks. Display and PCM pointers are valid only during their callbacks.
 
 Default sound output, filesystem and file save states are disabled. PSG/FIFO hardware still advances without sound output. Battery storage, runtime RTC and HLE are enabled. `rtthread/` contains an unintegrated template, not a tested board port. Board-specific display, input, audio and safe filesystem replacement must be supplied. Detailed contracts: [porting](docs/porting.md), [storage](docs/storage.md), [remaining work](docs/remaining.md).
+
+## Portable optimization options
+
+The MCU-qualified C11 changes include event batching, live instruction pages,
+verified stable-loop acceleration, ARM/Thumb register spans, decoded IWRAM
+blocks and exact scanline reuse. New options default to off to preserve the
+existing memory budget. Enable the root xmake build with
+`xmake f -m release --fast_core=y -y`, or run
+`pwsh -File test/run.ps1 -SkipFetch -FastAcceptance -FastCore`. All core and
+port translation units must use the same definitions. The row cache adds
+about 85 KiB and decoded blocks add 21 KiB; neither is serialized in GAST v7.
+
+See [configuration and standalone tests](docs/portable-optimizations.md) and
+[synchronization validation](docs/optimization-sync-validation.md). Board FPS
+refers to the previously sealed 408 MHz handheld run, not a new hardware test
+of this repository. RT-Thread sessions, LCD scaling and audio queues remain
+in the firmware port.
+
+See [ARM32 dynarec and module layout](docs/dynarec_EN.md) for configuration, executable memory hooks and validation limits. The backend is disabled by default.

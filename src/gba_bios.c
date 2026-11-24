@@ -446,6 +446,8 @@ static void gba_sound_driver(gba_t *g, unsigned call) {
     }
 }
 int gba_bios_swi(gba_t *g, unsigned number) {
+    gba_wait_invalidate(g);
+    gba_idle_invalidate(g);
     g->machine.bios_latch = 0xe3a02004;
     gba_cpu_t *c = &g->machine.cpu;
     uint32_t source = c->r[0], destination = c->r[1], control = c->r[2];
@@ -453,6 +455,9 @@ int gba_bios_swi(gba_t *g, unsigned number) {
     case 0: {
         uint8_t boot = g->memory.iwram[0x7ffa];
         gba_memset(g->memory.iwram + 0x7e00, 0, 0x200);
+#if GBA_DYNAREC
+        gba_dynarec_invalidate(g, 0x03007e00u, 0x200);
+#endif
         gba_cpu_mode(g, 0x1f);
         c->r[13] = 0x03007f00;
         c->r[14] = 0;
@@ -463,11 +468,19 @@ int gba_bios_swi(gba_t *g, unsigned number) {
         break;
     }
     case 1:
+        if (source & 0x1c)
+            gba_video_invalidate(g);
         if (source & 1) {
             gba_memset(g->memory.ewram, 0, 0x40000);
+#if GBA_DYNAREC
+            gba_dynarec_invalidate(g, 0x02000000u, 0x40000);
+#endif
         }
         if (source & 2) {
             gba_memset(g->memory.iwram, 0, 0x7e00);
+#if GBA_DYNAREC
+            gba_dynarec_invalidate(g, 0x03000000u, 0x7e00);
+#endif
         }
         if (source & 4) {
             gba_memset(g->memory.palette, 0, 0x400);
@@ -513,6 +526,9 @@ int gba_bios_swi(gba_t *g, unsigned number) {
         }
         if (source) {
             gba_put16(g->memory.iwram + 0x7ff8, (uint16_t)(gba_le16(g->memory.iwram + 0x7ff8) & ~destination));
+#if GBA_DYNAREC
+            gba_dynarec_invalidate(g, 0x03007ff8u, 2);
+#endif
         }
         c->wait_mask = destination & 0x3fff;
         gba_put16(g->io + 0x208, 1);

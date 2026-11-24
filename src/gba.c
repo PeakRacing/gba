@@ -120,7 +120,34 @@ gba_t *gba_init(void) {
     return g;
 }
 
+void gba_video_invalidate(gba_t *g) {
+#if GBA_PPU_SCANLINE_FAST
+    if(g)g->scanline_palette.valid=0;
+#endif
+#if GBA_PPU_OBJ_INDEX
+    if (g) g->object_index.valid = 0;
+#endif
+#if GBA_PPU_OAM_DIRTY
+    if (g) g->oam_dirty.coherent = 0;
+#endif
+#if GBA_VIDEO_CACHE && !GBA_TEST_MODE && !GBA_RAM_LACK
+    if (g) {
+        uint64_t revision = g->video_cache.framebuffer_revision;
+        gba_memset(&g->video_cache, 0, sizeof(g->video_cache));
+        /* The currently latched OAM may differ from live OAM. Keep its unknown
+         * generation distinct until the next actual hardware latch. */
+        g->video_cache.generation = g->video_cache.oam_generation = 1;
+        g->video_cache.framebuffer_revision = revision == UINT64_MAX ? revision : revision + 1;
+    }
+#else
+    (void)g;
+#endif
+}
 int gba_reset(gba_t *g) {
+#if GBA_DYNAREC
+    if (g)
+        gba_dynarec_invalidate(g, 0, SIZE_MAX);
+#endif
     gba_cart_t cart;
     gba_rtc_t rtc;
     if (!g || g->running) {
@@ -136,9 +163,23 @@ int gba_reset(gba_t *g) {
     g->reload_required = 0;
 #endif
     gba_memcpy(&cart, &g->machine.cart, sizeof(cart));
+    gba_video_invalidate(g);
     g->event_cycles = 0;
+    gba_wait_invalidate(g);
+#if GBA_FAST_CPU
+    g->cpu_bulk = g->cpu_pending = 0;
+#if GBA_DYNAREC
+    g->native_control_budget=0;
+#endif
+    g->fetch_page = NULL;
+#endif
+    gba_idle_invalidate(g);
+#if GBA_BATCH_EVENTS
+    g->deferred_cycles = 0;
+#endif
     gba_memcpy(&rtc, &g->machine.rtc, sizeof(rtc));
     gba_memset(&g->machine, 0, sizeof(g->machine));
+    gba_dma_refresh_ready(g);
     gba_memcpy(&g->machine.cart, &cart, sizeof(cart));
     gba_memcpy(&g->machine.rtc, &rtc, sizeof(rtc));
     g->machine.cart.flash_phase = g->machine.cart.flash_id = g->machine.cart.eeprom_count = 0;
@@ -265,6 +306,9 @@ int gba_unload_rom_discard(gba_t *g) {
     g->rom = NULL;
     g->rom_read = NULL;
     g->rom_user = NULL;
+#if GBA_DYNAREC
+    gba_dynarec_invalidate(g, 0, SIZE_MAX);
+#endif
     g->rom_size = 0;
     gba_memset(&g->machine.cart, 0, sizeof(g->machine.cart));
     return gba_reset(g);
@@ -304,31 +348,51 @@ int gba_deinit(gba_t *g) {
     }
     return result;
 }
-static uint32_t gba_step_internal(gba_t *g) {
+static uint32_t gba_step_internal(gba_t *g, uint32_t budget) {
     uint32_t cycles;
     gba_cpu_t *cpu;
     if (!g || !g->rom_size || g->fault || g->gba_quit) {
         return 0;
     }
     cpu = &g->machine.cpu;
+#if !GBA_FAST_RUN
     gba_irq(g, 0);
+#endif
     g->access_cycles = 0;
     if (cpu->stopped) {
         return 0;
     }
-    cycles = gba_dma_step(g);
+    {
+        GBA_PROFILE_ENTER(GBA_PROF_DMA);
+        cycles = gba_dma_step(g);
+        GBA_PROFILE_LEAVE();
+    }
     if (cycles) {
         gba_advance(g, cycles - g->access_cycles);
         return cycles;
     }
-    if (cpu->halted && (!(gba_io16(g, 0x200) & gba_io16(g, 0x202)) || cpu->irq_delay)) {
+    if (cpu->halted && (!gba_irq_pending(g) || cpu->irq_delay)) {
         cycles = gba_next_event(g);
     } else {
         cpu->halted = 0;
+#if GBA_FAST_CPU
+        if (budget) {
+            GBA_PROFILE_ENTER(GBA_PROF_CPU);
+            cycles = gba_cpu_run(g, budget);
+            GBA_PROFILE_LEAVE();
+            return cycles;
+        }
+#else
+        (void)budget;
+#endif
 #if GBA_TEST_PROFILE
         uint32_t start = gba_profile_ticks();
 #endif
-        cycles = gba_cpu_execute(g);
+        {
+            GBA_PROFILE_ENTER(GBA_PROF_CPU);
+            cycles = gba_cpu_execute(g);
+            GBA_PROFILE_LEAVE();
+        }
 #if GBA_TEST_PROFILE
         g->profile_cpu += gba_profile_ticks() - start;
 #endif
@@ -339,14 +403,85 @@ static uint32_t gba_step_internal(gba_t *g) {
     gba_advance(g, cycles - g->access_cycles);
     return cycles;
 }
+#if GBA_IDLE_LOOPS && !GBA_TEST_MODE
+#if !GBA_BATCH_EVENTS
+#error Idle loop proof requires event-bounded deferred progression
+#endif
+static int gba_idle_cpu_equal(const gba_cpu_t *a, const gba_cpu_t *b) {
+    const uint8_t *x = (const uint8_t *)a, *y = (const uint8_t *)b;
+    /* All CPU state is uint32_t: byte comparison includes pipeline and banks. */
+    for (size_t i = 0; i < sizeof(*a); i++)
+        if (x[i] != y[i])
+            return 0;
+    return 1;
+}
+/* An execution memo, rather than an address database or a HALT heuristic.
+ * A complete iteration must leave CPU/pipeline/prefetch/bus state unchanged,
+ * read only stable RAM/ROM, write nothing and cross no hardware deadline.
+ * Consequently another whole iteration has exactly the same cost and effects.
+ * We repeat only whole proven iterations strictly before the next event and
+ * execution budget. Hardware then runs its original event path normally. */
+static uint32_t gba_idle_repeat(gba_t *g, uint32_t previous_pc, uint32_t budget) {
+    gba_cpu_t *c = &g->machine.cpu;
+    gba_machine_t *m = &g->machine;
+    uint32_t clock = m->cycles + g->deferred_cycles, skipped = 0;
+    if (g->idle_valid && c->r[15] == g->idle_pc) {
+        uint32_t period = clock - g->idle_clock;
+        if (period && period <= 4096 && gba_idle_cpu_equal(c, &g->idle_cpu) &&
+            m->prefetch_count == g->idle_prefetch_count && m->prefetch_phase == g->idle_prefetch_phase &&
+            m->open_bus == g->idle_open_bus && m->last_fetch == g->idle_last_fetch && m->dma_pc == g->idle_dma_pc &&
+            m->dma_bus == g->idle_dma_bus && m->dma_bus_valid == g->idle_dma_bus_valid &&
+            m->bios_latch == g->idle_bios_latch) {
+            uint32_t distance = gba_next_event(g);
+            uint32_t limit = distance < budget ? distance : budget;
+            uint32_t loops = limit > 1 ? (limit - 1) / period : 0;
+            if (loops) {
+                skipped = loops * period;
+                gba_advance(g, skipped);
+                g->idle_skipped_cycles += skipped;
+                g->idle_skipped_loops += loops;
+            }
+        } else
+            g->idle_reject_pc = g->idle_pc;
+        g->idle_valid = 0;
+    }
+    unsigned region = c->r[15] >> 24;
+    if (!g->idle_valid && c->r[15] != g->idle_reject_pc && c->r[15] <= previous_pc && !c->halted && !c->stopped &&
+        !c->wait_mask && !c->hle_irq && !g->fault && g->rom &&
+        (region == 2 || region == 3 || (region >= 8 && region <= 12))) {
+        gba_memcpy(&g->idle_cpu, c, sizeof(*c));
+        g->idle_pc = c->r[15];
+        g->idle_valid = 1;
+        g->idle_clock = clock + skipped;
+        g->idle_prefetch_count = m->prefetch_count;
+        g->idle_prefetch_phase = m->prefetch_phase;
+        g->idle_open_bus = m->open_bus;
+        g->idle_last_fetch = m->last_fetch;
+        g->idle_dma_pc = m->dma_pc;
+        g->idle_dma_bus = m->dma_bus;
+        g->idle_dma_bus_valid = m->dma_bus_valid;
+        g->idle_bios_latch = m->bios_latch;
+    }
+    return skipped;
+}
+#endif
 uint32_t gba_step(gba_t *g) {
     if (!g || g->stepping) {
         return 0;
     }
     uint32_t previous = g->running;
+    gba_wait_invalidate(g);
+#if GBA_FAST_RUN
+    gba_irq(g, 0);
+#endif
+    gba_idle_invalidate(g);
+    gba_dma_refresh_ready(g);
     g->event_cycles = 0;
     g->running = g->stepping = 1;
-    uint32_t cycles = gba_step_internal(g);
+    uint32_t cycles = gba_step_internal(g, 0);
+#if GBA_BATCH_EVENTS
+    gba_flush_events(g);
+#endif
     g->stepping = 0;
     g->running = previous;
     return cycles;
@@ -358,15 +493,31 @@ uint32_t gba_run_cycles(gba_t *g, uint32_t budget) {
         return 0;
     }
     previous = g->running;
+    gba_wait_invalidate(g);
+#if GBA_FAST_RUN
+    gba_irq(g, 0);
+#endif
+    gba_idle_invalidate(g);
+    gba_dma_refresh_ready(g);
     g->running = g->stepping = 1;
     g->event_cycles = 0;
     while (total < budget && !g->fault && !g->gba_quit) {
-        uint32_t cycles = gba_step_internal(g);
+#if GBA_IDLE_LOOPS && !GBA_TEST_MODE
+        uint32_t previous_pc = g->machine.cpu.r[15];
+#endif
+        uint32_t cycles = gba_step_internal(g, budget - (uint32_t)total);
         if (!cycles) {
             break;
         }
         total += cycles;
+#if GBA_IDLE_LOOPS && !GBA_TEST_MODE
+        if (total < budget && !g->gba_quit)
+            total += gba_idle_repeat(g, previous_pc, budget - (uint32_t)total);
+#endif
     }
+#if GBA_BATCH_EVENTS
+    gba_flush_events(g);
+#endif
     g->stepping = 0;
     g->running = previous;
     return total > UINT32_MAX ? UINT32_MAX : (uint32_t)total;
@@ -380,14 +531,30 @@ uint32_t gba_run_frame(gba_t *g) {
         gba_rtc_sync(g);
     }
     frame = g->machine.frames;
+    gba_wait_invalidate(g);
+#if GBA_FAST_RUN
+    gba_irq(g, 0);
+#endif
+    gba_idle_invalidate(g);
+    gba_dma_refresh_ready(g);
     begin = g->machine.cycles;
     g->running = g->stepping = 1;
     g->event_cycles = 0;
     while (g->machine.frames == frame && !g->fault && !g->gba_quit) {
-        if (!gba_step_internal(g)) {
+#if GBA_IDLE_LOOPS && !GBA_TEST_MODE
+        uint32_t previous_pc = g->machine.cpu.r[15];
+#endif
+        if (!gba_step_internal(g, UINT32_MAX)) {
             break;
         }
+#if GBA_IDLE_LOOPS && !GBA_TEST_MODE
+        if (g->machine.frames == frame && !g->fault && !g->gba_quit)
+            gba_idle_repeat(g, previous_pc, UINT32_MAX);
+#endif
     }
+#if GBA_BATCH_EVENTS
+    gba_flush_events(g);
+#endif
     g->running = g->stepping = 0;
     return g->machine.cycles - begin;
 }
@@ -407,6 +574,7 @@ void gba_set_keys(gba_t *g, uint16_t keys) {
     if (!g) {
         return;
     }
+    if(g->machine.keys!=(keys&0x3ff))gba_wait_invalidate(g);
     g->machine.keys = keys & 0x3ff;
     gba_put16(g->io + 0x130, (uint16_t)(0x3ff ^ g->machine.keys));
     control = gba_io16(g, 0x132);

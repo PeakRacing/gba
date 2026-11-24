@@ -26,11 +26,11 @@
 #else
 #include <SDL.h>
 #define SDL_KMOD_CTRL KMOD_CTRL
-#define GBA_SDL_Z SDLK_z
-#define GBA_SDL_X SDLK_x
-#define GBA_SDL_A SDLK_a
-#define GBA_SDL_S SDLK_s
-#define GBA_SDL_Q SDLK_q
+#define GBA_SDL_Z     SDLK_z
+#define GBA_SDL_X     SDLK_x
+#define GBA_SDL_A     SDLK_a
+#define GBA_SDL_S     SDLK_s
+#define GBA_SDL_Q     SDLK_q
 #endif
 #include "gba.h"
 #include <stdio.h>

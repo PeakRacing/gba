@@ -1154,6 +1154,38 @@ static void apu_tests(void) {
 #if GBA_ENABLE_SOUND
     CHECK(gba_test_audio_bytes > 0 && gba_test_audio_hash != 2166136261u);
 #endif
+#if GBA_ENABLE_SOUND
+    {
+        gba_t *g = setup();
+        const uint32_t cycles = GBA_CPU_CLOCK / 2048;
+        const uint32_t expected = (uint32_t)(((uint64_t)cycles * GBA_APU_SAMPLE_RATE) / GBA_CPU_CLOCK);
+        gba_write16(g, 0x04000084, 0x80);
+        gba_write16(g, 0x04000080, 0x1177);
+        gba_write16(g, 0x04000062, 0xf080);
+        gba_write16(g, 0x04000064, 0x8000 | 1984);
+        gba_apu_advance(g, cycles);
+        uint32_t count = g->audio_count, sample_phase = g->machine.apu.sample_phase,
+                 sequencer_phase = g->machine.apu.sequencer_phase;
+        uint32_t channel_phase[4], channel_position[4];
+        for (unsigned ch = 0; ch < 4; ch++) {
+            channel_phase[ch] = g->machine.apu.channel[ch].phase;
+            channel_position[ch] = g->machine.apu.channel[ch].position;
+        }
+        CHECK(expected > 1 && count == expected);
+        g = setup();
+        gba_write16(g, 0x04000084, 0x80);
+        gba_write16(g, 0x04000080, 0x1177);
+        gba_write16(g, 0x04000062, 0xf080);
+        gba_write16(g, 0x04000064, 0x8000 | 1984);
+        for (unsigned i = 0; i < 8; i++) gba_apu_advance(g, cycles / 8);
+        CHECK(g->audio_count == count && g->machine.apu.sample_phase == sample_phase &&
+              g->machine.apu.sequencer_phase == sequencer_phase);
+        for (unsigned ch = 0; ch < 4; ch++) {
+            CHECK(g->machine.apu.channel[ch].phase == channel_phase[ch] &&
+                  g->machine.apu.channel[ch].position == channel_position[ch]);
+        }
+    }
+#endif
     gba_write32(g, 0x040000a0, 0x807f0100);
     CHECK(g->machine.apu.fifo_count[0] == 4);
     gba_apu_timer(g, 0);

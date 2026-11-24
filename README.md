@@ -57,4 +57,15 @@ xmake run -P . gba 'F:/games/demo.gba' 'F:/games/gba_bios.bin'
 
 详细契约和配置见 [移植说明](docs/porting.md)，文件和恢复语义见 [存储说明](docs/storage.md)。[English README](README_EN.md)。
 
+已同步掌机上验证的通用 C11 执行优化：事件批处理、实时取指、稳定循环证明、
+ARM/Thumb 寄存器片段、IWRAM 指令块预解码及扫描线缓存。新增选项默认关闭，
+保持原有内存预算；根目录构建用 `xmake f -m release --fast_core=y -y` 启用，
+完整验收用 `pwsh -File test/run.ps1 -SkipFetch -FastAcceptance -FastCore`。
+全部核心/端口翻译单元必须使用一致配置。扫描线缓存约增加 85 KiB，指令块
+缓存另增 21 KiB，均不进入 GAST v7。配置、失效接口和独立非跟踪测试见
+[优化移植说明](docs/portable-optimizations.md)，实际验证见
+[同步验证记录](docs/optimization-sync-validation.md)。
+
 SDL2 已用系统显示/音频驱动对八款本地游戏完成 3600–18000 帧有限场景、120 帧恢复重放及五次电池内容重载，宝可梦和逆转裁判另通过菜单保存。黄金太阳开场剧情中的保存仍未覆盖，见 [SDL2 验证](docs/sdl-validation.md)。测试输出保存在忽略目录，未修改原始游戏或存档。
+
+ARM32 重编译宏与模块/内联/平台配置说明见 [动态重编译](docs/dynarec.md)。默认关闭，ARM926 QEMU 验证与实机性能结论分开记录。

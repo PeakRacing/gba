@@ -6,6 +6,24 @@ add_rules("mode.debug", "mode.release")
 set_warnings("allextra")
 add_cflags("/utf-8", "/wd4996", {tools = "cl"})
 
+option("fast_core", function()
+    set_default(false)
+    set_showmenu(true)
+    set_description("Enable qualified portable execution and scanline caches")
+end)
+if has_config("fast_core") then
+    add_defines("GBA_FAST_CORE=1")
+end
+
+option("dynarec", function()
+    set_default(false)
+    set_showmenu(true)
+    set_description("Enable the ARMv5TE/A32 native code generator")
+end)
+if has_config("dynarec") then
+    add_defines("GBA_DYNAREC=1")
+end
+
 local function sources()
     add_includedirs("inc", "src", "port")
     add_files("src/*.c")

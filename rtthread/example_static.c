@@ -16,6 +16,10 @@
 #include "gba.h"
 /* Put these arrays in your linker sections when external RAM is available. */
 static gba_t gba_instance;
+#if GBA_DYNAREC
+GBA_ALIGN(32) static uint8_t gba_native_code[GBA_DYNAREC_CODE_SIZE];
+GBA_ALIGN(32) static uint8_t gba_native_data[GBA_DYNAREC_DATA_SIZE];
+#endif
 static int gba_example_active;
 static uint8_t gba_ewram[0x40000], gba_iwram[0x8000], gba_vram[0x18000];
 static uint8_t gba_palette[0x400], gba_oam[0x400];
@@ -52,6 +56,15 @@ int gba_example_start(const uint8_t *rom, size_t length) {
     memory.framebuffer = gba_pixels;
     memory.framebuffer_pixels = GBA_DRAW_SIZE;
     int result = gba_init_static(&gba_instance, &memory);
+#if GBA_DYNAREC
+    if (!result) {
+        gba_dynarec_memory_t native_memory = {
+            gba_native_code, sizeof(gba_native_code), gba_native_data, sizeof(gba_native_data)};
+        result = gba_dynarec_bind(&gba_instance, &native_memory);
+        if (result)
+            gba_deinit_static(&gba_instance);
+    }
+#endif
     if (!result) {
         gba_example_active = 1;
         result = gba_load_rom(&gba_instance, rom, length);
@@ -66,6 +79,15 @@ int gba_example_stop(void) {
         return GBA_ERROR;
     }
     int result = gba_deinit_static(&gba_instance);
+#if GBA_DYNAREC
+    if (!result) {
+        gba_dynarec_memory_t native_memory = {
+            gba_native_code, sizeof(gba_native_code), gba_native_data, sizeof(gba_native_data)};
+        result = gba_dynarec_bind(&gba_instance, &native_memory);
+        if (result)
+            gba_deinit_static(&gba_instance);
+    }
+#endif
     if (!result) {
         gba_example_active = 0;
     }

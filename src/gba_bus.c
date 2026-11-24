@@ -132,7 +132,10 @@ static unsigned gba_bus_wait(gba_t *g, uint32_t a, unsigned width, int sequentia
             } else {
                 /* An unfinished prefetch continues from its elapsed phase;
                  * fetching instructions never creates additional idle time. */
-                cost = (units - used) * seq - g->machine.prefetch_phase % seq;
+                uint32_t phase = g->machine.prefetch_phase;
+                if (phase >= seq)
+                    phase -= gba_seq_div(phase, seq) * seq;
+                cost = (units - used) * seq - phase;
                 g->machine.prefetch_phase = 0;
             }
         } else if (!fetch || !sequential) {
@@ -148,7 +151,12 @@ static unsigned gba_bus_wait(gba_t *g, uint32_t a, unsigned width, int sequentia
     }
     g->access_cycles += cost;
     if (g->stepping) {
-        gba_advance(g, cost);
+#if GBA_FAST_CPU
+        if (g->cpu_bulk && !g->dma_running) {
+            gba_cpu_charge(g, cost);
+        } else
+#endif
+            gba_advance(g, cost);
     }
     return cost;
 }
@@ -284,7 +292,50 @@ static uint32_t gba_open_bus(const gba_t *g) {
     }
     return g->machine.open_bus;
 }
+#if GBA_FAST_CPU && !GBA_TEST_MODE
+static uint32_t gba_timer_visible_counter(const gba_t *g,unsigned ch) {
+    const gba_timer_t *t=&g->machine.timer[ch];
+    uint32_t counter=t->counter;
+    if((t->control&0x80) && !t->startup && !(ch && (t->control&4))) {
+        static const unsigned shift[4]={0,6,8,10};
+        uint32_t steps=(t->phase+g->cpu_pending)>>shift[t->control&3];
+#if GBA_DYNAREC_SOFT_TIMERS
+        uint32_t distance=0x10000u-counter;
+        if(steps>=distance)return t->reload+(steps-distance)%(0x10000u-t->reload);
+#endif
+        counter+=steps;
+    }
+    return counter&0xffff;
+}
+#endif
 static uint32_t gba_io_read(gba_t *g, unsigned a, unsigned width) {
+    unsigned virtual_timer = 0;
+    (void)virtual_timer;
+#if GBA_FAST_CPU && !GBA_TEST_MODE
+    virtual_timer = a < 0x110 && a + width > 0x100 && g->cpu_bulk && g->stepping && !g->dma_running;
+#if GBA_BATCH_EVENTS
+    if (g->deferred_cycles) virtual_timer = 0;
+#endif
+#endif
+#if GBA_FAST_CPU
+    /* Static registers and PPU/APU status change at the event boundaries
+     * already enforced by each bus charge. Only running timer counters can
+     * expose time between those boundaries. */
+    if (a < 0x110 && a + width > 0x100 && !virtual_timer)
+        gba_cpu_sync(g);
+#endif
+#if GBA_BATCH_EVENTS
+    if (!virtual_timer) gba_flush_events(g);
+#endif
+#if GBA_FAST_CPU && !GBA_TEST_MODE
+    if (virtual_timer && a >= 0x100 && a + width <= 0x110 && (a & 3) + width <= 4) {
+        unsigned ch = (a - 0x100) / 4;
+        uint32_t counter=gba_timer_visible_counter(g,ch);
+        uint32_t combined = (counter & 0xffff) | ((uint32_t)(gba_io16(g, 0x102 + ch*4) & (ch ? 0xc7 : 0xc3)) << 16);
+        combined >>= (a & 3)*8;
+        return width == 4 ? combined : width == 2 ? combined & 0xffff : combined & 255;
+    }
+#endif
     uint8_t bytes[4];
     for (unsigned i = 0; i < width; i++) {
         unsigned index = a + i, aligned = index & ~1u;
@@ -295,7 +346,17 @@ static uint32_t gba_io_read(gba_t *g, unsigned a, unsigned width) {
             continue;
         }
         if (aligned >= 0x100 && aligned < 0x110 && !(aligned & 2)) {
-            value = (uint16_t)g->machine.timer[(aligned - 0x100) / 4].counter;
+            unsigned ch = (aligned - 0x100) / 4;
+            const gba_timer_t *t = &g->machine.timer[ch];
+            value = (uint16_t)t->counter;
+#if GBA_FAST_CPU && !GBA_TEST_MODE
+            /* Bus charging already stops at startup, overflow, reload and DMA/
+             * IRQ deadlines. Project only the visible counter within that
+             * interval instead of advancing every device on each poll. */
+            if (virtual_timer && (t->control & 0x80) && !t->startup && !(ch && (t->control & 4))) {
+                value=(uint16_t)gba_timer_visible_counter(g,ch);
+            }
+#endif
         } else if (aligned == 0x84) {
             value = gba_io16(g, 0x84) & 0x80;
             for (unsigned ch = 0; ch < 4; ch++) {
@@ -318,6 +379,24 @@ uint32_t gba_bus_read(gba_t *g, uint32_t address, unsigned width, int sequential
     gba_bus_wait(g, a, width, sequential, fetch);
     unsigned region = a >> 24;
     uint32_t offset = a & 0x1ffffff;
+#if GBA_FAST_WAIT && !GBA_TEST_MODE
+    if(region==4 && ((a&0xffffff)==4 || (a&0xffffff)==6))g->wait.ppu_read=1;
+    if (region != 2 && region != 3 &&
+        !(region >= 8 && region <= 12 && g->rom && offset < g->rom_size && width <= g->rom_size - offset &&
+            !(g->machine.cart.rtc_enabled && g->machine.cart.gpio_control && offset >= 0xc4 && offset <= 0xc9)) &&
+        !(region == 4 && (((a & 0xffffff) == 4 || (a & 0xffffff) == 6) && width == 2)) &&
+        !(region == 4 && (a & 0xffffff) == 0x130 && (width == 2 || width == 4)) &&
+        !(region == 4 && (a & 0xffffff) >= 0x100 && (a & 0xffffff) <= 0x10c && !(a & 3) && width == 2))
+        gba_wait_invalidate(g);
+#endif
+#if GBA_IDLE_LOOPS && !GBA_TEST_MODE
+    /* RAM and immutable resident ROM are stable until the next hardware event.
+     * MMIO, BIOS, cartridge devices and out-of-range/open-bus reads are not. */
+    if (region != 2 && region != 3 &&
+        !(region >= 8 && region <= 12 && g->rom && offset < g->rom_size && width <= g->rom_size - offset &&
+            !(g->machine.cart.rtc_enabled && g->machine.cart.gpio_control && offset >= 0xc4 && offset <= 0xc9)))
+        gba_idle_invalidate(g);
+#endif
     if (region >= 8 && region <= 12 && g->rom && offset < g->rom_size && width <= g->rom_size - offset &&
         !(g->machine.cart.rtc_enabled && g->machine.cart.gpio_control && offset >= 0xc4 && offset <= 0xc9)) {
         p = g->rom + offset;
@@ -381,13 +460,85 @@ uint32_t gba_bus_read(gba_t *g, uint32_t address, unsigned width, int sequential
         g->machine.last_fetch = a;
         g->machine.open_bus = width == 2 ? value | (value << 16) : value;
     }
+#if GBA_FAST_WAIT && !GBA_TEST_MODE
+    if (g->wait.valid && region == 4 && (a & 0xffffff) >= 0x100 && (a & 0xffffff) <= 0x10c && !(a & 3) && width == 2) {
+        unsigned ch = ((a & 0xffffff) - 0x100) / 4;
+        const gba_timer_t *t = &g->machine.timer[ch];
+        if ((t->control & 0x80) && !(ch && (t->control & 4)) && !t->startup) {
+            static const unsigned shifts[4] = {0, 6, 8, 10};
+            uint32_t clock = g->machine.cycles + g->cpu_pending;
+            uint32_t phase = t->phase;
+#if GBA_FAST_CPU
+            phase = (phase + g->cpu_pending) & ((1u << shifts[t->control & 3]) - 1);
+#endif
+            uint32_t distance = (1u << shifts[t->control & 3]) - phase;
+            uint32_t stable = g->wait.stable_until - clock;
+            if (!g->wait.timer_read || stable > 1024 || stable > distance)
+                g->wait.stable_until = clock + distance;
+            g->wait.timer_read |= 1u << ch;
+        }
+    }
+    if (!fetch && g->wait.valid)
+        g->wait.read_hash = ((g->wait.read_hash ^ a) * 16777619u ^ value) * 16777619u;
+#endif
     gba_dma_drain(g);
     return width == 1 ? value & 0xff : width == 2 ? value & 0xffff : value;
 }
+#if GBA_FAST_CPU
+uint32_t gba_bus_fetch(gba_t *g, uint32_t address, unsigned width, int sequential) {
+    uint32_t a = address & ~(uint32_t)(width - 1), tag = a & ~0xfffu;
+    unsigned region = a >> 24;
+    const uint8_t *page;
+    /* Never cache the GPIO page: enable/control can change without changing
+     * the virtual PC. Device, BIOS, streaming and partial ROM pages fall back. */
+    if (g->fetch_page && g->fetch_page_tag == tag)
+        page = g->fetch_page;
+    else {
+        uint32_t offset = tag & 0x1ffffff;
+        if (region == 2 || region == 3)
+            page = gba_region(g, tag);
+        else if (region >= 8 && region <= 12 && g->rom && offset < g->rom_size && 4096 <= g->rom_size - offset &&
+                 !(g->machine.cart.rtc_enabled && !offset))
+            page = g->rom + offset;
+        else
+            return gba_bus_read(g, address, width, sequential, 1);
+        g->fetch_page = page;
+        g->fetch_page_tag = tag;
+    }
+    gba_bus_wait(g, a, width, sequential, 1);
+    const uint8_t *p = page + (a & 0xfff);
+    uint32_t value = width == 2 ? gba_le16(p) : gba_le32(p);
+    g->machine.last_fetch = a;
+    g->machine.open_bus = width == 2 ? value | (value << 16) : value;
+    gba_dma_drain(g);
+    return value;
+}
+#endif
 void gba_bus_write(gba_t *g, uint32_t address, uint32_t value, unsigned width, int sequential) {
+#if GBA_FAST_WAIT && !GBA_TEST_MODE
+    if (g->wait.valid && !g->dma_running)
+        g->wait.reject_pc = g->wait.pc;
+#endif
+    gba_wait_invalidate(g);
+    gba_idle_invalidate(g);
     uint32_t a = address & ~(uint32_t)(width - 1);
     uint8_t *p = gba_region(g, a);
     gba_bus_wait(g, a, width, sequential, 0);
+#if GBA_DYNAREC
+    if (p && ((a >> 24) == 2 || (a >> 24) == 3)) {
+#if GBA_DYNAREC_PAGE_INDEX
+        uint32_t previous=width==1?*p:width==2?gba_le16(p):gba_le32(p);
+        uint32_t written=width==1?(uint8_t)value:width==2?(uint16_t)value:value;
+        if(previous==written) {
+#if GBA_DYNAREC_STATS
+            gba_dynarec_same_value(g);
+#endif
+        }
+        else
+#endif
+        gba_dynarec_invalidate(g, a, width);
+    }
+#endif
     if (p) {
         unsigned region = a >> 24;
         if (width == 1 && region >= 5 && region <= 7) {
@@ -403,10 +554,16 @@ void gba_bus_write(gba_t *g, uint32_t address, uint32_t value, unsigned width, i
                 }
             }
             p = gba_region(g, a & ~1u);
+            if (gba_le16(p) != (uint16_t)((value & 0xff) * 0x101u))
+                gba_video_write(g, region, a & ~1u, 2, (value & 0xff) * 0x101u);
             gba_put16(p, (uint16_t)((value & 0xff) * 0x101u));
         } else if (width == 4) {
+            if (region >= 5 && region <= 7 && gba_le32(p) != value)
+                gba_video_write(g, region, a, 4, value);
             gba_put32(p, value);
         } else if (width == 2) {
+            if (region >= 5 && region <= 7 && gba_le16(p) != (uint16_t)value)
+                gba_video_write(g, region, a, 2, value);
             gba_put16(p, (uint16_t)value);
         } else {
             *p = (uint8_t)value;
@@ -438,6 +595,12 @@ void gba_write32(gba_t *g, uint32_t a, uint32_t v) {
 }
 
 void gba_io_write(gba_t *g, unsigned a, uint32_t value, unsigned width) {
+#if GBA_FAST_CPU
+    gba_cpu_sync(g);
+#endif
+#if GBA_BATCH_EVENTS
+    gba_flush_events(g);
+#endif
     g->event_cycles = 0;
     if (a >= 0x400) {
         return;
@@ -582,6 +745,7 @@ void gba_io_write(gba_t *g, unsigned a, uint32_t value, unsigned width) {
             g->machine.dma[ch].control = merged;
             g->machine.dma[ch].pending = 0;
             g->machine.dma[ch].startup = 0;
+            gba_dma_refresh_ready(g);
         }
     }
     if (base >= 0x28 && base <= 0x3e) {

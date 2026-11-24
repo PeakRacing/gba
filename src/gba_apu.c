@@ -163,18 +163,28 @@ static void gba_apu_sequencer(gba_t *g) {
     a->sequencer_step = (step + 1) & 7;
 }
 #if GBA_ENABLE_SOUND
-static int gba_apu_level(gba_t *g, unsigned ch) {
+typedef struct {
+    uint16_t master,direct,enable,bias;
+    uint16_t duty[2],wave_control,wave_volume;
+} gba_apu_sample_cache_t;
+static void gba_apu_sample_cache_read(gba_t *g,gba_apu_sample_cache_t *s) {
+    s->master=gba_io16(g,0x80);s->direct=gba_io16(g,0x82);
+    s->enable=gba_io16(g,0x84);s->bias=gba_io16(g,0x88)&0x3ff;
+    s->duty[0]=gba_io16(g,0x62);s->duty[1]=gba_io16(g,0x68);
+    s->wave_control=gba_io16(g,0x70);s->wave_volume=gba_io16(g,0x72);
+}
+static int gba_apu_level(gba_t *g,const gba_apu_sample_cache_t *s,unsigned ch) {
     gba_apu_t *a = &g->machine.apu;
     gba_apu_channel_t *c = &a->channel[ch];
     if (!c->enabled) {
         return 0;
     }
     if (ch < 2) {
-        unsigned duty = (gba_io16(g, gba_sound_base[ch]) >> 6) & 3;
+        unsigned duty = (s->duty[ch] >> 6) & 3;
         return (gba_duty[duty] & (1u << (c->position & 7))) ? (int)c->volume : -(int)c->volume;
     }
     if (ch == 2) {
-        uint16_t control = gba_io16(g, 0x70), volume = gba_io16(g, 0x72);
+        uint16_t control = s->wave_control, volume = s->wave_volume;
         unsigned position = c->position & ((control & 0x20) ? 63 : 31);
         unsigned bank = ((control >> 6) & 1) * 16;
         unsigned packed = a->wave[(bank + position / 2) & 31];
@@ -187,12 +197,12 @@ static int gba_apu_level(gba_t *g, unsigned ch) {
     }
     return (c->lfsr & 1) ? -(int)c->volume : (int)c->volume;
 }
-static void gba_apu_sample(gba_t *g) {
-    uint16_t master = gba_io16(g, 0x80), direct = gba_io16(g, 0x82);
+static void gba_apu_sample(gba_t *g,const gba_apu_sample_cache_t *s) {
+    uint16_t master = s->master, direct = s->direct;
     int left = 0, right = 0;
-    if (gba_io16(g, 0x84) & 0x80) {
+    if (s->enable & 0x80) {
         for (unsigned ch = 0; ch < 4; ch++) {
-            int level = gba_apu_level(g, ch);
+            int level = gba_apu_level(g, s, ch);
             if (master & (1u << (12 + ch))) {
                 left += level;
             }
@@ -216,7 +226,7 @@ static void gba_apu_sample(gba_t *g) {
             }
         }
     }
-    int bias = gba_io16(g, 0x88) & 0x3ff;
+    int bias = s->bias;
     left += bias;
     right += bias;
     if (left < 0) {
@@ -246,26 +256,19 @@ static void gba_apu_sample(gba_t *g) {
     }
 }
 #endif
-void gba_apu_advance(gba_t *g, uint32_t cycles) {
+static void gba_apu_advance_channels(gba_t *g, uint32_t cycles,const uint32_t period[4],unsigned active) {
     gba_apu_t *a = &g->machine.apu;
     for (unsigned ch = 0; ch < 4; ch++) {
         gba_apu_channel_t *c = &a->channel[ch];
-        if (!c->enabled) {
+        if (!c->enabled || !(active&(1u<<ch))) {
             continue;
-        }
-        uint32_t period;
-        if (ch < 3) {
-            period = (2048 - (gba_io16(g, gba_sound_control[ch]) & 0x7ff)) * (ch == 2 ? 8 : 16);
-        } else {
-            unsigned noise = gba_io16(g, 0x7c), divisor = noise & 7;
-            period = (divisor ? divisor * 16 : 8) * 4u << ((noise >> 4) & 15);
         }
         c->phase += cycles;
-        if (c->phase < period) {
+        if (c->phase < period[ch]) {
             continue;
         }
-        uint32_t steps = c->phase / period;
-        c->phase %= period;
+        uint32_t steps = c->phase / period[ch];
+        c->phase %= period[ch];
         if (ch == 3) {
             while (steps--) {
                 uint32_t bit = (c->lfsr ^ (c->lfsr >> 1)) & 1;
@@ -279,15 +282,68 @@ void gba_apu_advance(gba_t *g, uint32_t cycles) {
         }
     }
     a->sequencer_phase += cycles;
-    if (a->sequencer_phase >= 32768) {
-        a->sequencer_phase -= 32768;
-        gba_apu_sequencer(g);
+}
+void gba_apu_advance(gba_t *g, uint32_t cycles) {
+    gba_apu_t *a = &g->machine.apu;
+    /* Only active channels consume a period, and every active slot is filled
+     * below. Avoid a compiler-synthesized libc memset in freestanding ports. */
+    uint32_t period[4];unsigned active=0;
+    for(unsigned ch=0;ch<4;ch++) {
+        if(!a->channel[ch].enabled)continue;
+        active|=1u<<ch;
+        if(ch<3)period[ch]=(2048-(gba_io16(g,gba_sound_control[ch])&0x7ff))*(ch==2?8:16);
+        else {
+            unsigned noise=gba_io16(g,0x7c),divisor=noise&7;
+            period[ch]=(divisor?divisor*16:8)*4u<<((noise>>4)&15);
+        }
     }
 #if GBA_ENABLE_SOUND
-    a->sample_phase += cycles * GBA_APU_SAMPLE_RATE;
-    if (a->sample_phase >= GBA_CPU_CLOCK) {
+    gba_apu_sample_cache_t sample_cache;
+#if GBA_APU_LAZY_MIX
+    /* Most short device advances do not emit PCM. Read mixer registers only
+     * at the first due sample, retaining the same per-call snapshot lifetime. */
+    unsigned sample_ready=0;
+#else
+    gba_apu_sample_cache_read(g,&sample_cache);
+#endif
+    /* CPU/event batching may span several PCM boundaries. Advance every due
+     * sample in order; retaining a full period would halve the output rate. */
+    while (a->sample_phase >= GBA_CPU_CLOCK) {
         a->sample_phase -= GBA_CPU_CLOCK;
-        gba_apu_sample(g);
+#if GBA_APU_LAZY_MIX
+        if(!sample_ready){gba_apu_sample_cache_read(g,&sample_cache);sample_ready=1;}
+#endif
+        gba_apu_sample(g,&sample_cache);
     }
 #endif
+    while (cycles) {
+        uint32_t part = cycles;
+        uint32_t sequencer = 32768u - a->sequencer_phase;
+        if (sequencer < part)
+            part = sequencer;
+#if GBA_ENABLE_SOUND
+        uint32_t sample = (GBA_CPU_CLOCK - a->sample_phase + GBA_APU_SAMPLE_RATE - 1) /
+            GBA_APU_SAMPLE_RATE;
+        if (sample < part)
+            part = sample;
+#endif
+        if (!part)
+            part = 1;
+        gba_apu_advance_channels(g, part, period,active);
+        if (a->sequencer_phase >= 32768) {
+            a->sequencer_phase -= 32768;
+            gba_apu_sequencer(g);
+        }
+#if GBA_ENABLE_SOUND
+        a->sample_phase += part * GBA_APU_SAMPLE_RATE;
+        if (a->sample_phase >= GBA_CPU_CLOCK) {
+            a->sample_phase -= GBA_CPU_CLOCK;
+#if GBA_APU_LAZY_MIX
+            if(!sample_ready){gba_apu_sample_cache_read(g,&sample_cache);sample_ready=1;}
+#endif
+            gba_apu_sample(g,&sample_cache);
+        }
+#endif
+        cycles -= part;
+    }
 }

@@ -1,0 +1,3851 @@
+{
+  "date": "2026-10-15",
+  "scope": "GBA directory only; no commit, push, firmware or flashing",
+  "source_sha256": {
+    "inc\\gba.h": "15a4489ea88d1c6c9aef127678285a1ae288cd3a099f753a530adcd8a275fb7d",
+    "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+    "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+    "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+    "inc\\gba_cart.h": "1ef7690270a892fb28e39a914c5af73010b860e7da8cac18ad7b067f3fc54075",
+    "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+    "inc\\gba_default.h": "77156618aab94fdaa790c8bfd87a65f6f0523783ec1fb2eb6de1880aebb5cb25",
+    "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+    "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+    "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+    "inc\\gba_state.h": "c163dac6cc76f64efa42533feffe20ded2b1e1dd00dd33409c2959012594ab15",
+    "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+    "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+    "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+    "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+    "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+    "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+    "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+    "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+    "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+    "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+    "src\\gba_dynarec.c": "c1465e198eda935e0f66967f952cd8c4b44f5b11914700448a38c33ddaca1416",
+    "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+    "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+    "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+    "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+    "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+    "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+    "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+  },
+  "frozen_source": "test/out/pre-dynarec-20261015",
+  "headers": {
+    "passed": true,
+    "checks": [
+      {
+        "header": "gba.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": false,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": false,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_apu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bios.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_bus.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cart.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_cpu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_default.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_dynarec.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_log.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_ppu.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_state.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": true,
+        "definitions": [],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_FAST_CORE=1"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_USE_FS=1",
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_ENABLE_SOUND=1",
+          "GBA_ROM_STREAM=1",
+          "GBA_RAM_LACK=1",
+          "GBA_COLOR_DEPTH=32"
+        ],
+        "passed": true
+      },
+      {
+        "header": "gba_timer.h",
+        "cpp": true,
+        "definitions": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_PORT_FAST_RUN=1"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_DYNAREC=1"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_DYNAREC=2"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_FAST_ALU=1",
+          "GBA_FAST_CPU=0"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_ENABLE_SAVE_STATE=1",
+          "GBA_USE_FS=0"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_PORT_BATCH_EVENTS=1",
+          "GBA_BATCH_EVENTS=0"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_PORT_FAST_RUN=1",
+          "GBA_FAST_RUN=0"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_PORT_FAST_IO=1",
+          "GBA_FAST_IO=0"
+        ],
+        "passed": true
+      },
+      {
+        "rejected": [
+          "GBA_PORT_IDLE_LOOPS=1",
+          "GBA_IDLE_LOOPS=0"
+        ],
+        "passed": true
+      }
+    ]
+  },
+  "interpreter_production_benchmark": {
+    "production_probes": false,
+    "fast_core": false,
+    "rows": [
+      {
+        "configuration": "565",
+        "rom": "ace_attorney.gba",
+        "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          2972631,
+          2762620,
+          2832863,
+          2687924,
+          2649369
+        ],
+        "current_us": [
+          2779271,
+          2817906,
+          2569193,
+          2647054,
+          2647257
+        ],
+        "median_baseline_us": 2762620,
+        "median_current_us": 2647257,
+        "last_batch_change_percent": -4.175854804497181,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=0800024e fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "565",
+        "rom": "fire_emblem.gba",
+        "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1618172,
+          1709214,
+          1698004,
+          1697774,
+          1754186
+        ],
+        "current_us": [
+          1565571,
+          1752233,
+          1659410,
+          1847719,
+          1736854
+        ],
+        "median_baseline_us": 1698004,
+        "median_current_us": 1736854,
+        "last_batch_change_percent": 2.287980475899931,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080c05b4 fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "565",
+        "rom": "fzero.gba",
+        "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          4292270,
+          3734522,
+          3583922,
+          3817287,
+          3460259
+        ],
+        "current_us": [
+          3721843,
+          3774096,
+          3707027,
+          3455781,
+          3285176
+        ],
+        "median_baseline_us": 3734522,
+        "median_current_us": 3707027,
+        "last_batch_change_percent": -0.7362388011102894,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08000c26 fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "565",
+        "rom": "golden_sun.gba",
+        "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1271720,
+          1211770,
+          1204562,
+          1219849,
+          1190779
+        ],
+        "current_us": [
+          1194584,
+          1216518,
+          1190529,
+          1212086,
+          1256356
+        ],
+        "median_baseline_us": 1211770,
+        "median_current_us": 1212086,
+        "last_batch_change_percent": 0.026077555971837363,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=030061f8 fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "565",
+        "rom": "mario_advance.gba",
+        "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3117924,
+          3312870,
+          3747092,
+          3415044,
+          3437798
+        ],
+        "current_us": [
+          2979154,
+          3123158,
+          3404284,
+          3450097,
+          3319208
+        ],
+        "median_baseline_us": 3415044,
+        "median_current_us": 3319208,
+        "last_batch_change_percent": -2.8062888794404994,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08001c7c fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "565",
+        "rom": "metroid_fusion.gba",
+        "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          995238,
+          949202,
+          939399,
+          968929,
+          1029273
+        ],
+        "current_us": [
+          1067951,
+          1003693,
+          1002779,
+          1011847,
+          1016741
+        ],
+        "median_baseline_us": 968929,
+        "median_current_us": 1011847,
+        "last_batch_change_percent": 4.4294267175406965,
+        "batches": 1,
+        "output": "frames=721 us=TIME pc=0800075c fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "565",
+        "rom": "pokemon_emerald.gba",
+        "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          5529997,
+          4039997,
+          3693444,
+          3857599,
+          3848057,
+          3718315,
+          3683401,
+          3722157,
+          3813721,
+          3595716
+        ],
+        "current_us": [
+          4250698,
+          4075567,
+          3729695,
+          3606091,
+          4771649,
+          3811621,
+          3419502,
+          3746767,
+          4337284,
+          3721913
+        ],
+        "median_baseline_us": 3767939.0,
+        "median_current_us": 3779194.0,
+        "last_batch_change_percent": 0.7651853057097036,
+        "batches": 2,
+        "output": "frames=720 us=TIME pc=080008c8 fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "565",
+        "rom": "zelda_minish.gba",
+        "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1639822,
+          1558793,
+          1627227,
+          1543862,
+          1588892
+        ],
+        "current_us": [
+          1517125,
+          1537035,
+          1635789,
+          1549934,
+          1639895
+        ],
+        "median_baseline_us": 1588892,
+        "median_current_us": 1549934,
+        "last_batch_change_percent": -2.451897296984318,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080b12a0 fault=0 context=7520 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "ace_attorney.gba",
+        "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3257454,
+          2682999,
+          2790305,
+          2754414,
+          2867303
+        ],
+        "current_us": [
+          2986155,
+          2683223,
+          2750699,
+          2735817,
+          2780738
+        ],
+        "median_baseline_us": 2790305,
+        "median_current_us": 2750699,
+        "last_batch_change_percent": -1.4194147234800503,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=0800024e fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "fire_emblem.gba",
+        "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1852607,
+          1865531,
+          1811670,
+          1836319,
+          1698557
+        ],
+        "current_us": [
+          1796020,
+          2015089,
+          1938933,
+          1881744,
+          1693882
+        ],
+        "median_baseline_us": 1836319,
+        "median_current_us": 1881744,
+        "last_batch_change_percent": 2.473698741885255,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080c05b4 fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "fzero.gba",
+        "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3781672,
+          3756495,
+          3694692,
+          3939019,
+          3685340
+        ],
+        "current_us": [
+          3676773,
+          3912754,
+          3656735,
+          3509867,
+          3593942
+        ],
+        "median_baseline_us": 3756495,
+        "median_current_us": 3656735,
+        "last_batch_change_percent": -2.6556670513337544,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08000c26 fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "golden_sun.gba",
+        "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1317080,
+          1410774,
+          1346157,
+          1458000,
+          1295755
+        ],
+        "current_us": [
+          1279452,
+          1246361,
+          1338331,
+          1404930,
+          1323458
+        ],
+        "median_baseline_us": 1346157,
+        "median_current_us": 1323458,
+        "last_batch_change_percent": -1.68620747802819,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=030061f8 fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "mario_advance.gba",
+        "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3477835,
+          3290635,
+          3345410,
+          3588698,
+          3438046
+        ],
+        "current_us": [
+          3302231,
+          3507323,
+          3357830,
+          3500055,
+          3433321
+        ],
+        "median_baseline_us": 3438046,
+        "median_current_us": 3433321,
+        "last_batch_change_percent": -0.13743271614167218,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08001c7c fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "metroid_fusion.gba",
+        "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1024461,
+          1024473,
+          1001539,
+          1056631,
+          1043467
+        ],
+        "current_us": [
+          1048695,
+          1164180,
+          979051,
+          1016995,
+          1023662
+        ],
+        "median_baseline_us": 1024473,
+        "median_current_us": 1023662,
+        "last_batch_change_percent": -0.07916265240762721,
+        "batches": 1,
+        "output": "frames=721 us=TIME pc=0800075c fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "pokemon_emerald.gba",
+        "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3590638,
+          4007698,
+          3867971,
+          3848927,
+          3722481
+        ],
+        "current_us": [
+          4002353,
+          4239415,
+          4115474,
+          3704815,
+          4006092
+        ],
+        "median_baseline_us": 3848927,
+        "median_current_us": 4006092,
+        "last_batch_change_percent": 4.083345825992546,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080008c8 fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "32",
+        "rom": "zelda_minish.gba",
+        "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1717644,
+          1723021,
+          1754064,
+          1725449,
+          1689139
+        ],
+        "current_us": [
+          1730425,
+          1731349,
+          1620361,
+          1659989,
+          1651436
+        ],
+        "median_baseline_us": 1723021,
+        "median_current_us": 1659989,
+        "last_batch_change_percent": -3.658225871884324,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080b12a0 fault=0 context=7520 memory=679936 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "ace_attorney.gba",
+        "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3292780,
+          4358441,
+          3360680,
+          3295237,
+          3327036
+        ],
+        "current_us": [
+          3557950,
+          3546967,
+          3181202,
+          3353701,
+          3189281
+        ],
+        "median_baseline_us": 3327036,
+        "median_current_us": 3353701,
+        "last_batch_change_percent": 0.8014641260268851,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=0800024e fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "fire_emblem.gba",
+        "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1915511,
+          2056477,
+          1967130,
+          2020912,
+          2098172,
+          1987711,
+          1970717,
+          1951829,
+          1943378,
+          1961508
+        ],
+        "current_us": [
+          2186572,
+          1981999,
+          2500262,
+          2042348,
+          2151020,
+          1873984,
+          1999301,
+          2094384,
+          1985850,
+          1891517
+        ],
+        "median_baseline_us": 1968923.5,
+        "median_current_us": 2020824.5,
+        "last_batch_change_percent": 1.2409839776335252,
+        "batches": 2,
+        "output": "frames=720 us=TIME pc=080c05b4 fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "fzero.gba",
+        "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          4451354,
+          4390457,
+          4386943,
+          4791156,
+          5595066
+        ],
+        "current_us": [
+          4160910,
+          4311494,
+          4461942,
+          4375485,
+          4844574
+        ],
+        "median_baseline_us": 4451354,
+        "median_current_us": 4375485,
+        "last_batch_change_percent": -1.7044027502643,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08000c26 fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "golden_sun.gba",
+        "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1497011,
+          1507580,
+          1578066,
+          1577991,
+          1525307
+        ],
+        "current_us": [
+          1534645,
+          1491522,
+          1461621,
+          1430512,
+          1468632
+        ],
+        "median_baseline_us": 1525307,
+        "median_current_us": 1468632,
+        "last_batch_change_percent": -3.7156454405572137,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=030061f8 fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "mario_advance.gba",
+        "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          4213875,
+          4350782,
+          4105297,
+          4128250,
+          4165323
+        ],
+        "current_us": [
+          4020188,
+          4216904,
+          4442134,
+          4191047,
+          3955943
+        ],
+        "median_baseline_us": 4165323,
+        "median_current_us": 4191047,
+        "last_batch_change_percent": 0.6175751556361853,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08001c7c fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "metroid_fusion.gba",
+        "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1123098,
+          1047233,
+          986511,
+          1079770,
+          1053746
+        ],
+        "current_us": [
+          1133242,
+          1031272,
+          998788,
+          1011044,
+          1064422
+        ],
+        "median_baseline_us": 1053746,
+        "median_current_us": 1031272,
+        "last_batch_change_percent": -2.1327720342473433,
+        "batches": 1,
+        "output": "frames=721 us=TIME pc=0800075c fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "pokemon_emerald.gba",
+        "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          4372044,
+          4547295,
+          4264861,
+          4396750,
+          4377958
+        ],
+        "current_us": [
+          4352054,
+          4401589,
+          4258478,
+          4171290,
+          4290256
+        ],
+        "median_baseline_us": 4377958,
+        "median_current_us": 4290256,
+        "last_batch_change_percent": -2.0032627083220067,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080008c8 fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "stream",
+        "rom": "zelda_minish.gba",
+        "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          2397467,
+          1874559,
+          1976246,
+          1838361,
+          1846176
+        ],
+        "current_us": [
+          1868629,
+          1838795,
+          1869324,
+          1830086,
+          1888629
+        ],
+        "median_baseline_us": 1874559,
+        "median_current_us": 1868629,
+        "last_batch_change_percent": -0.3163410700863456,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080b12a0 fault=0 context=7520 memory=597504 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "ace_attorney.gba",
+        "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          2880650,
+          2962516,
+          2888582,
+          2756264,
+          2804872
+        ],
+        "current_us": [
+          2798590,
+          2885813,
+          2997107,
+          3167992,
+          2935083
+        ],
+        "median_baseline_us": 2880650,
+        "median_current_us": 2935083,
+        "last_batch_change_percent": 1.8896082481384413,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=0800024e fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "fire_emblem.gba",
+        "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1641232,
+          1698697,
+          1628054,
+          1639604,
+          1603703
+        ],
+        "current_us": [
+          1680803,
+          1694410,
+          1671053,
+          1736891,
+          1612938
+        ],
+        "median_baseline_us": 1639604,
+        "median_current_us": 1680803,
+        "last_batch_change_percent": 2.512740881334752,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080c05b4 fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "fzero.gba",
+        "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3564210,
+          4031143,
+          3982543,
+          3767449,
+          3847827
+        ],
+        "current_us": [
+          3567097,
+          3625964,
+          4006436,
+          4313282,
+          3768843
+        ],
+        "median_baseline_us": 3847827,
+        "median_current_us": 3768843,
+        "last_batch_change_percent": -2.0526910383445007,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08000c26 fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "golden_sun.gba",
+        "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1337900,
+          1436166,
+          1500502,
+          1345692,
+          1303429
+        ],
+        "current_us": [
+          1375302,
+          1387371,
+          1529887,
+          1466758,
+          1358681
+        ],
+        "median_baseline_us": 1345692,
+        "median_current_us": 1387371,
+        "last_batch_change_percent": 3.097216896585553,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=030061f8 fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "mario_advance.gba",
+        "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3510500,
+          4127891,
+          3809934,
+          3467664,
+          3768638
+        ],
+        "current_us": [
+          3742040,
+          3210247,
+          3488617,
+          3507069,
+          3436944
+        ],
+        "median_baseline_us": 3768638,
+        "median_current_us": 3488617,
+        "last_batch_change_percent": -7.430297099376482,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=08001c7c fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "metroid_fusion.gba",
+        "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          950473,
+          949056,
+          1009168,
+          938122,
+          933692
+        ],
+        "current_us": [
+          1003232,
+          940072,
+          969912,
+          966801,
+          956783
+        ],
+        "median_baseline_us": 949056,
+        "median_current_us": 966801,
+        "last_batch_change_percent": 1.8697526805583564,
+        "batches": 1,
+        "output": "frames=721 us=TIME pc=0800075c fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "pokemon_emerald.gba",
+        "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          3910143,
+          3971531,
+          3674690,
+          3684032,
+          3665103,
+          3745488,
+          3628081,
+          3622409,
+          3816984,
+          3674200
+        ],
+        "current_us": [
+          3916503,
+          4454753,
+          3805455,
+          3814776,
+          3961977,
+          3683195,
+          3658699,
+          3564903,
+          3599131,
+          3833225
+        ],
+        "median_baseline_us": 3679361.0,
+        "median_current_us": 3810115.5,
+        "last_batch_change_percent": -0.421887757879269,
+        "batches": 2,
+        "output": "frames=720 us=TIME pc=080008c8 fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      },
+      {
+        "configuration": "silent",
+        "rom": "zelda_minish.gba",
+        "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+        "frames": 600,
+        "warmup": 120,
+        "baseline_us": [
+          1690763,
+          1565194,
+          1595974,
+          1957063,
+          1571304
+        ],
+        "current_us": [
+          1582888,
+          1589040,
+          1572615,
+          1635874,
+          1616112
+        ],
+        "median_baseline_us": 1595974,
+        "median_current_us": 1589040,
+        "last_batch_change_percent": -0.4344682306854586,
+        "batches": 1,
+        "output": "frames=720 us=TIME pc=080b12a0 fault=0 context=6488 memory=603136 test=0 profile=0",
+        "regression": false
+      }
+    ]
+  },
+  "cross": [
+    {
+      "Config": "default",
+      "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  27252\t      0\t 609260\t 636512\t  9b660\ttest/out/cross/default/smoke.elf",
+      "LargestFunctions": [
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:499:6:gba_ppu_render",
+          "Bytes": 656,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:137:5:gba_reset",
+          "Bytes": 504,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+          "Bytes": 312,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:366:13:gba_objects",
+          "Bytes": 136,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+          "Bytes": 128,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+          "Bytes": 88,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:1080:10:gba_cpu_execute",
+          "Bytes": 80,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+          "Bytes": 80,
+          "Kind": "static"
+        }
+      ]
+    },
+    {
+      "Config": "minimal",
+      "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  19564\t      0\t 439788\t 459352\t  70258\ttest/out/cross/minimal/smoke.elf",
+      "LargestFunctions": [
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:499:6:gba_ppu_render",
+          "Bytes": 656,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:137:5:gba_reset",
+          "Bytes": 504,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+          "Bytes": 312,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:366:13:gba_objects",
+          "Bytes": 136,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+          "Bytes": 128,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+          "Bytes": 88,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:1080:10:gba_cpu_execute",
+          "Bytes": 80,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+          "Bytes": 80,
+          "Kind": "static"
+        }
+      ]
+    },
+    {
+      "Config": "full",
+      "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  32828\t      0\t 687356\t 720184\t  afd38\ttest/out/cross/full/smoke.elf",
+      "LargestFunctions": [
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:656:5:gba_state_load_file",
+          "Bytes": 2856,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:499:6:gba_ppu_render",
+          "Bytes": 656,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:137:5:gba_reset",
+          "Bytes": 504,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:216:5:gba_persist_load",
+          "Bytes": 384,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:260:5:gba_persist_save",
+          "Bytes": 360,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:607:5:gba_state_save_file",
+          "Bytes": 352,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+          "Bytes": 312,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:333:13:gba_codec_bytes",
+          "Bytes": 280,
+          "Kind": "static"
+        }
+      ]
+    },
+    {
+      "Config": "stream",
+      "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  33148\t      0\t 604924\t 638072\t  9bc78\ttest/out/cross/stream/smoke.elf",
+      "LargestFunctions": [
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:656:5:gba_state_load_file",
+          "Bytes": 2856,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:499:6:gba_ppu_render",
+          "Bytes": 656,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:137:5:gba_reset",
+          "Bytes": 504,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:216:5:gba_persist_load",
+          "Bytes": 384,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:260:5:gba_persist_save",
+          "Bytes": 360,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:607:5:gba_state_save_file",
+          "Bytes": 352,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+          "Bytes": 312,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_storage.c:113:12:gba_write_atomic.isra",
+          "Bytes": 280,
+          "Kind": "static"
+        }
+      ]
+    },
+    {
+      "Config": "swap",
+      "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  27576\t      0\t 642028\t 669604\t  a37a4\ttest/out/cross/swap/smoke.elf",
+      "LargestFunctions": [
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:499:6:gba_ppu_render",
+          "Bytes": 656,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:137:5:gba_reset",
+          "Bytes": 504,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+          "Bytes": 312,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:366:13:gba_objects",
+          "Bytes": 136,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+          "Bytes": 136,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+          "Bytes": 88,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:1080:10:gba_cpu_execute",
+          "Bytes": 80,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+          "Bytes": 80,
+          "Kind": "static"
+        }
+      ]
+    },
+    {
+      "Config": "small_save",
+      "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  27216\t      0\t 478700\t 505916\t  7b83c\ttest/out/cross/small_save/smoke.elf",
+      "LargestFunctions": [
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:499:6:gba_ppu_render",
+          "Bytes": 656,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:137:5:gba_reset",
+          "Bytes": 504,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+          "Bytes": 312,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:366:13:gba_objects",
+          "Bytes": 136,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+          "Bytes": 128,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+          "Bytes": 88,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:1080:10:gba_cpu_execute",
+          "Bytes": 80,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:105:8:gba_init",
+          "Bytes": 80,
+          "Kind": "static"
+        }
+      ]
+    },
+    {
+      "Config": "fast_core",
+      "Size": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n  33376\t      0\t 717440\t 750816\t  b74e0\ttest/out/cross/fast_core/smoke.elf",
+      "LargestFunctions": [
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:499:6:gba_ppu_render",
+          "Bytes": 808,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:137:5:gba_reset",
+          "Bytes": 504,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cart.c:46:6:gba_cart_detect",
+          "Bytes": 312,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_ppu.c:366:13:gba_objects",
+          "Bytes": 144,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba.c:72:5:gba_init_static",
+          "Bytes": 128,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:1473:10:gba_cpu_run",
+          "Bytes": 112,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_bios.c:448:5:gba_bios_swi",
+          "Bytes": 88,
+          "Kind": "static"
+        },
+        {
+          "Function": "F:\\code\\codeup\\gba\\src\\gba_cpu.c:346:17:gba_arm",
+          "Bytes": 80,
+          "Kind": "static"
+        }
+      ]
+    }
+  ],
+  "native": {
+    "trace": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 29.088648899982218,
+      "fast_core": false,
+      "stream": false,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "d05d44ce1e1310ceb8177f2f851fa37896b44efacc416f7ecfd5cd51d4242f60",
+      "core_sha256": {
+        "inc\\gba.h": "bfa7e41d7498a68303b6795a0f1ed943d661b1d9e7af1a013e22ef33e4482269",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e58fe273d80d115b7a5a9746619e71472c141124a0d7754594b1e015e58239d0",
+        "inc\\gba_bus.h": "458ad4e26e8341a8145d10c8dcf5fe56e50af15efe8e9d61232863a7f03ecd68",
+        "inc\\gba_cart.h": "8486aa9ab844d48804855cc443ed93b4e5ac174a60dfae9a13bec0083e755efe",
+        "inc\\gba_cpu.h": "2ae4ffb552decb882d8afcdf742a2d01574941e872a71a7d29b413459f69d1e9",
+        "inc\\gba_default.h": "a549dd280c90fe55788221310696eb4e60ae63e410db4628eec85c03c8717d2f",
+        "inc\\gba_dynarec.h": "dddba7d08ff6e18070035f73d1465caaf05e9338bb6a9bf29e083bfb00251001",
+        "inc\\gba_log.h": "2e72c2cad6ffe9cf8726f21da4d2c353a3d5290f1b9a9b85ea90e21aabf894c8",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "0090b5ce2967e4c1f731d1eac8a6da405123ffe0ba8e36d887959e34bacca782",
+        "inc\\gba_timer.h": "3fd8dcf34cb9b4f9f11cff90e66f199033f633f90248ce8e12e72c732a396152",
+        "src\\gba.c": "f61e47dcd2e1f7d10f50ae2c225b33874520f4239a79c11911ca85645bce7238",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "1786ca48f5222b2671861767fe5cd240dc4d3573c43bf6a6826ba317eb54b10d",
+        "src\\gba_bus.c": "3536b6e3ae994aad9cce61f264c665be6eb9375e034632296f26c169bcae50a3",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cpu.c": "4bda942e879e85879bcd4ca11ef5c07c33c88d2fc3da33a510962d9d78d674f6",
+        "src\\gba_dynarec.c": "5fbe6cd26a4512b4f8495e7cee324ad2411194391d5f6ef9a260bb2bbd5aad2e",
+        "src\\gba_internal.h": "482be1ac36385bc6263592cc670a88581a65dc23eb0113c3724604e58cfa9950",
+        "src\\gba_ppu.c": "3ac6b8d5def9ee4bb263c2da92c83f5caef406d7d507ee7e4540c7e55f8f7294",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "6a723559ebf4eb4c1b2884696cff35513a4a172358bd384da0283142e75200ea"
+      },
+      "counters": {
+        "assertions": 1313580,
+        "failures": 0,
+        "native": 1572044,
+        "fallback": 54357,
+        "compiled": 90199,
+        "flushes": 55
+      }
+    },
+    "games": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 141.04730490001384,
+      "fast_core": false,
+      "stream": false,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "ace_attorney.gba",
+          "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "fire_emblem.gba",
+          "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "fzero.gba",
+          "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "golden_sun.gba",
+          "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "mario_advance.gba",
+          "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "metroid_fusion.gba",
+          "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "pokemon_emerald.gba",
+          "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "zelda_minish.gba",
+          "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "dd1ea42d951e433190fe4e8f43545fdb228623d301120dbd2c5957c76cbc617f",
+      "core_sha256": {
+        "inc\\gba.h": "5edc2bedca47c7fae1f81784d274702caf688eeb683683b989123d88fe3c4c46",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e58fe273d80d115b7a5a9746619e71472c141124a0d7754594b1e015e58239d0",
+        "inc\\gba_bus.h": "bf88789bebacc4f554d0f23bc5bbd379373f7406f1061ee7eb2c85d89602bdbb",
+        "inc\\gba_cart.h": "aa18bb928d6d68054131419a8c9494c247b028d948f01806130f12984d1a1458",
+        "inc\\gba_cpu.h": "05fc6a24d0d9df1f0011e9127da7b1d9326d7de1a45cfdfb5a6635dd559c8157",
+        "inc\\gba_default.h": "cee5a377c79c23d297f7b022cdf83cebe29bbe85df1439910b9034cba6b14d82",
+        "inc\\gba_dynarec.h": "dddba7d08ff6e18070035f73d1465caaf05e9338bb6a9bf29e083bfb00251001",
+        "inc\\gba_log.h": "2e72c2cad6ffe9cf8726f21da4d2c353a3d5290f1b9a9b85ea90e21aabf894c8",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "0090b5ce2967e4c1f731d1eac8a6da405123ffe0ba8e36d887959e34bacca782",
+        "inc\\gba_timer.h": "0d7705e8bcbfe6fffeb6717b133d8715398228d8d96847a80fd6bfcbd679aad1",
+        "src\\gba.c": "f61e47dcd2e1f7d10f50ae2c225b33874520f4239a79c11911ca85645bce7238",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "1786ca48f5222b2671861767fe5cd240dc4d3573c43bf6a6826ba317eb54b10d",
+        "src\\gba_bus.c": "3536b6e3ae994aad9cce61f264c665be6eb9375e034632296f26c169bcae50a3",
+        "src\\gba_bus_inline.h": "6422683fbf6ce1b716261693ed5bbf0d0b3e54c7810d6b749d558f18caffacb8",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "cba618255a5bdcf6618f641a64b8c931425aa7ca91182e579198cd2c9c3eebc7",
+        "src\\gba_cpu.c": "4bda942e879e85879bcd4ca11ef5c07c33c88d2fc3da33a510962d9d78d674f6",
+        "src\\gba_cpu_inline.h": "855af93474979fe86a8824641cfa1b4a88af7f55504dc420b7b7763d1fb9f91f",
+        "src\\gba_dynarec.c": "5fbe6cd26a4512b4f8495e7cee324ad2411194391d5f6ef9a260bb2bbd5aad2e",
+        "src\\gba_internal.h": "ea8ddff3acea6120703ac2bf89ce99f9fcf82cd0a4588882547f42122c5d1ba5",
+        "src\\gba_ppu.c": "3ac6b8d5def9ee4bb263c2da92c83f5caef406d7d507ee7e4540c7e55f8f7294",
+        "src\\gba_ppu_inline.h": "3038f11281dc8f4b037ca86257a8f3e0cb076a03e1f95004a93715b9179cada1",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "6a723559ebf4eb4c1b2884696cff35513a4a172358bd384da0283142e75200ea",
+        "src\\gba_timer_inline.h": "c281f121ff611c64f67d120bd022d37038500e4534e69436a0e2d86972f24ecb"
+      },
+      "counters": {
+        "assertions": 6991,
+        "failures": 0,
+        "native": 19737272,
+        "fallback": 785802,
+        "compiled": 931239,
+        "flushes": 426
+      }
+    },
+    "prefix": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 287.02875390002737,
+      "fast_core": true,
+      "stream": false,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "ace_attorney.gba",
+          "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        },
+        {
+          "rom": "fire_emblem.gba",
+          "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        },
+        {
+          "rom": "fzero.gba",
+          "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        },
+        {
+          "rom": "golden_sun.gba",
+          "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        },
+        {
+          "rom": "mario_advance.gba",
+          "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        },
+        {
+          "rom": "metroid_fusion.gba",
+          "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        },
+        {
+          "rom": "pokemon_emerald.gba",
+          "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        },
+        {
+          "rom": "zelda_minish.gba",
+          "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+          "frames": 180,
+          "input_sha256": "87836e06f49235fe3302371ca70a5b3817b4591e1ff6928bff8bf779f56fe3ff"
+        }
+      ],
+      "elf_sha256": "1d68a7cb041b74d1334b954a89553b914306ac3f914b206ddb54609780922ae1",
+      "core_sha256": {
+        "inc\\gba.h": "5edc2bedca47c7fae1f81784d274702caf688eeb683683b989123d88fe3c4c46",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e58fe273d80d115b7a5a9746619e71472c141124a0d7754594b1e015e58239d0",
+        "inc\\gba_bus.h": "bf88789bebacc4f554d0f23bc5bbd379373f7406f1061ee7eb2c85d89602bdbb",
+        "inc\\gba_cart.h": "aa18bb928d6d68054131419a8c9494c247b028d948f01806130f12984d1a1458",
+        "inc\\gba_cpu.h": "05fc6a24d0d9df1f0011e9127da7b1d9326d7de1a45cfdfb5a6635dd559c8157",
+        "inc\\gba_default.h": "cee5a377c79c23d297f7b022cdf83cebe29bbe85df1439910b9034cba6b14d82",
+        "inc\\gba_dynarec.h": "dddba7d08ff6e18070035f73d1465caaf05e9338bb6a9bf29e083bfb00251001",
+        "inc\\gba_log.h": "2e72c2cad6ffe9cf8726f21da4d2c353a3d5290f1b9a9b85ea90e21aabf894c8",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "0090b5ce2967e4c1f731d1eac8a6da405123ffe0ba8e36d887959e34bacca782",
+        "inc\\gba_timer.h": "0d7705e8bcbfe6fffeb6717b133d8715398228d8d96847a80fd6bfcbd679aad1",
+        "src\\gba.c": "f61e47dcd2e1f7d10f50ae2c225b33874520f4239a79c11911ca85645bce7238",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "1786ca48f5222b2671861767fe5cd240dc4d3573c43bf6a6826ba317eb54b10d",
+        "src\\gba_bus.c": "3536b6e3ae994aad9cce61f264c665be6eb9375e034632296f26c169bcae50a3",
+        "src\\gba_bus_inline.h": "6422683fbf6ce1b716261693ed5bbf0d0b3e54c7810d6b749d558f18caffacb8",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "cba618255a5bdcf6618f641a64b8c931425aa7ca91182e579198cd2c9c3eebc7",
+        "src\\gba_cpu.c": "ce5c7690f5639f37bd1930520f9a59f85a1a9aa14ed1e1a6bf55fe700f7b5782",
+        "src\\gba_cpu_inline.h": "855af93474979fe86a8824641cfa1b4a88af7f55504dc420b7b7763d1fb9f91f",
+        "src\\gba_dynarec.c": "abe617c86d6caa88b25464f8e1da890aefc77c03e9268454629063152f750aed",
+        "src\\gba_internal.h": "ea8ddff3acea6120703ac2bf89ce99f9fcf82cd0a4588882547f42122c5d1ba5",
+        "src\\gba_ppu.c": "3ac6b8d5def9ee4bb263c2da92c83f5caef406d7d507ee7e4540c7e55f8f7294",
+        "src\\gba_ppu_inline.h": "3038f11281dc8f4b037ca86257a8f3e0cb076a03e1f95004a93715b9179cada1",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "6a723559ebf4eb4c1b2884696cff35513a4a172358bd384da0283142e75200ea",
+        "src\\gba_timer_inline.h": "c281f121ff611c64f67d120bd022d37038500e4534e69436a0e2d86972f24ecb"
+      },
+      "counters": {
+        "assertions": 7951,
+        "failures": 0,
+        "native": 29558072,
+        "fallback": 2107526,
+        "compiled": 1652787,
+        "flushes": 817
+      }
+    },
+    "stream-final": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 33.16657589998795,
+      "fast_core": true,
+      "stream": true,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "617e2a630dc7326b146e3612829252701498d2ae5737fa9ff01bfc8aace49932",
+      "core_sha256": {
+        "inc\\gba.h": "dc74ebfc9a89b2ddfb88a5acf1be62bc3870bc6b8eccbe13366df52734c509ac",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+        "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+        "inc\\gba_cart.h": "aa18bb928d6d68054131419a8c9494c247b028d948f01806130f12984d1a1458",
+        "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+        "inc\\gba_default.h": "116b67a9500052cc2dff24919ccd60c5259897da327da27639dc713b9a07a56c",
+        "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+        "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "b8fb36af8ccdaf598b8fdbcff8964e3286d494a8717d106a1c9e1ecf941683db",
+        "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+        "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+        "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+        "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+        "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+        "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+        "src\\gba_dynarec.c": "93b497b87aea1208c309b1a1aed867760dc93323916711a973565fe1af2196a9",
+        "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+        "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+        "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+        "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+      },
+      "counters": {
+        "assertions": 6543,
+        "failures": 0,
+        "native": 1416542,
+        "fallback": 54357,
+        "compiled": 111941,
+        "flushes": 182,
+        "helper": 160032
+      }
+    },
+    "acceptance": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 30.176010600000154,
+      "fast_core": true,
+      "stream": false,
+      "statistics_enabled": true,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "32df36628e26797d0a236ad67da7ec62dfa1e1de3a4f4da1fb72ea46ac4b97ef",
+      "core_sha256": {
+        "inc\\gba.h": "15a4489ea88d1c6c9aef127678285a1ae288cd3a099f753a530adcd8a275fb7d",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+        "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+        "inc\\gba_cart.h": "1ef7690270a892fb28e39a914c5af73010b860e7da8cac18ad7b067f3fc54075",
+        "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+        "inc\\gba_default.h": "77156618aab94fdaa790c8bfd87a65f6f0523783ec1fb2eb6de1880aebb5cb25",
+        "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+        "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "c163dac6cc76f64efa42533feffe20ded2b1e1dd00dd33409c2959012594ab15",
+        "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+        "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+        "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+        "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+        "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+        "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+        "src\\gba_dynarec.c": "c1465e198eda935e0f66967f952cd8c4b44f5b11914700448a38c33ddaca1416",
+        "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+        "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+        "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+        "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+      },
+      "counters": {
+        "assertions": 6558,
+        "failures": 0,
+        "native": 1074208,
+        "fallback": 54357,
+        "compiled": 90429,
+        "flushes": 195,
+        "helper": 160032
+      }
+    },
+    "production": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 33.16064630000619,
+      "fast_core": false,
+      "stream": false,
+      "statistics_enabled": false,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "cd1ebc89bca173db89027ebbce443a51386c0228dbe0aa6e9c4e0b2d96324a1b",
+      "core_sha256": {
+        "inc\\gba.h": "15a4489ea88d1c6c9aef127678285a1ae288cd3a099f753a530adcd8a275fb7d",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+        "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+        "inc\\gba_cart.h": "1ef7690270a892fb28e39a914c5af73010b860e7da8cac18ad7b067f3fc54075",
+        "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+        "inc\\gba_default.h": "77156618aab94fdaa790c8bfd87a65f6f0523783ec1fb2eb6de1880aebb5cb25",
+        "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+        "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "c163dac6cc76f64efa42533feffe20ded2b1e1dd00dd33409c2959012594ab15",
+        "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+        "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+        "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+        "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+        "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+        "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+        "src\\gba_dynarec.c": "c1465e198eda935e0f66967f952cd8c4b44f5b11914700448a38c33ddaca1416",
+        "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+        "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+        "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+        "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+      },
+      "counters": {
+        "assertions": 6517,
+        "failures": 0,
+        "native": 0,
+        "fallback": 0,
+        "compiled": 0,
+        "flushes": 0,
+        "helper": 0
+      }
+    },
+    "final-games": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 1657.0922037000419,
+      "fast_core": true,
+      "stream": false,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "ace_attorney.gba",
+          "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+          "frames": 900,
+          "input_sha256": "48cc73db64c0e4e9463e59bea848338ba90af0ff1a364ecdb0db2f788a227834"
+        },
+        {
+          "rom": "fire_emblem.gba",
+          "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+          "frames": 900,
+          "input_sha256": "093931d367d0ca5e412f5ca9914e2d6e62c1a8a0b23a14abd1d14612c4481566"
+        },
+        {
+          "rom": "fzero.gba",
+          "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+          "frames": 900,
+          "input_sha256": "48cc73db64c0e4e9463e59bea848338ba90af0ff1a364ecdb0db2f788a227834"
+        },
+        {
+          "rom": "golden_sun.gba",
+          "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+          "frames": 900,
+          "input_sha256": "48cc73db64c0e4e9463e59bea848338ba90af0ff1a364ecdb0db2f788a227834"
+        },
+        {
+          "rom": "mario_advance.gba",
+          "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+          "frames": 900,
+          "input_sha256": "48cc73db64c0e4e9463e59bea848338ba90af0ff1a364ecdb0db2f788a227834"
+        },
+        {
+          "rom": "metroid_fusion.gba",
+          "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+          "frames": 900,
+          "input_sha256": "48cc73db64c0e4e9463e59bea848338ba90af0ff1a364ecdb0db2f788a227834"
+        },
+        {
+          "rom": "pokemon_emerald.gba",
+          "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+          "frames": 900,
+          "input_sha256": "48cc73db64c0e4e9463e59bea848338ba90af0ff1a364ecdb0db2f788a227834"
+        },
+        {
+          "rom": "zelda_minish.gba",
+          "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+          "frames": 900,
+          "input_sha256": "48cc73db64c0e4e9463e59bea848338ba90af0ff1a364ecdb0db2f788a227834"
+        }
+      ],
+      "elf_sha256": "cd772b88302acb3d0d0d444ba87ef07eafd6c0cc2b55b84e6be896bbb8e88d51",
+      "core_sha256": {
+        "inc\\gba.h": "dc74ebfc9a89b2ddfb88a5acf1be62bc3870bc6b8eccbe13366df52734c509ac",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+        "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+        "inc\\gba_cart.h": "aa18bb928d6d68054131419a8c9494c247b028d948f01806130f12984d1a1458",
+        "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+        "inc\\gba_default.h": "116b67a9500052cc2dff24919ccd60c5259897da327da27639dc713b9a07a56c",
+        "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+        "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "b8fb36af8ccdaf598b8fdbcff8964e3286d494a8717d106a1c9e1ecf941683db",
+        "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+        "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+        "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+        "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+        "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+        "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+        "src\\gba_dynarec.c": "93b497b87aea1208c309b1a1aed867760dc93323916711a973565fe1af2196a9",
+        "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+        "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+        "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+        "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+      },
+      "counters": {
+        "assertions": 13717,
+        "failures": 0,
+        "native": 174893132,
+        "fallback": 18115130,
+        "compiled": 9505823,
+        "flushes": 4117,
+        "helper": 34943187
+      }
+    },
+    "sealed-games": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 87.4382171999896,
+      "fast_core": true,
+      "stream": false,
+      "statistics_enabled": true,
+      "fixtures": [
+        {
+          "rom": "ace_attorney.gba",
+          "sha256": "0d0945fff2edd4d4ae627ed003ebb0050937ee689d606ccff89c4ff2c2638571",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "fire_emblem.gba",
+          "sha256": "828b8bb1bff54a66b89cb1e43901d88bb783a4da6e543ac31aa6edc17e162d25",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "fzero.gba",
+          "sha256": "3892fff14f9902c0f9fac974c8ebab95f87e2592eef9e524bd5a7a82dae80bf2",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "golden_sun.gba",
+          "sha256": "203a55f37c6502bdd072bbd4b247e8127d44be61f87f61bd746b731fd2853f71",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "mario_advance.gba",
+          "sha256": "4672b041571d46df880db5b3288c0f9dbf9b56e08c52e36cebbae6038d1fd0ec",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "metroid_fusion.gba",
+          "sha256": "f55df68529d25cc51a13a5044ad3e7fe40e2e8ebddb53074c01b65be3b155c6c",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "pokemon_emerald.gba",
+          "sha256": "829f013cbcffb9326ad85f504041503354ac3de6cf3b340f946f40c72d866291",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "zelda_minish.gba",
+          "sha256": "f51c6c2f90e18ee91203dd767307271e06901b5bff35c3a567d52f61a39d166d",
+          "frames": 60,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "9df5821b573163a0487bba2a15c8f7c5ec765d200634081497b5708887fe8b80",
+      "core_sha256": {
+        "inc\\gba.h": "15a4489ea88d1c6c9aef127678285a1ae288cd3a099f753a530adcd8a275fb7d",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+        "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+        "inc\\gba_cart.h": "1ef7690270a892fb28e39a914c5af73010b860e7da8cac18ad7b067f3fc54075",
+        "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+        "inc\\gba_default.h": "77156618aab94fdaa790c8bfd87a65f6f0523783ec1fb2eb6de1880aebb5cb25",
+        "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+        "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "c163dac6cc76f64efa42533feffe20ded2b1e1dd00dd33409c2959012594ab15",
+        "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+        "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+        "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+        "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+        "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+        "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+        "src\\gba_dynarec.c": "c1465e198eda935e0f66967f952cd8c4b44f5b11914700448a38c33ddaca1416",
+        "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+        "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+        "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+        "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+      },
+      "counters": {
+        "assertions": 6973,
+        "failures": 0,
+        "native": 7497067,
+        "fallback": 607917,
+        "compiled": 273164,
+        "flushes": 271,
+        "helper": 1782442
+      }
+    },
+    "acceptance-final": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 32.91789089998929,
+      "fast_core": true,
+      "stream": false,
+      "statistics_enabled": true,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "e2eb9f1725432962550da13e30430405c6617b3e17a395a26c6fcfa20202f352",
+      "core_sha256": {
+        "inc\\gba.h": "15a4489ea88d1c6c9aef127678285a1ae288cd3a099f753a530adcd8a275fb7d",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+        "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+        "inc\\gba_cart.h": "1ef7690270a892fb28e39a914c5af73010b860e7da8cac18ad7b067f3fc54075",
+        "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+        "inc\\gba_default.h": "77156618aab94fdaa790c8bfd87a65f6f0523783ec1fb2eb6de1880aebb5cb25",
+        "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+        "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "c163dac6cc76f64efa42533feffe20ded2b1e1dd00dd33409c2959012594ab15",
+        "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+        "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+        "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+        "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+        "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+        "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+        "src\\gba_dynarec.c": "c1465e198eda935e0f66967f952cd8c4b44f5b11914700448a38c33ddaca1416",
+        "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+        "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+        "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+        "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+      },
+      "counters": {
+        "assertions": 6558,
+        "failures": 0,
+        "native": 1074208,
+        "fallback": 54357,
+        "compiled": 90429,
+        "flushes": 195,
+        "helper": 160032,
+        "cache_hits": 877309,
+        "code_bytes": 247712
+      }
+    },
+    "production-final": {
+      "passed": true,
+      "emulator": "QEMU emulator version 11.0.50 (v11.0.0-12631-g54e84cdc7a)",
+      "host_cpu": "ARM926 via QEMU; not native board performance",
+      "seconds": 30.524415099993348,
+      "fast_core": false,
+      "stream": false,
+      "statistics_enabled": false,
+      "fixtures": [
+        {
+          "rom": "arm.gba",
+          "sha256": "77ee88662552bdc885c1080c0172ff119d54db791bd73b21808cf1ff1fe5b40e",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "bios.gba",
+          "sha256": "9d7b369fa1aa661ff03692b3d79c6f644b623d72983d0fc890e6d87a0409a3c9",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "memory.gba",
+          "sha256": "21024fb6aae6343f5f0466dd54e3149de1fbeb23f78e7d85a015c983684d2f87",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "nes.gba",
+          "sha256": "d990df112763087d0415b3785c1b4d31c0237794a704d0446fc5f5e474a44f98",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "hello.gba",
+          "sha256": "38aed48b67bc0f701e8aa222b0c3334bd306bd29888707bb7224d81f5576c264",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "shades.gba",
+          "sha256": "127ce348f17e4d5fd8a0821a7af757eda6109c66c9f7b8f7d1e0fa31831b407d",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "stripes.gba",
+          "sha256": "80d6cc05b5f289b9a2392621fc245270f08e9f0d77fd33982120cef240f5a504",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash128.gba",
+          "sha256": "9ac50e51d3ce4209dbdf85e472e70c067d5827e9af1bb3e707f6bd9059d5f0c6",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "flash64.gba",
+          "sha256": "7e2aa32e943aedde88bd750eadcdbf55152d3a1ec61385011b7f15cd85b07c02",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "none.gba",
+          "sha256": "edb34ba6590d070c8a50cf0f3566b1e3cc679377b978224ff1b872d27f2b1630",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "sram.gba",
+          "sha256": "a37ad99c31e3f805eb05a00e498b65bd78e6f43a0a139cd695bea1f88229af2c",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "thumb.gba",
+          "sha256": "b5cb2291df4ab314b31c598acd9bff2ccfa0b38efff29daadfe97422ce369b67",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        },
+        {
+          "rom": "unsafe.gba",
+          "sha256": "bb727d59fa81915a5f5c609f4befb64872d3a3d830bc6ae0149e26410e648f85",
+          "frames": 5,
+          "input_sha256": "54702df08034f226a491326f9db7df30b2ebd13cd1521bfb0633c1e73fa32123"
+        }
+      ],
+      "elf_sha256": "46bc3e2c18836d984360ee861880247e319baaa141fccf7b7fb292cf95b595d1",
+      "core_sha256": {
+        "inc\\gba.h": "15a4489ea88d1c6c9aef127678285a1ae288cd3a099f753a530adcd8a275fb7d",
+        "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+        "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+        "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+        "inc\\gba_cart.h": "1ef7690270a892fb28e39a914c5af73010b860e7da8cac18ad7b067f3fc54075",
+        "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+        "inc\\gba_default.h": "77156618aab94fdaa790c8bfd87a65f6f0523783ec1fb2eb6de1880aebb5cb25",
+        "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+        "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+        "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+        "inc\\gba_state.h": "c163dac6cc76f64efa42533feffe20ded2b1e1dd00dd33409c2959012594ab15",
+        "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+        "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+        "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+        "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+        "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+        "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+        "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+        "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+        "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+        "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+        "src\\gba_dynarec.c": "c1465e198eda935e0f66967f952cd8c4b44f5b11914700448a38c33ddaca1416",
+        "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+        "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+        "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+        "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+        "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+        "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+        "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+      },
+      "counters": {
+        "assertions": 6558,
+        "failures": 0,
+        "native": 0,
+        "fallback": 0,
+        "compiled": 0,
+        "flushes": 0,
+        "helper": 0,
+        "cache_hits": 0,
+        "code_bytes": 247712
+      }
+    }
+  },
+  "uncovered": [
+    "Native ARM32 board performance",
+    "External full BIOS",
+    "Cortex-M/AArch64/x64 dynarec backends",
+    "Board power-loss tests"
+  ],
+  "units_default": [
+    "gba-tests assertions=971 failures=0 context=6216 memory=603136 config=color16 half0 sound0 fs0 stream0",
+    "gba-tests-full assertions=1102 failures=0 context=7520 memory=679936 config=color32 half0 sound1 fs1 stream0",
+    "gba-tests-stream assertions=1116 failures=0 context=7520 memory=597504 config=color16 half1 sound1 fs1 stream1",
+    "gba-tests-minimal assertions=683 failures=0 context=6216 memory=433664 config=color16 half1 sound0 fs0 stream0",
+    "gba-tests-skip assertions=1029 failures=0 context=7520 memory=603136 config=color16 half0 sound1 fs1 stream0",
+    "gba-tests-small-save assertions=13 failures=0 context=6216 memory=472576 config=save_capacity512"
+  ],
+  "units_default_reviewed_gate": true,
+  "units_fast_core": [
+    "gba-tests assertions=971 failures=0 context=6248 memory=603136 config=color16 half0 sound0 fs0 stream0",
+    "gba-tests-full assertions=1102 failures=0 context=7544 memory=679936 config=color32 half0 sound1 fs1 stream0",
+    "gba-tests-stream assertions=1116 failures=0 context=7544 memory=597504 config=color16 half1 sound1 fs1 stream1",
+    "gba-tests-minimal assertions=683 failures=0 context=6248 memory=433664 config=color16 half1 sound0 fs0 stream0",
+    "gba-tests-skip assertions=1029 failures=0 context=7544 memory=603136 config=color16 half0 sound1 fs1 stream0",
+    "gba-tests-small-save assertions=13 failures=0 context=114400 memory=472576 config=save_capacity512"
+  ],
+  "units_fast_core_reviewed_gate": true,
+  "sdl_deep": [
+    {
+      "Case": "golden_sun",
+      "ROM": "0079 黄金太阳剧情100%中文版.gba",
+      "SHA256": "203A55F37C6502BDD072BBD4B247E8127D44BE61F87F61BD746B731FD2853F71",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "2B63C0E17074004C3F69E5B5DE14829A8AECA170026B7808227F8B68F6B6D523",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 3600,
+      "Milliseconds": 78571,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=3600 cycles=1011225600 pc=08003324 image=63fcfb69 draws=3720 audio=d7a737fe audio_bytes=7971840 audio_nonzero=2045146\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=65536 nonempty=0 hash=1dc99dc5\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=62\r\n",
+      "Screenshot": "golden_sun.ppm"
+    },
+    {
+      "Case": "zelda_minish",
+      "ROM": "1743 塞尔达传说-缩小帽.gba",
+      "SHA256": "F51C6C2F90E18EE91203DD767307271E06901B5BFF35C3A567D52F61A39D166D",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "95B8DBFB94A14B4854A20B9C7E7E7BC986C943D97DFA463AFC37CB06865A5DB3",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 9000,
+      "Milliseconds": 169244,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=9000 cycles=2528064000 pc=080b12a0 image=fccee242 draws=9120 audio=b5bac275 audio_bytes=19544064 audio_nonzero=8923762\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=8192 nonempty=2710 hash=79910b8d\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=199\r\n",
+      "Screenshot": "zelda_minish.ppm"
+    },
+    {
+      "Case": "metroid_fusion",
+      "ROM": "银河战士 - 融合[Chrono](简)(US)(64Mb).gba",
+      "SHA256": "F55DF68529D25CC51A13A5044AD3E7FE40E2E8EBDDB53074C01B65BE3B155C6C",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "827C822B2A757371E94A5CC7085F6D8E38EF360665FA5F0E9EB58D9EDEBE3C80",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 18000,
+      "Milliseconds": 319377,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=18000 cycles=761160704 pc=0800ebfa image=9c3d9066 draws=18120 audio=4228ecfd audio_bytes=38832128 audio_nonzero=17377606\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=32768 nonempty=999 hash=7d5b5c60\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=429\r\n",
+      "Screenshot": "metroid_fusion.ppm"
+    },
+    {
+      "Case": "fire_emblem",
+      "ROM": "火焰纹章 - 烈火之剑[狼组&火花天龙剑](Fix)(简)(JP)(128Mb).gba",
+      "SHA256": "828B8BB1BFF54A66B89CB1E43901D88BB783A4DA6E543AC31AA6EDC17E162D25",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "0193C50C24F27E68F1ED1B5F18B84EC878E8CED9D03A09C9AFA07E5835C973E6",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 9000,
+      "Milliseconds": 169180,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=9000 cycles=2528064001 pc=0800690a image=036ff47e draws=9120 audio=b781ffc6 audio_bytes=19544064 audio_nonzero=8339469\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=32768 nonempty=20204 hash=ed65f715\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=207\r\n",
+      "Screenshot": "fire_emblem.ppm"
+    },
+    {
+      "Case": "pokemon_emerald",
+      "ROM": "GBA_1986_精灵宝可梦 绿宝石_中文典藏版_漫游&TGB联合汉化.gba",
+      "SHA256": "829F013CBCFFB9326AD85F504041503354AC3DE6CF3B340F946F40C72D866291",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "D2F4DFD6A21A5003740BBBFDE4419566D0A6F8409009921B989EEFA4A04E2D84",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 8800,
+      "Milliseconds": 166876,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=8800 cycles=2471884800 pc=08006baa image=f46aabcf draws=8920 audio=9dcfd05d audio_bytes=19115008 audio_nonzero=10657562\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=131072 nonempty=56395 hash=56b588fd\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=206\r\n",
+      "Screenshot": "pokemon_emerald.ppm"
+    },
+    {
+      "Case": "mario_advance",
+      "ROM": "超级马里奥Advance - 超级马里奥USA + 马里奥兄弟[熊组](简)(JP)(32Mb).gba",
+      "SHA256": "4672B041571D46DF880DB5B3288C0F9DBF9B56E08C52E36CEBBAE6038D1FD0EC",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "48924C17BB90711D17537AC7A23F820B5792CF1236E2CA8D0AF0A7B0ECDA1B2E",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 3600,
+      "Milliseconds": 78199,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=3600 cycles=1011225600 pc=08038e66 image=0bb1c398 draws=3720 audio=b69c6896 audio_bytes=7971840 audio_nonzero=3712810\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=512 nonempty=288 hash=6e5a6aee\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=77\r\n",
+      "Screenshot": "mario_advance.ppm"
+    },
+    {
+      "Case": "ace_attorney",
+      "ROM": "逆转裁判[Jpgmfan&逆转Ace](简)(JP)(66.41Mb).gba",
+      "SHA256": "0D0945FFF2EDD4D4AE627ED003EBB0050937EE689D606CCFF89C4FF2C2638571",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "16C3917F3B9ADDEC15ED806CE0B4B006562F764EECD416A94736BCFE36132C5D",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 7800,
+      "Milliseconds": 148678,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=7800 cycles=2190988803 pc=0800024e image=630f213e draws=7920 audio=819518c1 audio_bytes=16972800 audio_nonzero=4541921\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=32768 nonempty=10593 hash=1e13765c\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=182\r\n",
+      "Screenshot": "ace_attorney.ppm"
+    },
+    {
+      "Case": "fzero",
+      "ROM": "F-Zero GBA[PGCG](简)(JP)(32.11Mb).gba",
+      "SHA256": "3892FFF14F9902C0F9FAC974C8EBAB95F87E2592EEF9E524BD5A7A82DAE80BF2",
+      "BinarySHA256": "CC0CA40E879507FBA2B8FF0947CF1589EFD8F5DEEAF704D1B3BB7D2DFC290E37",
+      "InputSHA256": "48924C17BB90711D17537AC7A23F820B5792CF1236E2CA8D0AF0A7B0ECDA1B2E",
+      "Driver": "SDL dummy",
+      "Status": "SMOKE",
+      "Frames": 3600,
+      "Milliseconds": 78170,
+      "Exit": 0,
+      "Output": "test save=0\r\ntest load=0\r\ntest final_save=0\r\ntest frames=3600 cycles=1011225600 pc=08040370 image=7da091d6 draws=3720 audio=62c926d9 audio_bytes=7971840 audio_nonzero=3059041\r\ntest replay_frames=120 replay_failures=0\r\ntest battery_bytes=32768 nonempty=27832 hash=5835c90d\r\ntest reload=1 result=0\r\ntest reload=2 result=0\r\ntest reload=3 result=0\r\ntest reload=4 result=0\r\ntest reload=5 result=0\r\naudio underruns=0 overruns=72\r\n",
+      "Screenshot": "fzero.ppm"
+    }
+  ],
+  "nontrace_optimizations": {
+    "passed": true,
+    "strict_c11": true,
+    "core_sha256": {
+      "inc\\gba.h": "15a4489ea88d1c6c9aef127678285a1ae288cd3a099f753a530adcd8a275fb7d",
+      "inc\\gba_apu.h": "ef7bed9202323777f9945c2e3640581f0dc4abd8bcd195be11661842895f33f8",
+      "inc\\gba_bios.h": "e5816d3fe9498bc1ccf4460c870f64610cfed48e725f7771dc129d3345e4bbd5",
+      "inc\\gba_bus.h": "666fdbb93b09dec1b608ef3d0af2e0acedf402f9163b6af97fe5b6dcaec238f7",
+      "inc\\gba_cart.h": "1ef7690270a892fb28e39a914c5af73010b860e7da8cac18ad7b067f3fc54075",
+      "inc\\gba_cpu.h": "c6286cbce888b677ae1654bed52832f98d9dce6ccfecf83236794a2ff9478f31",
+      "inc\\gba_default.h": "4015d203fa74a33e4398ee5e3f1c0a2977843ba137aed8c6da5aa9ec79cbe8d0",
+      "inc\\gba_dynarec.h": "23a0f28648c35e6effb0ecb0e68821ea24f1d11019ec8b53e20162e9ae59aacb",
+      "inc\\gba_log.h": "e97a02d9cdf5f58f7412311ba1aa4daeeac906ca3e2a805ce28b5fb3150403ce",
+      "inc\\gba_ppu.h": "1ab3cc72d2dd0edbb17408086e2f45aed35a135b7359b72ccd316fda0480f277",
+      "inc\\gba_state.h": "c163dac6cc76f64efa42533feffe20ded2b1e1dd00dd33409c2959012594ab15",
+      "inc\\gba_timer.h": "b1789e33cb422df796caddbbb7081dc9c27c1e00f4cf67052bf2cf8db845ba28",
+      "src\\gba.c": "b88ac85156efc3e9a2ff7d73ea129b7c2b9a641fe7dbaff443b97c64925ecef8",
+      "src\\gba_apu.c": "d10818fcfc3ab07cf54540807d78eeb3505e4f6849c2fca2d444c471dda2a4e9",
+      "src\\gba_bios.c": "9d8077fcb49a91d40eda8578c5e8f85c7d6d274aa1c8a6b80461631756c69407",
+      "src\\gba_bus.c": "ed605683b4cf64a05f0feaf849d9d2b76088185fc6be66c81456158954b1fc15",
+      "src\\gba_bus_inline.h": "e62f3c187ce3a981104bf2aa7458949c0b78a2a3941204b743287be3aae2f6ea",
+      "src\\gba_cart.c": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+      "src\\gba_cart_inline.h": "fa1c88f6d916567182999270bdcf25eb182e5bb422553dfad9a0a13aa3a050db",
+      "src\\gba_cpu.c": "14fdcec135f9c1d66f878d5e56ac0f5e419f90609817de7bf68f696440252e3a",
+      "src\\gba_cpu_inline.h": "29e59ba7903c952c5e1962021bce6b8b38d834ef57103a0d9ab77edc0df96850",
+      "src\\gba_dynarec.c": "93b497b87aea1208c309b1a1aed867760dc93323916711a973565fe1af2196a9",
+      "src\\gba_internal.h": "0196efaf0bda38f9479cb5a7d7fdf2c391d3fb81164452179e9aaa08c1ba4e10",
+      "src\\gba_ppu.c": "954b51eb5fe4a5d86ade4d4a2c6e8675aebc62b9a6de6bed7172740967c9dc13",
+      "src\\gba_ppu_inline.h": "14bf142fb3268c6b67884a86ab0b9acf61a73bdf71d753bb87d94ff844640a33",
+      "src\\gba_rtc.c": "f220ec225c61abd8d37f65cb746c3fd91439ac932ff82ac8b83f96931e961104",
+      "src\\gba_storage.c": "9cb8e3bffea5ef10d553ecc11205ee8a812d0526a35549614826b2a1452a4479",
+      "src\\gba_timer.c": "53d416c199a23ec68a21d0b8866111cda14fac9467217b1290ad1e97ebea176d",
+      "src\\gba_timer_inline.h": "afd6b5167160c9224fabc10f5fac41123ca92829997d6a2b1a2c1a7e0638fc47"
+    },
+    "cases": [
+      {
+        "name": "registers",
+        "variants": 3,
+        "equal": true,
+        "output": "IRQ_SAMPLES 2658\r\nSCENES 128 BOUNDARIES 32768 cbae1f93\r\n"
+      },
+      {
+        "name": "edges",
+        "variants": 3,
+        "equal": true,
+        "output": "FETCH_EDGES 80 BOUNDARIES 2500 FAULT_CASES 2 60d206b1\r\n"
+      },
+      {
+        "name": "video",
+        "variants": 2,
+        "equal": true,
+        "output": "SCENES 96 FRAME_VARIANTS 1540 bf9423bf\r\n"
+      }
+    ]
+  },
+  "jit_stack": [
+    {
+      "function": "GBA\\src\\gba_storage.c:656:5:gba_state_load_file",
+      "bytes": 2856,
+      "kind": "static"
+    },
+    {
+      "function": "test/dynarec/main.c:278:13:states",
+      "bytes": 2792,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_ppu.c:499:6:gba_ppu_render",
+      "bytes": 840,
+      "kind": "static"
+    },
+    {
+      "function": "test/dynarec/main.c:479:5:main",
+      "bytes": 744,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba.c:137:5:gba_reset",
+      "bytes": 520,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_storage.c:216:5:gba_persist_load",
+      "bytes": 384,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_storage.c:260:5:gba_persist_save",
+      "bytes": 360,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_storage.c:607:5:gba_state_save_file",
+      "bytes": 344,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_cart.c:46:6:gba_cart_detect",
+      "bytes": 328,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_storage.c:333:13:gba_codec_bytes",
+      "bytes": 280,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_storage.c:581:17:gba_rom_crc",
+      "bytes": 280,
+      "kind": "static"
+    },
+    {
+      "function": "GBA\\src\\gba_storage.c:113:12:gba_write_atomic.isra",
+      "bytes": 280,
+      "kind": "static"
+    }
+  ],
+  "interpreter_benchmark_totals_percent": {
+    "565": -0.96,
+    "32": -0.14,
+    "stream": -0.63,
+    "silent": -0.41
+  }
+}

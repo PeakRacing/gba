@@ -16,6 +16,7 @@
 #include "gba_internal.h"
 /* Pixel word: BGR555, layer 0..5, semitransparent flag, and ordering rank. */
 #define GBA_PIXEL(color, layer, alpha, rank) ((color) | ((layer) << 16) | ((alpha) << 19) | ((rank) << 24))
+static gba_color_t gba_color(unsigned c);
 static void gba_pixel(gba_t *g, unsigned x, uint32_t pixel) {
     unsigned layer = (pixel >> 16) & 7, top_layer = (g->pixel_top[x] >> 16) & 7;
     if ((pixel >> 24) < (g->pixel_top[x] >> 24)) {
@@ -27,6 +28,36 @@ static void gba_pixel(gba_t *g, unsigned x, uint32_t pixel) {
         g->pixel_second[x] = pixel;
     }
 }
+GBA_INLINE void gba_plot(gba_t *g,unsigned x,uint32_t pixel,unsigned replace) {
+#if GBA_PPU_FRONT_CULL
+    if(replace==2){if((g->pixel_top[x]>>24)==63)g->pixel_top[x]=pixel;return;}
+#endif
+#if GBA_PPU_SORTED_BLEND
+    if(replace) {
+        uint32_t previous=g->pixel_top[x];
+        /* OBJ is one composed layer: a front OBJ replaces an older OBJ
+         * without turning that older OBJ into an alpha blend target. */
+        if(((pixel>>16)&7)!=4 || ((previous>>16)&7)!=4)g->pixel_second[x]=previous;
+        g->pixel_top[x]=pixel;
+        return;
+    }
+#elif GBA_PPU_ORDERED
+    if(replace){g->pixel_top[x]=pixel;return;}
+#else
+    (void)replace;
+#endif
+    gba_pixel(g,x,pixel);
+}
+GBA_INLINE unsigned gba_front_covered(const gba_t *g,unsigned x,unsigned replace) {
+#if GBA_PPU_FRONT_CULL
+    return replace==2 && (g->pixel_top[x]>>24)!=63;
+#else
+    (void)g;(void)x;(void)replace;return 0;
+#endif
+}
+#if GBA_TEST_RENDER_REFERENCE
+extern int gba_test_render_reference(gba_t *g);
+#endif
 static int gba_window_range(unsigned coordinate, unsigned start, unsigned end) {
     return start > end ? coordinate >= start || coordinate < end : coordinate >= start && coordinate < end;
 }
@@ -54,16 +85,86 @@ static unsigned gba_window_mask(const gba_t *g, unsigned x) {
     }
     return (gba_io16(g, 0x4a) >> (((display & 0x8000) && g->object_window[x]) ? 8 : 0)) & 0x3f;
 }
-static unsigned gba_palette(const gba_t *g, unsigned entry) {
+static unsigned gba_palette(gba_t *g, unsigned entry) {
+    gba_video_read(g, 5, (entry & 511) * 2);
     return gba_le16(g->memory.palette + (entry & 511) * 2) & 0x7fff;
 }
-static unsigned gba_vram16(const gba_t *g, unsigned address) {
+static unsigned gba_vram16(gba_t *g, unsigned address) {
     address &= 0x1ffff;
     if (address >= 0x18000) {
         address -= 0x8000;
     }
+    gba_video_read(g, 6, address & ~1u);
     return gba_le16(g->memory.vram + (address & ~1u));
 }
+static unsigned gba_vram8(gba_t *g, unsigned address) {
+    gba_video_read(g, 6, address);
+    return g->memory.vram[address];
+}
+#if GBA_VIDEO_CACHE && !GBA_TEST_MODE && !GBA_RAM_LACK
+static void gba_video_object_rows(gba_t *g, unsigned a0, unsigned a1) {
+    unsigned shape = a0 >> 14;
+    if (shape >= 3)
+        return;
+    static const unsigned height[3][4] = {{8, 16, 32, 64}, {8, 8, 16, 32}, {16, 32, 32, 64}};
+    unsigned h = height[shape][a1 >> 14] * (((a0 & 0x300) == 0x300) ? 2 : 1);
+    uint32_t *rows = g->machine.ppu.oam_latch_valid ? g->video_cache.pending_oam : g->video_cache.dirty;
+    for (unsigned i = 0; i < h; i++) {
+        unsigned line = ((a0 & 255) + i) & 255;
+        if (line < 160)
+            rows[line >> 5] |= 1u << (line & 31);
+    }
+}
+#endif
+#if (GBA_VIDEO_CACHE && !GBA_TEST_MODE && !GBA_RAM_LACK) || GBA_PPU_OAM_DIRTY || GBA_PPU_SCANLINE_FAST
+void gba_video_write(gba_t *g, unsigned region, uint32_t address, unsigned width, uint32_t value) {
+#if GBA_PPU_SCANLINE_FAST
+    if(region==5 && g->scanline_palette.valid) {
+        unsigned index=(address&0x3ff)>>1;
+        g->scanline_palette.color[index]=gba_color(value&0x7fff);
+        if(width==4)g->scanline_palette.color[(index+1)&511]=gba_color((value>>16)&0x7fff);
+    }
+#endif
+#if GBA_PPU_OAM_DIRTY
+    if(region==7) {
+        unsigned word=(address&0x3ff)>>2;
+        g->oam_dirty.words[word>>5]|=1u<<(word&31);
+    }
+#endif
+#if GBA_VIDEO_CACHE && !GBA_TEST_MODE && !GBA_RAM_LACK
+    if (region == 7) {
+        unsigned offset = address & 0x3ff, field = offset & 7;
+        const uint8_t *p = g->memory.oam + (offset & ~7u);
+        unsigned a0 = gba_le16(p), a1 = gba_le16(p + 2);
+        unsigned matrix = field == 6 || (field == 4 && width == 4 && ((gba_le32(p + 4) ^ value) & 0xffff0000u));
+        if (matrix) {
+            uint32_t *rows = g->machine.ppu.oam_latch_valid ? g->video_cache.pending_oam : g->video_cache.dirty;
+            for (unsigned i = 0; i < 5; i++)
+                rows[i] = UINT32_MAX;
+        } else {
+            gba_video_object_rows(g, a0, a1);
+            if (field == 0) {
+                a0 = value & 0xffff;
+                if (width == 4)
+                    a1 = value >> 16;
+            }
+            if (field == 2)
+                a1 = value & 0xffff;
+            gba_video_object_rows(g, a0, a1);
+        }
+    } else {
+        unsigned offset = address & (region == 5 ? 0x3ff : 0x1ffff);
+        if (region == 6 && offset >= 0x18000)
+            offset -= 0x8000;
+        unsigned block = region == 5 ? 3072 + (offset >> 3) : (offset >> 5);
+        for (unsigned i = 0; i < 5; i++)
+            g->video_cache.dirty[i] |= g->video_cache.dependency[block][i];
+    }
+#else
+    (void)g;(void)region;(void)address;(void)width;(void)value;
+#endif
+}
+#endif
 void gba_ppu_affine_write(gba_t *g, unsigned address) {
     for (unsigned i = 0; i < 2; i++) {
         unsigned base = 0x28 + i * 16;
@@ -96,9 +197,9 @@ static int gba_bg_text(gba_t *g, unsigned bg, unsigned x, unsigned *color) {
     }
     unsigned base = ((control >> 2) & 3) * 0x4000, index;
     if (control & 0x80) {
-        index = g->memory.vram[(base + (entry & 1023) * 64 + ty * 8 + tx) & 0xffff];
+        index = gba_vram8(g, (base + (entry & 1023) * 64 + ty * 8 + tx) & 0xffff);
     } else {
-        index = g->memory.vram[(base + (entry & 1023) * 32 + ty * 4 + tx / 2) & 0xffff];
+        index = gba_vram8(g, (base + (entry & 1023) * 32 + ty * 4 + tx / 2) & 0xffff);
         index = (index >> ((tx & 1) * 4)) & 15;
         if (index) {
             index += (entry >> 12) * 16;
@@ -110,13 +211,13 @@ static int gba_bg_text(gba_t *g, unsigned bg, unsigned x, unsigned *color) {
     *color = gba_palette(g, index);
     return 1;
 }
-static void gba_bg_text_line(gba_t *g, unsigned bg, unsigned rank) {
+static void gba_bg_text_line(gba_t *g, unsigned bg, unsigned rank,unsigned replace) {
     unsigned control = gba_io16(g, 8 + bg * 2);
     if (control & 0x40) {
         for (unsigned x = 0; x < GBA_WIDTH; x++) {
             unsigned color;
-            if ((g->object_window[x] & (1u << bg)) && gba_bg_text(g, bg, x, &color)) {
-                gba_pixel(g, x, GBA_PIXEL(color, bg, 0u, rank));
+            if (!gba_front_covered(g,x,replace) && (g->object_window[x] & (1u << bg)) && gba_bg_text(g, bg, x, &color)) {
+                gba_plot(g, x, GBA_PIXEL(color, bg, 0u, rank),replace);
             }
         }
         return;
@@ -134,8 +235,15 @@ static void gba_bg_text_line(gba_t *g, unsigned bg, unsigned rank) {
         unsigned entry = gba_vram16(g, screen + block * 0x800 + ((y & 255) / 8 * 32 + (sx & 255) / 8) * 2);
         unsigned ty = (entry & 0x800) ? 7 - (y & 7) : y & 7;
         unsigned row = base + (entry & 1023) * ((control & 0x80) ? 64 : 32) + ty * ((control & 0x80) ? 8 : 4);
+#if GBA_PPU_TILE_DIRECT
+        /* A non-mosaic text row is aligned to four/eight bytes, wholly within
+         * one protected 32-byte dependency block. Rendering cannot mutate
+         * VRAM. Register this block once and load its live pixels directly. */
+        gba_video_read(g,6,row&0xffff);
+        const uint8_t *tile_row=g->memory.vram+(row&0xffff);
+#endif
         for (unsigned i = 0; i < span; i++) {
-            if (!(g->object_window[x + i] & (1u << bg))) {
+            if (gba_front_covered(g,x+i,replace) || !(g->object_window[x + i] & (1u << bg))) {
                 continue;
             }
             unsigned tx = (sx + i) & 7;
@@ -144,15 +252,23 @@ static void gba_bg_text_line(gba_t *g, unsigned bg, unsigned rank) {
             }
             unsigned pixel;
             if (control & 0x80) {
-                pixel = g->memory.vram[(row + tx) & 0xffff];
+#if GBA_PPU_TILE_DIRECT
+                pixel=tile_row[tx];
+#else
+                pixel = gba_vram8(g, (row + tx) & 0xffff);
+#endif
             } else {
-                pixel = (g->memory.vram[(row + tx / 2) & 0xffff] >> ((tx & 1) * 4)) & 15;
+#if GBA_PPU_TILE_DIRECT
+                pixel=(tile_row[tx/2]>>((tx&1)*4))&15;
+#else
+                pixel = (gba_vram8(g, (row + tx / 2) & 0xffff) >> ((tx & 1) * 4)) & 15;
+#endif
                 if (pixel) {
                     pixel += (entry >> 12) * 16;
                 }
             }
             if (pixel) {
-                gba_pixel(g, x + i, GBA_PIXEL(gba_palette(g, pixel), bg, 0u, rank));
+                gba_plot(g, x + i, GBA_PIXEL(gba_palette(g, pixel), bg, 0u, rank),replace);
             }
         }
         x += span;
@@ -187,7 +303,7 @@ static int gba_bg_affine(gba_t *g, unsigned bg, unsigned x, unsigned mode, unsig
     if (mode >= 3) {
         unsigned page = (mode != 3 && (gba_io16(g, 0) & 0x10)) ? 0xa000 : 0;
         if (mode == 4) {
-            unsigned pixel = g->memory.vram[page + position];
+            unsigned pixel = gba_vram8(g, page + position);
             if (!pixel) {
                 return 0;
             }
@@ -198,28 +314,70 @@ static int gba_bg_affine(gba_t *g, unsigned bg, unsigned x, unsigned mode, unsig
         return 1;
     }
     unsigned screen = ((control >> 8) & 31) * 0x800;
-    unsigned tile = g->memory.vram[(screen + (unsigned)sy / 8 * (size / 8) + (unsigned)sx / 8) & 0xffff];
+    unsigned tile = gba_vram8(g, (screen + (unsigned)sy / 8 * (size / 8) + (unsigned)sx / 8) & 0xffff);
     unsigned character = ((control >> 2) & 3) * 0x4000;
-    unsigned pixel = g->memory.vram[(character + tile * 64 + ((unsigned)sy & 7) * 8 + ((unsigned)sx & 7)) & 0xffff];
+    unsigned pixel = gba_vram8(g, (character + tile * 64 + ((unsigned)sy & 7) * 8 + ((unsigned)sx & 7)) & 0xffff);
     if (!pixel) {
         return 0;
     }
     *color = gba_palette(g, pixel);
     return 1;
 }
-void gba_ppu_oam_latch(gba_t *g) {
-    for (unsigned word = 0; word < 256; word++) {
-        g->machine.ppu.oam_latch[word] = gba_le32(g->memory.oam + word * 4);
-    }
-    g->machine.ppu.oam_latch_valid = 1;
+#if GBA_PPU_OBJ_INDEX
+static void gba_object_index_edit(gba_t *g,unsigned obj,uint32_t attributes,unsigned add);
+#endif
+GBA_INLINE void gba_ppu_oam_latch_word(gba_t *g,unsigned word) {
+    uint32_t value=gba_le32(g->memory.oam + word * 4);
+#if GBA_PPU_OBJ_INDEX
+        /* Horizontal position, flip, depth and mosaic do not change the
+         * vertical candidate set. Attributes are still latched in full. */
+        if (!(word&1) && g->object_index.valid && ((value^g->machine.ppu.oam_latch[word])&0xc000cfff)) {
+            gba_object_index_edit(g,word/2,g->machine.ppu.oam_latch[word],0);
+            gba_object_index_edit(g,word/2,value,1);
+        }
+#endif
+    g->machine.ppu.oam_latch[word] = value;
 }
-static void gba_bg_affine_line(gba_t *g, unsigned bg, unsigned mode, unsigned rank) {
+void gba_ppu_oam_latch(gba_t *g) {
+#if GBA_PPU_OAM_DIRTY
+    unsigned sparse=g->oam_dirty.coherent && g->machine.ppu.oam_latch_valid;
+#if GBA_TEST_RENDER_REFERENCE
+    if(gba_test_render_reference(g))sparse=0;
+#endif
+    if(sparse) {
+        for(unsigned bank=0;bank<8;bank++) {
+            uint32_t bits=g->oam_dirty.words[bank];
+            for(unsigned bit=0;bits;bit++,bits>>=1)
+                if(bits&1)gba_ppu_oam_latch_word(g,bank*32+bit);
+        }
+#ifdef GBA_TEST_OAM_DIRTY_PROOF
+        extern unsigned gba_test_oam_dirty_entries;gba_test_oam_dirty_entries++;
+#endif
+    } else
+#endif
+    {
+        for (unsigned word = 0; word < 256; word++)gba_ppu_oam_latch_word(g,word);
+    }
+#if GBA_PPU_OAM_DIRTY
+    gba_memset(g->oam_dirty.words,0,sizeof(g->oam_dirty.words));
+    g->oam_dirty.coherent=1;
+#endif
+    g->machine.ppu.oam_latch_valid = 1;
+#if GBA_VIDEO_CACHE && !GBA_TEST_MODE && !GBA_RAM_LACK
+    g->video_cache.latched_oam_generation = g->video_cache.oam_generation;
+    for (unsigned i = 0; i < 5; i++) {
+        g->video_cache.dirty[i] |= g->video_cache.pending_oam[i];
+        g->video_cache.pending_oam[i] = 0;
+    }
+#endif
+}
+static void gba_bg_affine_line(gba_t *g, unsigned bg, unsigned mode, unsigned rank,unsigned replace) {
     unsigned index = bg - 2, registers = 0x20 + index * 16, control = gba_io16(g, 8 + bg * 2);
     if (control & 0x40) {
         for (unsigned x = 0; x < GBA_WIDTH; x++) {
             unsigned color;
-            if ((g->object_window[x] & (1u << bg)) && gba_bg_affine(g, bg, x, mode, &color)) {
-                gba_pixel(g, x, GBA_PIXEL(color, bg, 0u, rank));
+            if (!gba_front_covered(g,x,replace) && (g->object_window[x] & (1u << bg)) && gba_bg_affine(g, bg, x, mode, &color)) {
+                gba_plot(g, x, GBA_PIXEL(color, bg, 0u, rank),replace);
             }
         }
         return;
@@ -235,7 +393,7 @@ static void gba_bg_affine_line(gba_t *g, unsigned bg, unsigned mode, unsigned ra
         height = mode == 5 ? 128 : 160;
     }
     for (unsigned x = 0; x < GBA_WIDTH; x++, fx += step_x, fy += step_y) {
-        if (!(g->object_window[x] & (1u << bg))) {
+        if (gba_front_covered(g,x,replace) || !(g->object_window[x] & (1u << bg))) {
             continue;
         }
         int32_t sx = gba_fixed8(gba_sign(fx, 32)), sy = gba_fixed8(gba_sign(fy, 32));
@@ -249,7 +407,7 @@ static void gba_bg_affine_line(gba_t *g, unsigned bg, unsigned mode, unsigned ra
         unsigned color, position = (unsigned)sy * width + (unsigned)sx;
         if (mode >= 3) {
             if (mode == 4) {
-                unsigned pixel = g->memory.vram[page + position];
+                unsigned pixel = gba_vram8(g, page + position);
                 if (!pixel) {
                     continue;
                 }
@@ -258,15 +416,15 @@ static void gba_bg_affine_line(gba_t *g, unsigned bg, unsigned mode, unsigned ra
                 color = gba_vram16(g, page + position * 2) & 0x7fff;
             }
         } else {
-            unsigned tile = g->memory.vram[(screen + (unsigned)sy / 8 * (size / 8) + (unsigned)sx / 8) & 0xffff];
+            unsigned tile = gba_vram8(g, (screen + (unsigned)sy / 8 * (size / 8) + (unsigned)sx / 8) & 0xffff);
             unsigned pixel =
-                g->memory.vram[(character + tile * 64 + ((unsigned)sy & 7) * 8 + ((unsigned)sx & 7)) & 0xffff];
+                gba_vram8(g, (character + tile * 64 + ((unsigned)sy & 7) * 8 + ((unsigned)sx & 7)) & 0xffff);
             if (!pixel) {
                 continue;
             }
             color = gba_palette(g, pixel);
         }
-        gba_pixel(g, x, GBA_PIXEL(color, bg, 0u, rank));
+        gba_plot(g, x, GBA_PIXEL(color, bg, 0u, rank),replace);
     }
 }
 static unsigned gba_object16(const gba_t *g, unsigned address) {
@@ -277,12 +435,79 @@ static unsigned gba_object16(const gba_t *g, unsigned address) {
 }
 static const unsigned gba_object_dimensions[3][4][2] = {{{8, 8}, {16, 16}, {32, 32}, {64, 64}},
     {{16, 8}, {32, 8}, {32, 16}, {64, 32}}, {{8, 16}, {8, 32}, {16, 32}, {32, 64}}};
+#if GBA_PPU_OBJ_INDEX
+/* Index only latched OAM. Live OAM before the first latch retains the scalar
+ * path, so ordinary writes cannot leave a stale derived index. Eight-line
+ * bands bound rebuild/update work even for 128-pixel affine objects. */
+static void gba_object_index_edit(gba_t *g,unsigned obj,uint32_t attributes,unsigned add) {
+    unsigned a0=attributes&0xffff,a1=attributes>>16,shape=a0>>14;
+    unsigned affine=(a0>>8)&1;
+    if(shape==3 || ((a0>>10)&3)==3 || (!affine && (a0&0x200)))return;
+    unsigned height=gba_object_dimensions[shape][a1>>14][1];
+    if(affine && (a0&0x200))height*=2;
+    unsigned y=a0&255,word=obj>>5,mask=1u<<(obj&31);
+    for(unsigned consumed=0;consumed<height;) {
+        unsigned line=(y+consumed)&255,span=8-(line&7);
+        if(line<160) {
+            uint32_t *bits=&g->object_index.band[line>>3][word];
+            if(add)*bits|=mask;else *bits&=~mask;
+        }
+        consumed+=span;
+    }
+}
+static void gba_object_index_prepare(gba_t *g) {
+    if(g->object_index.valid)return;
+    gba_memset(g->object_index.band,0,sizeof(g->object_index.band));
+    for(unsigned obj=0;obj<128;obj++)
+        gba_object_index_edit(g,obj,g->machine.ppu.oam_latch[obj*2],1);
+    g->object_index.valid=1;
+}
+GBA_INLINE unsigned gba_object_first_bit(uint32_t bits) {
+#if defined(__GNUC__) || defined(__clang__)
+    return (unsigned)__builtin_ctz(bits);
+#else
+    unsigned bit=0;while(!(bits&1)){bits>>=1;bit++;}return bit;
+#endif
+}
+#endif
 static unsigned gba_objects_select(gba_t *g, uint32_t *objects) {
     unsigned display = gba_io16(g, 0), budget = (display & 0x20) ? 954 : 1210, count = 0;
     if (!(display & 0x9000)) {
         return 0;
     }
     unsigned line = g->machine.ppu.line;
+#if GBA_PPU_OBJ_INDEX
+    unsigned indexed=g->machine.ppu.oam_latch_valid && line<160;
+#if GBA_TEST_RENDER_REFERENCE
+    if(gba_test_render_reference(g))indexed=0;
+#endif
+    if(indexed) {
+        gba_object_index_prepare(g);
+#ifdef GBA_TEST_OBJ_INDEX_PROOF
+        extern unsigned gba_test_obj_index_entries;gba_test_obj_index_entries++;
+#endif
+        for(unsigned word=0;word<4 && budget;word++) {
+            uint32_t bits=g->object_index.band[line>>3][word];
+            while(bits && budget) {
+                unsigned obj=word*32+gba_object_first_bit(bits);bits&=bits-1;
+                unsigned a0=gba_object16(g,obj*8),a1=gba_object16(g,obj*8+2);
+                unsigned affine=(a0>>8)&1,shape=a0>>14;
+                unsigned width=gba_object_dimensions[shape][a1>>14][0];
+                unsigned height=gba_object_dimensions[shape][a1>>14][1];
+                unsigned double_size=affine && (a0&0x200);
+                unsigned y=(line-(a0&255))&255;
+                if(y>=(double_size?height*2:height))continue;
+                unsigned draw_width=double_size?width*2:width;
+                unsigned cost=affine?10+draw_width*2:draw_width;
+                unsigned available=budget<cost?budget:cost;
+                budget=budget>cost?budget-cost:0;
+                unsigned pixels=affine?(available>10?(available-10)/2:0):available;
+                objects[count++]=obj|(y<<7)|(pixels<<15);
+            }
+        }
+        return count;
+    }
+#endif
     for (unsigned obj = 0; obj < 128 && budget; obj++) {
         unsigned a0 = gba_object16(g, obj * 8), a1 = gba_object16(g, obj * 8 + 2);
         unsigned shape = a0 >> 14, affine = (a0 >> 8) & 1, object_mode = (a0 >> 10) & 3;
@@ -305,15 +530,69 @@ static unsigned gba_objects_select(gba_t *g, uint32_t *objects) {
     }
     return count;
 }
-static void gba_objects(gba_t *g, int window_pass, const uint32_t *objects, unsigned count) {
+#if GBA_PPU_OBJ_SPANS
+/* Ordinary sprites have a constant source row. Walk eight-pixel tile spans,
+ * preserving the object pixel budget, horizontal/vertical flips, OBJ window
+ * and blend order. Affine/mosaic sprites keep the general renderer. */
+static void gba_object_spans(gba_t *g,unsigned a0,unsigned a1,unsigned a2,unsigned width,unsigned height,
+    unsigned y,unsigned pixels,unsigned display,int32_t x_start,int window_pass,unsigned replace) {
+#ifdef GBA_TEST_OBJ_SPAN_PROOF
+    extern unsigned gba_test_obj_span_entries;
+    gba_test_obj_span_entries++;
+#endif
+    unsigned begin=x_start<0?(unsigned)-x_start:0,end=pixels;
+    if(x_start>=GBA_WIDTH)return;
+    if((int32_t)end>GBA_WIDTH-x_start)end=(unsigned)(GBA_WIDTH-x_start);
+    if(begin>=end)return;
+    unsigned flip=!!(a1&0x1000),sy=(a1&0x2000)?height-1-y:y;
+    unsigned depth=(a0&0x2000)?2:1,tile_base=a2&1023;
+    if(depth==2)tile_base&=~1u;
+    tile_base+=(sy>>3)*((display&0x40)?(width>>3)*depth:32);
+    unsigned palette=256+(depth==1?(a2>>12)*16:0);
+    uint32_t tag=GBA_PIXEL(0u,4u,((a0>>10)&3)==1,((a2>>10)&3)*5);
+    for(unsigned dx=begin;dx<end;) {
+        unsigned sx=flip?width-1-dx:dx,span=flip?(sx&7)+1:8-(sx&7);
+        if(span>end-dx)span=end-dx;
+        unsigned tile=(tile_base+(sx>>3)*depth)&1023;
+        if((display&7)<3 || tile>=512) {
+            unsigned row=0x10000+((tile*32+(sy&7)*(depth==2?8:4))&0x7fff);
+            gba_video_read(g,6,row);
+            const uint8_t *data=g->memory.vram+row;
+            for(unsigned n=0;n<span;n++) {
+                unsigned x=(unsigned)(x_start+(int32_t)(dx+n));
+                if(!window_pass && gba_front_covered(g,x,replace))continue;
+                unsigned tx=flip?(sx-n)&7:(sx+n)&7;
+                unsigned pixel=depth==2?data[tx]:(data[tx>>1]>>((tx&1)*4))&15;
+                if(!pixel)continue;
+                if(window_pass)g->object_window[x]=1;
+                else if(g->object_window[x]&16)gba_plot(g,x,tag|gba_palette(g,palette+pixel),replace);
+            }
+        }
+        dx+=span;
+    }
+}
+#endif
+static void gba_objects(gba_t *g, int window_pass, const uint32_t *objects, unsigned count,unsigned priority) {
     unsigned display = gba_io16(g, 0), mosaic = gba_io16(g, 0x4c);
+    unsigned front=GBA_PPU_FRONT_CULL && priority>=8;
+    if(front)priority&=3;
     if (window_pass ? !(display & 0x8000) : !(display & 0x1000)) {
         return;
     }
-    for (unsigned item = 0; item < count; item++) {
+#if !GBA_PPU_ORDERED && !GBA_PPU_SORTED_BLEND
+    (void)priority;
+#endif
+    for (unsigned iteration = 0; iteration < count; iteration++) {
+        unsigned item=iteration;
+#if GBA_PPU_ORDERED || GBA_PPU_SORTED_BLEND || GBA_PPU_FRONT_CULL
+        if(priority<4 && !front)item=count-1-iteration;
+#endif
         unsigned obj = objects[item] & 127, y = (objects[item] >> 7) & 255, pixels = objects[item] >> 15;
         unsigned a0 = gba_object16(g, obj * 8), a1 = gba_object16(g, obj * 8 + 2), a2 = gba_object16(g, obj * 8 + 4);
         unsigned shape = a0 >> 14, affine = (a0 >> 8) & 1, object_mode = (a0 >> 10) & 3;
+#if GBA_PPU_ORDERED || GBA_PPU_SORTED_BLEND || GBA_PPU_FRONT_CULL
+        if(priority<4 && ((a2>>10)&3)!=priority)continue;
+#endif
         if ((object_mode == 2) != window_pass) {
             continue;
         }
@@ -324,6 +603,16 @@ static void gba_objects(gba_t *g, int window_pass, const uint32_t *objects, unsi
         if (a0 & 0x1000) {
             y -= y % (((mosaic >> 12) & 15) + 1);
         }
+#if GBA_PPU_OBJ_SPANS
+        unsigned spans=!affine && !(a0&0x1000);
+#if GBA_TEST_RENDER_REFERENCE
+        if(gba_test_render_reference(g))spans=0;
+#endif
+        if(spans) {
+            gba_object_spans(g,a0,a1,a2,width,height,y,pixels,display,x_start,window_pass,front?2:priority<4);
+            continue;
+        }
+#endif
         int32_t pa = 256, pb = 0, pc = 0, pd = 256;
         if (affine) {
             unsigned matrix = ((a1 >> 9) & 31) * 32;
@@ -337,6 +626,7 @@ static void gba_objects(gba_t *g, int window_pass, const uint32_t *objects, unsi
             if (out_x < 0 || out_x >= GBA_WIDTH) {
                 continue;
             }
+            if(!window_pass && gba_front_covered(g,(unsigned)out_x,front?2:0))continue;
             unsigned mx = dx;
             if (a0 & 0x1000) {
                 mx -= mx % (((mosaic >> 8) & 15) + 1);
@@ -366,7 +656,7 @@ static void gba_objects(gba_t *g, int window_pass, const uint32_t *objects, unsi
             }
             unsigned address = 0x10000 + tile * 32 + ((unsigned)sy & 7) * (depth == 2 ? 8 : 4) +
                                ((unsigned)sx & 7) / (depth == 2 ? 1 : 2);
-            unsigned pixel = g->memory.vram[0x10000 + ((address - 0x10000) & 0x7fff)];
+            unsigned pixel = gba_vram8(g, 0x10000 + ((address - 0x10000) & 0x7fff));
             if (depth == 1) {
                 pixel = (pixel >> (((unsigned)sx & 1) * 4)) & 15;
             }
@@ -381,8 +671,7 @@ static void gba_objects(gba_t *g, int window_pass, const uint32_t *objects, unsi
                 continue;
             }
             unsigned palette = 256 + pixel + (depth == 1 ? (a2 >> 12) * 16 : 0);
-            gba_pixel(
-                g, (unsigned)out_x, GBA_PIXEL(gba_palette(g, palette), 4u, object_mode == 1, ((a2 >> 10) & 3) * 5));
+            gba_plot(g,(unsigned)out_x,GBA_PIXEL(gba_palette(g,palette),4u,object_mode==1,((a2>>10)&3)*5),front?2:priority<4);
         }
     }
 }
@@ -438,9 +727,52 @@ static gba_color_t gba_color(unsigned c) {
     return 0xff000000u | ((r * 255 / 31) << 16) | ((green * 255 / 31) << 8) | (b * 255 / 31);
 #endif
 }
+#include "gba_ppu_scanline.h"
 void gba_ppu_render(gba_t *g) {
     unsigned line = g->machine.ppu.line, display = gba_io16(g, 0), mode = display & 7;
     gba_color_t *out = g->memory.framebuffer + line % GBA_DRAW_LINES * GBA_WIDTH;
+#if GBA_VIDEO_CACHE && !GBA_TEST_MODE && !GBA_RAM_LACK
+    /* Exact keys, not probabilistic hashes: each retained row depends on all
+     * rendering registers, reference coordinates/delays/windows and the two
+     * video memory generations. OAM's latch generation differs from live RAM. */
+    gba_video_row_t key = {0};
+    key.valid = 1;
+    key.generation = 0;
+    key.latch_valid = g->machine.ppu.oam_latch_valid;
+    /* An explicit invalidation can happen while old OAM is still latched.
+     * Its synchronization tag must remain distinct from the next live latch. */
+    key.oam_generation = key.latch_valid ? g->video_cache.latched_oam_generation : g->video_cache.oam_generation;
+    for (unsigned i = 0; i < 2; i++) {
+        key.refs[i * 2] = g->machine.ppu.ref_x[i];
+        key.refs[i * 2 + 1] = g->machine.ppu.ref_y[i];
+    }
+    for (unsigned i = 0; i < 4; i++)
+        key.bg_delay[i] = g->machine.ppu.bg_delay[i];
+    key.window_active = g->machine.ppu.window_active;
+    gba_memcpy(key.io, g->io, sizeof(key.io));
+    const uint8_t *old = (const uint8_t *)&g->video_cache.row[line], *current = (const uint8_t *)&key;
+    unsigned same = 1;
+    for (size_t i = 0; i < sizeof(key); i++)
+        if (old[i] != current[i]) {
+            same = 0;
+            break;
+        }
+    unsigned row_word = line >> 5, row_mask = 1u << (line & 31);
+    if (same && !(g->video_cache.dirty[row_word] & row_mask))
+        goto ppu_draw;
+    g->video_cache.dirty[row_word] &= ~row_mask;
+    g->video_cache.active_word = row_word;
+    g->video_cache.active_mask = row_mask;
+#if GBA_PPU_READ_DEDUP
+    g->video_cache.last_vram_block=g->video_cache.last_palette_block=UINT32_MAX;
+#endif
+    if (g->video_cache.framebuffer_revision != UINT64_MAX)
+        g->video_cache.framebuffer_revision++;
+    g->video_cache.row[line] = key;
+#endif
+#if GBA_PPU_SCANLINE_FAST
+    if(!(display&0x80) && gba_scanline_fast(g,out,display))goto ppu_color_swap;
+#endif
     if (display & 0x80) {
         for (unsigned x = 0; x < GBA_WIDTH; x++) {
             out[x] = gba_color(0x7fff);
@@ -453,7 +785,7 @@ void gba_ppu_render(gba_t *g) {
         }
         uint32_t objects[128];
         unsigned object_count = gba_objects_select(g, objects);
-        gba_objects(g, 1, objects, object_count);
+        gba_objects(g, 1, objects, object_count,4);
         /* The window pass first produces coverage bits. Reuse the same scratch
          * bytes for the resolved mask; no render scratch belongs to save states. */
         if (display & 0xe000) {
@@ -463,6 +795,73 @@ void gba_ppu_render(gba_t *g) {
         } else {
             gba_memset(g->object_window, 0x3f, GBA_WIDTH);
         }
+#if GBA_PPU_FRONT_CULL
+        unsigned front=(gba_io16(g,0x50)&0xc0)!=0x40;
+        if(front && (display&0x1000))for(unsigned n=0;n<object_count;n++) {
+            if((gba_object16(g,(objects[n]&127)*8)&0xc00)==0x400){front=0;break;}
+        }
+#if GBA_TEST_RENDER_REFERENCE
+        if(gba_test_render_reference(g))front=0;
+#endif
+        if(front) {
+#ifdef GBA_TEST_FRONT_CULL_PROOF
+            extern unsigned gba_test_front_cull_entries;gba_test_front_cull_entries++;
+#endif
+            for(unsigned priority=0;priority<4;priority++) {
+                gba_objects(g,0,objects,object_count,8+priority);
+                for(unsigned bg=0;bg<4;bg++) {
+                    if(!(display&(1u<<(8+bg))) || g->machine.ppu.bg_delay[bg] || mode>5 ||
+                        (mode==1 && bg==3)||(mode==2 && bg<2)||(mode>=3 && bg!=2)||
+                        (gba_io16(g,8+bg*2)&3)!=priority)continue;
+                    unsigned rank=priority*5+bg+1;
+                    if(mode==0 || (mode==1 && bg<2))gba_bg_text_line(g,bg,rank,2);
+                    else gba_bg_affine_line(g,bg,mode,rank,2);
+                }
+            }
+        } else
+#endif
+        {
+#if GBA_PPU_ORDERED || GBA_PPU_SORTED_BLEND
+        unsigned active=0,priorities[4]={0};
+        for(unsigned bg=0;bg<4;bg++) {
+            if (!(display & (1u << (8 + bg))) || g->machine.ppu.bg_delay[bg] || mode > 5 || (mode == 1 && bg == 3) ||
+                (mode == 2 && bg < 2) || (mode >= 3 && bg != 2))continue;
+            active|=1u<<bg;priorities[bg]=gba_io16(g,8+bg*2)&3;
+        }
+        unsigned ordered=0;
+#if GBA_PPU_SORTED_BLEND
+        ordered=1;
+#else
+        ordered=(gba_io16(g,0x50)&0xc0)!=0x40;
+        if(ordered && (display&0x1000))for(unsigned item=0;item<object_count;item++) {
+            unsigned obj=objects[item]&127;
+            if((gba_object16(g,obj*8)&0xc00)==0x400){ordered=0;break;}
+        }
+#endif
+#if GBA_TEST_RENDER_REFERENCE
+        if(gba_test_render_reference(g))ordered=0;
+#endif
+        if(ordered) {
+            /* Back-to-front priorities remove depth comparisons. The blend
+             * path retains the distinct second layer; reverse OAM keeps the
+             * lower object index on top without a tie comparison per pixel. */
+            for(unsigned priority=4;priority--;) {
+                for(unsigned bg=4;bg--;)if((active&(1u<<bg)) && priorities[bg]==priority) {
+                    unsigned rank=priority*5+bg+1;
+                    if(mode==0 || (mode==1 && bg<2))gba_bg_text_line(g,bg,rank,1);
+                    else gba_bg_affine_line(g,bg,mode,rank,1);
+                }
+                gba_objects(g,0,objects,object_count,priority);
+            }
+        } else {
+            for(unsigned bg=0;bg<4;bg++)if(active&(1u<<bg)) {
+                unsigned rank=priorities[bg]*5+bg+1;
+                if(mode==0 || (mode==1 && bg<2))gba_bg_text_line(g,bg,rank,0);
+                else gba_bg_affine_line(g,bg,mode,rank,0);
+            }
+            gba_objects(g,0,objects,object_count,4);
+        }
+#else
         for (unsigned bg = 0; bg < 4; bg++) {
             if (!(display & (1u << (8 + bg))) || g->machine.ppu.bg_delay[bg] || mode > 5 || (mode == 1 && bg == 3) ||
                 (mode == 2 && bg < 2) || (mode >= 3 && bg != 2)) {
@@ -470,12 +869,14 @@ void gba_ppu_render(gba_t *g) {
             }
             unsigned rank = (gba_io16(g, 8 + bg * 2) & 3) * 5 + bg + 1;
             if (mode == 0 || (mode == 1 && bg < 2)) {
-                gba_bg_text_line(g, bg, rank);
+                gba_bg_text_line(g, bg, rank,0);
                 continue;
             }
-            gba_bg_affine_line(g, bg, mode, rank);
+            gba_bg_affine_line(g, bg, mode, rank,0);
         }
-        gba_objects(g, 0, objects, object_count);
+        gba_objects(g, 0, objects, object_count,4);
+#endif
+        }
         unsigned effect = gba_io16(g, 0x50);
         for (unsigned x = 0; x < GBA_WIDTH; x++) {
             unsigned color =
@@ -483,6 +884,9 @@ void gba_ppu_render(gba_t *g) {
             out[x] = gba_color(color);
         }
     }
+#if GBA_PPU_SCANLINE_FAST
+ppu_color_swap:
+#endif
     if (gba_io16(g, 2) & 1) {
         for (unsigned x = 0; x < GBA_WIDTH; x += 2) {
 #if GBA_COLOR_DEPTH == 16
@@ -495,6 +899,10 @@ void gba_ppu_render(gba_t *g) {
             out[x + 1] = (right & ~mask) | (left & mask);
         }
     }
+#if GBA_VIDEO_CACHE && !GBA_TEST_MODE && !GBA_RAM_LACK
+ppu_draw:
+    g->video_cache.active_mask = 0;
+#endif
     if (line % GBA_DRAW_LINES == GBA_DRAW_LINES - 1) {
         if (gba_draw(0, (int)(line + 1 - GBA_DRAW_LINES), GBA_WIDTH - 1, (int)line, g->memory.framebuffer)) {
             gba_fail(g, GBA_ERROR_IO);

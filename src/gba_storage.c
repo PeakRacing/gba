@@ -739,9 +739,26 @@ int gba_state_load_file(gba_t *g, const char *path) {
         }
     }
     if (!c.error) {
+#if GBA_DYNAREC
+        gba_dynarec_invalidate(g, 0, SIZE_MAX);
+#endif
         gba_memset(g->cache_valid, 0, sizeof(g->cache_valid));
         g->access_cycles = 0;
+        gba_wait_invalidate(g);
+        gba_video_invalidate(g);
         g->event_cycles = 0;
+#if GBA_FAST_CPU
+        g->cpu_bulk = g->cpu_pending = 0;
+#if GBA_DYNAREC
+    g->native_control_budget=0;
+#endif
+        g->fetch_page = NULL;
+#endif
+#if GBA_BATCH_EVENTS
+        g->deferred_cycles = 0;
+#endif
+        gba_idle_invalidate(g);
+        gba_dma_refresh_ready(g);
         g->gba_quit = 0;
         gba_rtc_rebase(g);
         gba_state_loaded(g);

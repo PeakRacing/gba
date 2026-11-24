@@ -14,6 +14,25 @@
  * limitations under the License.
  */
 #include "gba.h"
+#if GBA_FAST_BLOCKS || GBA_VIDEO_CACHE
+#include <string.h>
+/* Bare-metal smoke intentionally links without libc. Real ports can use the
+ * C library's equivalents; neither operation allocates or depends on an OS. */
+void *memcpy(void *destination, const void *source, size_t size) {
+    return gba_memcpy(destination, source, size);
+}
+void *memset(void *destination, int value, size_t size) {
+    return gba_memset(destination, value, size);
+}
+int memcmp(const void *left, const void *right, size_t size) {
+    const unsigned char *a = left, *b = right;
+    while (size--) {
+        if (*a != *b) return *a < *b ? -1 : 1;
+        a++;b++;
+    }
+    return 0;
+}
+#endif
 static gba_t gba_instance;
 static _Alignas(4) uint8_t gba_memory[0x60800 + GBA_SAVE_CAPACITY + GBA_DRAW_SIZE * sizeof(gba_color_t) +
                                       (GBA_ROM_STREAM ? GBA_ROM_PAGE_SIZE * GBA_ROM_CACHE_SLOTS : 0)];

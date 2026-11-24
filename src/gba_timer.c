@@ -18,6 +18,9 @@ static const uint32_t gba_timer_divisor[4] = {1, 64, 256, 1024};
 static const unsigned gba_timer_shift[4] = {0, 6, 8, 10};
 
 void gba_dma_enable(gba_t *g, unsigned ch) {
+#if GBA_BATCH_EVENTS
+    gba_flush_events(g);
+#endif
     g->event_cycles = 0;
     unsigned base = 0xb0 + ch * 12;
     gba_dma_t *d = &g->machine.dma[ch];
@@ -37,6 +40,7 @@ void gba_dma_enable(gba_t *g, unsigned ch) {
     d->fifo = 0;
     d->pending = ((d->control >> 12) & 3) == 0;
     d->startup = d->pending ? GBA_DMA_START_DELAY : 0;
+    gba_dma_refresh_ready(g);
     if (ch == 3 && (d->destination >> 24) == 13 && (d->count == 17 || d->count == 81)) {
         if (g->machine.cart.type == GBA_SAVE_EEPROM512) {
             if (GBA_SAVE_CAPACITY < 8192 || g->memory.save_size < 8192) {
@@ -49,6 +53,9 @@ void gba_dma_enable(gba_t *g, unsigned ch) {
     }
 }
 void gba_dma_trigger(gba_t *g, unsigned timing) {
+#if GBA_BATCH_EVENTS
+    gba_flush_events(g);
+#endif
     g->event_cycles = 0;
     for (unsigned ch = 0; ch < 4; ch++) {
         gba_dma_t *d = &g->machine.dma[ch];
@@ -59,6 +66,7 @@ void gba_dma_trigger(gba_t *g, unsigned timing) {
             d->startup = GBA_DMA_EVENT_DELAY;
         }
     }
+    gba_dma_refresh_ready(g);
 }
 static uint32_t gba_dma_unit(gba_t *g) {
     for (unsigned ch = 0; ch < 4; ch++) {
@@ -123,6 +131,7 @@ static uint32_t gba_dma_unit(gba_t *g) {
                 gba_irq(g, 1u << (8 + ch));
             }
             d->pending = 0;
+            gba_dma_refresh_ready(g);
             if ((d->control & 0x200) && (d->control & 0x3000)) {
                 d->count = gba_io16(g, base + 8) & (ch == 3 ? 0xffffu : 0x3fffu);
                 if (!d->count) {
@@ -144,6 +153,10 @@ static uint32_t gba_dma_unit(gba_t *g) {
     return 0;
 }
 uint32_t gba_dma_step(gba_t *g) {
+#if GBA_FAST_RUN
+    if (!g->dma_ready)
+        return 0;
+#endif
     if (g->dma_running) {
         return 0;
     }
@@ -153,13 +166,39 @@ uint32_t gba_dma_step(gba_t *g) {
     return cycles;
 }
 void gba_dma_drain(gba_t *g) {
+#if GBA_FAST_RUN
+    if (!g->dma_ready)
+        return;
+#endif
     if (!g->stepping || g->dma_running || g->machine.cpu.stopped) {
         return;
     }
     while (!g->fault && gba_dma_step(g)) {
     }
 }
-uint32_t gba_next_event(const gba_t *g) {
+#if GBA_DYNAREC_SOFT_TIMERS
+/* Audio-only overflows cannot affect CPU execution before the next FIFO DMA
+ * threshold. Device replay still visits every overflow and every PCM sample. */
+static unsigned gba_timer_cpu_overflows(const gba_t *g,unsigned ch) {
+    const gba_timer_t *t=&g->machine.timer[ch];
+    if((t->control&0x40) || (ch<3 && (g->machine.timer[ch+1].control&0x84)==0x84))return 1;
+    if(ch>=2)return UINT32_MAX;
+    unsigned nearest=UINT32_MAX;
+    uint16_t sound=gba_io16(g,0x82);
+    for(unsigned f=0;f<2;f++) {
+        if(((sound>>(10+f*4))&1)!=ch)continue;
+        for(unsigned dma=1;dma<=2;dma++) {
+            const gba_dma_t *d=&g->machine.dma[dma];
+            if((d->control&0xb000)!=0xb000 || (d->destination&~3u)!=0x040000a0u+f*4 || d->pending)continue;
+            unsigned count=g->machine.apu.fifo_count[f];
+            unsigned overflows=count>16?count-16:1;
+            if(overflows<nearest)nearest=overflows;
+        }
+    }
+    return nearest;
+}
+#endif
+static uint32_t gba_next_event_kind(const gba_t *g, unsigned sound_sample) {
     const gba_ppu_t *p = &g->machine.ppu;
     uint32_t nearest = (p->phase < GBA_HBLANK_START ? GBA_HBLANK_START : GBA_CYCLES_PER_LINE) - p->phase;
     if (g->machine.cpu.irq_delay && g->machine.cpu.irq_delay < nearest) {
@@ -188,6 +227,13 @@ uint32_t gba_next_event(const gba_t *g) {
             continue;
         }
         uint32_t remaining = (0x10000u - t->counter) * gba_timer_divisor[t->control & 3] - t->phase;
+#if GBA_DYNAREC_SOFT_TIMERS
+        if(!sound_sample) {
+            unsigned overflows=gba_timer_cpu_overflows(g,ch);
+            if(overflows==UINT32_MAX)continue;
+            if(overflows>1)remaining+=(overflows-1)*(0x10000u-t->reload)*gba_timer_divisor[t->control&3];
+        }
+#endif
         if (remaining < nearest) {
             nearest = remaining;
         }
@@ -197,15 +243,38 @@ uint32_t gba_next_event(const gba_t *g) {
         nearest = apu;
     }
 #if GBA_ENABLE_SOUND
-    apu = (GBA_CPU_CLOCK - g->machine.apu.sample_phase + GBA_APU_SAMPLE_RATE - 1) / GBA_APU_SAMPLE_RATE;
-    if (apu < nearest) {
-        nearest = apu;
+    if (sound_sample) {
+        apu = (GBA_CPU_CLOCK - g->machine.apu.sample_phase + GBA_APU_SAMPLE_RATE - 1) / GBA_APU_SAMPLE_RATE;
+        if (apu < nearest) nearest = apu;
     }
+#else
+    (void)sound_sample;
+#endif
+#if GBA_BATCH_EVENTS
+    if (nearest > g->deferred_cycles)
+        nearest -= g->deferred_cycles;
+    else
+        nearest = 1;
 #endif
     return nearest ? nearest : 1;
 }
+uint32_t gba_next_event(const gba_t *g) { return gba_next_event_kind(g,1); }
+#if GBA_FAST_CPU
+uint32_t gba_next_cpu_event(const gba_t *g) {
+    /* PCM emission cannot change CPU-visible state. Timer overflows, the APU
+     * sequencer, IRQ/DMA and PPU edges remain hard CPU deadlines. Device replay
+     * still uses every exact sample boundary through gba_next_event(). */
+    return gba_next_event_kind(g,GBA_DYNAREC?0:1);
+}
+#endif
 static void gba_timer_increment(gba_t *g, unsigned ch, uint32_t count) {
     gba_timer_t *t = &g->machine.timer[ch];
+#if GBA_FAST_WAIT && !GBA_TEST_MODE
+    /* A loop observed before a counter changes is not a proof of its cost
+     * after that change, even if it masks the value back to the same register. */
+    if (count && (g->wait.timer_read & (1u << ch)))
+        gba_wait_invalidate(g);
+#endif
     while (count) {
         uint32_t distance = 0x10000u - t->counter;
         if (count < distance) {
@@ -226,6 +295,11 @@ static void gba_timer_increment(gba_t *g, unsigned ch, uint32_t count) {
     }
 }
 static void gba_ppu_event(gba_t *g) {
+#if GBA_DYNAREC && GBA_FAST_WAIT && !GBA_TEST_MODE
+    if(g->wait.ppu_read)gba_wait_invalidate(g);
+#else
+    gba_wait_invalidate(g); /* DISPSTAT/VCOUNT may change the loop's path. */
+#endif
     gba_ppu_t *p = &g->machine.ppu;
     uint16_t status = gba_io16(g, 4);
     if (p->phase == GBA_HBLANK_START) {
@@ -234,7 +308,9 @@ static void gba_ppu_event(gba_t *g) {
             uint32_t begin = gba_profile_ticks();
 #endif
             if (!g->machine.frame_skip) {
+                GBA_PROFILE_ENTER(GBA_PROF_PPU);
                 gba_ppu_render(g);
+                GBA_PROFILE_LEAVE();
             }
 #if GBA_TEST_PROFILE
             g->profile_ppu += gba_profile_ticks() - begin;
@@ -280,6 +356,7 @@ static void gba_ppu_event(gba_t *g) {
                 p->ref_y[i] = (uint32_t)gba_sign(gba_io32(g, 0x2c + i * 16), 28);
             }
             gba_rtc_sync(g);
+            gba_wait_invalidate(g);
             gba_frame(g);
         }
         gba_put16(g->io + 6, (uint16_t)p->line);
@@ -295,7 +372,14 @@ static void gba_ppu_event(gba_t *g) {
     }
     gba_put16(g->io + 4, status);
 }
-void gba_advance(gba_t *g, uint32_t cycles) {
+static void gba_advance_exact(gba_t *g, uint32_t cycles) {
+    if (cycles)
+        gba_idle_invalidate(g);
+#if GBA_IDLE_LOOPS && !GBA_TEST_MODE
+    if (cycles)
+        g->idle_reject_pc = 0;
+#endif
+    GBA_PROFILE_ENTER(GBA_PROF_TIMER);
     if (!g->stepping) {
         g->event_cycles = 0;
     }
@@ -314,6 +398,7 @@ void gba_advance(gba_t *g, uint32_t cycles) {
                 g->machine.dma[ch].startup -= part;
             }
         }
+        gba_dma_refresh_ready(g);
         if (g->machine.cpu.irq_delay) {
             g->machine.cpu.irq_delay -= part;
         }
@@ -354,7 +439,11 @@ void gba_advance(gba_t *g, uint32_t cycles) {
 #if GBA_TEST_PROFILE
         uint32_t start = gba_profile_ticks();
 #endif
-        gba_apu_advance(g, part);
+        {
+            GBA_PROFILE_ENTER(GBA_PROF_APU);
+            gba_apu_advance(g, part);
+            GBA_PROFILE_LEAVE();
+        }
 #if GBA_TEST_PROFILE
         g->profile_apu += gba_profile_ticks() - start;
 #endif
@@ -363,4 +452,35 @@ void gba_advance(gba_t *g, uint32_t cycles) {
         }
         cycles -= part;
     }
+    GBA_PROFILE_LEAVE();
+}
+void gba_flush_events(gba_t *g) {
+#if GBA_BATCH_EVENTS
+    uint32_t cycles = g->deferred_cycles;
+    g->deferred_cycles = 0;
+    if (cycles)
+        gba_advance_exact(g, cycles);
+#else
+    (void)g;
+#endif
+}
+void gba_advance(gba_t *g, uint32_t cycles) {
+#if GBA_BATCH_EVENTS
+    if (!cycles)
+        return;
+    if (g->stepping && !g->dma_running) {
+        if (!g->event_cycles) {
+            gba_flush_events(g);
+            g->event_cycles = gba_next_event(g);
+        }
+        /* Do not pass any PPU/APU/timer/DMA/IRQ deadline. Both operands stay
+         * bounded by that deadline, so the pending addition cannot wrap. */
+        if (cycles < g->event_cycles - g->deferred_cycles) {
+            g->deferred_cycles += cycles;
+            return;
+        }
+    }
+    gba_flush_events(g);
+#endif
+    gba_advance_exact(g, cycles);
 }

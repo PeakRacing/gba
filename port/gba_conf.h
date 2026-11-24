@@ -14,4 +14,97 @@
  * limitations under the License.
  */
 #pragma once
-/* Override defaults here or with compiler definitions. No OS is required. */
+
+/* Compiler definitions override the platform defaults below. */
+
+#ifndef GBA_ENABLE_SOUND
+#define GBA_ENABLE_SOUND (0)
+#endif
+
+#ifndef GBA_USE_FS
+#define GBA_USE_FS (0)
+#endif
+
+#ifndef GBA_ENABLE_SAVE_STATE
+#define GBA_ENABLE_SAVE_STATE (0)
+#endif
+
+#ifndef GBA_ENABLE_SAVE
+#define GBA_ENABLE_SAVE (1)
+#endif
+
+#ifndef GBA_ENABLE_RTC
+#define GBA_ENABLE_RTC (1)
+#endif
+
+#ifndef GBA_BIOS_HLE
+#define GBA_BIOS_HLE (1)
+#endif
+
+#ifndef GBA_COLOR_DEPTH
+#define GBA_COLOR_DEPTH (16)
+#endif
+
+#ifndef GBA_COLOR_SWAP
+#define GBA_COLOR_SWAP (0)
+#endif
+
+#ifndef GBA_RAM_LACK
+#define GBA_RAM_LACK (0)
+#endif
+
+#ifndef GBA_FRAME_SKIP
+#define GBA_FRAME_SKIP (0)
+#endif
+
+#ifndef GBA_ROM_STREAM
+#define GBA_ROM_STREAM (0)
+#endif
+
+#ifndef GBA_ROM_CACHE_SLOTS
+#define GBA_ROM_CACHE_SLOTS (4)
+#endif
+
+#ifndef GBA_APU_SAMPLE_RATE
+#define GBA_APU_SAMPLE_RATE (32000)
+#endif
+
+#ifndef GBA_APU_BUFFER_SAMPLES
+#define GBA_APU_BUFFER_SAMPLES (256)
+#endif
+
+#ifndef GBA_FAST_CORE
+#define GBA_FAST_CORE (0)
+#endif
+
+#ifndef GBA_DYNAREC
+#define GBA_DYNAREC (0)
+#endif
+
+#ifndef GBA_ARM926_EXECUTABLE_RAM
+#define GBA_ARM926_EXECUTABLE_RAM (0)
+#endif
+
+#ifndef GBA_TEST_MODE
+#define GBA_TEST_MODE (0)
+#endif
+
+#ifndef GBA_TEST_PROFILE
+#define GBA_TEST_PROFILE (0)
+#endif
+
+#ifndef GBA_DYNAREC_CODE_SIZE
+#define GBA_DYNAREC_CODE_SIZE (256u * 1024u)
+#endif
+
+#ifndef GBA_DYNAREC_DATA_SIZE
+#define GBA_DYNAREC_DATA_SIZE (64u * 1024u)
+#endif
+
+#ifndef GBA_LOG_LEVEL
+#define GBA_LOG_LEVEL (0)
+#endif
+
+#ifndef GBA_DYNAREC_STATS
+#define GBA_DYNAREC_STATS (0)
+#endif

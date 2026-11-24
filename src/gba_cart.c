@@ -44,8 +44,9 @@ int gba_set_save_type(gba_t *g, gba_save_type_t type) {
     return g->fault;
 }
 void gba_cart_detect(gba_t *g) {
-    static const char *signatures[] = {
+    static const char *const signatures[] = {
         "FLASH1M_V", "FLASH512_V", "FLASH_V", "EEPROM_V", "SRAM_V", "SRAM_F_V", "SIIRTC_V"};
+    static const uint8_t lengths[] = {9, 10, 7, 8, 6, 8, 8};
     static const gba_save_type_t types[] = {GBA_SAVE_FLASH128, GBA_SAVE_FLASH64, GBA_SAVE_FLASH64, GBA_SAVE_EEPROM512,
         GBA_SAVE_SRAM, GBA_SAVE_SRAM, GBA_SAVE_NONE};
     uint8_t chunk[272];
@@ -62,10 +63,11 @@ void gba_cart_detect(gba_t *g) {
         }
         for (size_t i = 0; i < count && i < 256; i++) {
             for (unsigned s = 0; s < 7; s++) {
-                size_t length = 0;
-                while (signatures[s][length]) {
-                    length++;
+                /* Same offset/signature priority; avoid strlen for every ROM byte. */
+                if (chunk[i] != (uint8_t)signatures[s][0]) {
+                    continue;
                 }
+                size_t length = lengths[s];
                 if (i + length > count) {
                     continue;
                 }

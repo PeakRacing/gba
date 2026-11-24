@@ -1,0 +1,76 @@
+{
+  "base_commit": "e0f44c6bec202fa15890f3c72909f6187fe236b7",
+  "source": "f1c_rtthread/applications/handheld/gba_core",
+  "qualified_firmware_sha256": "0371a574b94ce8e1ed37e01b56932e7b7e89bd949c3b19a64147a5f242c017b6",
+  "core_files": [
+    {
+      "file": "inc/gba.h",
+      "base_sha256": "dd7e922e6547037a42fc80550b4f9e11693d946338f93157f87415682324ab00",
+      "qualified_source_sha256": "66a4ed86c936d1133d46af3f30f12ec1b890703f19725de81dddd7805fd052ef",
+      "sha256": "749b1cad789f13135f4e5c5c79037c50f3429bb57a1873f83fcc04693a646cd7"
+    },
+    {
+      "file": "inc/gba_default.h",
+      "base_sha256": "fddec463c2643c789596c726ee52ce142519dead401c422ad80ab83068670f03",
+      "qualified_source_sha256": "9bf6b4f38ba523ec1db7bee66499d414fe463cde6583932107869a6bd56c53bd",
+      "sha256": "912a2a4d0d3ac702c9d4653e83e3e12a7fb07853948e1868b131b987c5436023"
+    },
+    {
+      "file": "src/gba.c",
+      "base_sha256": "111f175128af291bff2e30df45ab53fd2d7e924943f9a15b0433c4611557fb57",
+      "qualified_source_sha256": "0d5c3257020f92fe4ef48716167b3b0a162bfc74d6d1e87a036d9e485e6733a6",
+      "sha256": "a17209c44ff747abcdfa3f4786d57359040530773956424c4043e190e42a8b83"
+    },
+    {
+      "file": "src/gba_bios.c",
+      "base_sha256": "b50c3f49a5140ae1f91bf6eb8727d2c40e8f55e101f3993bc8fa19f5472f779c",
+      "qualified_source_sha256": "c9c912484fe101a98b5a9266083c3bce2f5825ca735de2d2030bfb09a25f4a6e",
+      "sha256": "c9c912484fe101a98b5a9266083c3bce2f5825ca735de2d2030bfb09a25f4a6e"
+    },
+    {
+      "file": "src/gba_bus.c",
+      "base_sha256": "75a5ce74222082e1a37bef5b1f8bae1bdfdd6c18938c8ec37b37e3ec31dcee47",
+      "qualified_source_sha256": "ee311eb0debe563330783480b3936f145314859a1436d0a14977616525a7b5aa",
+      "sha256": "ee311eb0debe563330783480b3936f145314859a1436d0a14977616525a7b5aa"
+    },
+    {
+      "file": "src/gba_cart.c",
+      "base_sha256": "6125b7d820a8cab26c31156f1df7ddf36c195a8052b9986359b6b24cd96eb867",
+      "qualified_source_sha256": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929",
+      "sha256": "6ef78a62de98d8f46efc19c63015b4f86373dd27cc873f43fa94d533d3439929"
+    },
+    {
+      "file": "src/gba_cpu.c",
+      "base_sha256": "a1252762a59f3b98392b76d434267fb2d7893f0498886cff3ca0dc6f83648b51",
+      "qualified_source_sha256": "7afd6d49ed74744fb5bd306b0159b02433820d6f31918e4eaee58b849f67245b",
+      "sha256": "435d7e7ed437cee661737965f9320e864c1e6339ce6f9b59875d1376257d98ba"
+    },
+    {
+      "file": "src/gba_internal.h",
+      "base_sha256": "4733520bca5014f8be80b5b11ee1663b123d6355a61701395d1c1e63b04ce892",
+      "qualified_source_sha256": "729a5b9ff4d9c7ce08f2106662271fcaa0307fc36602e388564c506e3df31cba",
+      "sha256": "13e25ca8f85a2717a9667cb069911b22f3e8b8fc7998f2741750734c23758647"
+    },
+    {
+      "file": "src/gba_ppu.c",
+      "base_sha256": "8a574d298fdddada30c40357144f1ee863bd483c7b1ea612e96a27340f0a2081",
+      "qualified_source_sha256": "b9144182461148e8769eb26f34488b67b397e549587b94f90dd73fc155bc3432",
+      "sha256": "3ac6b8d5def9ee4bb263c2da92c83f5caef406d7d507ee7e4540c7e55f8f7294"
+    },
+    {
+      "file": "src/gba_storage.c",
+      "base_sha256": "17555391e6b5ec6011ff3a04fbcee5bf24f77f80e5dafb5b298d5a33e4104125",
+      "qualified_source_sha256": "df3643de1effbf7400b6ad0c719d70c12cb14ac2990e84b689086b250c091cf2",
+      "sha256": "df3643de1effbf7400b6ad0c719d70c12cb14ac2990e84b689086b250c091cf2"
+    },
+    {
+      "file": "src/gba_timer.c",
+      "base_sha256": "0b357c74bf499f30308a633afc5091f698ebbf829589c2cbc69a840ed481877d",
+      "qualified_source_sha256": "f9050e9aaf1b7aaf1bdb30d52d56b37d887415e129f29fefcc84aa930777a0e4",
+      "sha256": "5e5ab1bf7a841f653fe1d00ac635b8303d114fa494146f74439612dfab09f528"
+    }
+  ],
+  "core_bytes_equal_to_board_qualified_source": false,
+  "core_equal_after_lf_normalization": true,
+  "normalization": "CRLF to LF only, following .gitattributes; qualified_source_sha256 records original board-source bytes"
+}

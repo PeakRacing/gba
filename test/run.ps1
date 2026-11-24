@@ -1,4 +1,4 @@
-param([switch]$SkipFetch, [switch]$SkipSuite, [switch]$SkipVideo, [switch]$StrictHardware, [switch]$TraceSuite, [switch]$FastAcceptance,
+param([switch]$SkipFetch, [switch]$SkipSuite, [switch]$SkipVideo, [switch]$StrictHardware, [switch]$TraceSuite, [switch]$FastAcceptance, [switch]$FastCore,
       [string]$Toolchain = 'F:/Arm GNU Toolchain arm-none-eabi/14.3 rel1/bin',
       [string]$Python = 'D:/Program Files/Python313/python.exe')
 $ErrorActionPreference = 'Stop'
@@ -10,7 +10,8 @@ Set-Location (Split-Path $PSScriptRoot -Parent)
 New-Item -ItemType Directory -Force test/out | Out-Null
 if (!$SkipFetch) { & "$PSScriptRoot/fetch.ps1" }
 if ((git -C tools/reference/gba-tests rev-parse HEAD) -ne 'a7113b67e63f83a9b321696ddd7042ccfad6c881') { throw 'gba-tests revision mismatch' }
-xmake f -m release -y
+$fastCoreValue = if ($FastCore) { 'y' } else { 'n' }
+xmake f -m release --fast_core=$fastCoreValue -y
 if ($LASTEXITCODE) { throw 'host configure failed' }
 xmake build gba-tests gba-tests-full gba-tests-stream gba-tests-minimal gba-tests-skip gba-tests-small-save gba-bench > test/out/host-build.log
 if ($LASTEXITCODE) { throw 'host build failed' }
